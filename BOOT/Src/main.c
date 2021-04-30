@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "FPGA.h"
 #include "stm32f4xx_hal_sram.h"
+#include "console.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,12 +103,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   uint32_t ret = 0;
-  HAL_UART_Transmit(&huart1, "Start FPGA programming", 22, 100);
-  //ret = B5_FPGA_Programming();
-  HAL_UART_Transmit(&huart1, "FPGA programmed", 15, 100);
 
 
-	for (;;)
+	/*for (;;)
 	{
 		dataPtr = 8;
 		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
@@ -121,7 +119,7 @@ int main(void)
 		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
 				&dataPtr, 1);
 		HAL_Delay(10000);
-	}
+	}*/
 
   /* USER CODE END 2 */
 
@@ -130,7 +128,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  ConsoleTask();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
