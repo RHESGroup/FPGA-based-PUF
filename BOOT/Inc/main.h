@@ -58,6 +58,28 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define FPGA_TCK_Pin GPIO_PIN_4
+#define FPGA_TCK_GPIO_Port GPIOE
+#define FPGA_TDI_Pin GPIO_PIN_3
+#define FPGA_TDI_GPIO_Port GPIOE
+#define FPGA_TDO_Pin GPIO_PIN_2
+#define FPGA_TDO_GPIO_Port GPIOE
+#define SC_ON_OFF_Pin GPIO_PIN_1
+#define SC_ON_OFF_GPIO_Port GPIOE
+#define SC_RST_Pin GPIO_PIN_0
+#define SC_RST_GPIO_Port GPIOE
+#define FPGA_TMS_Pin GPIO_PIN_5
+#define FPGA_TMS_GPIO_Port GPIOE
+#define FPGA_PROGRAMN_Pin GPIO_PIN_6
+#define FPGA_PROGRAMN_GPIO_Port GPIOE
+#define FPGA_INTN_Pin GPIO_PIN_9
+#define FPGA_INTN_GPIO_Port GPIOA
+#define GPIO1_INT_N_OUT_Pin GPIO_PIN_10
+#define GPIO1_INT_N_OUT_GPIO_Port GPIOF
+#define GPIO0_RST_OUT_Pin GPIO_PIN_3
+#define GPIO0_RST_OUT_GPIO_Port GPIOG
+#define FPGA_RST_Pin GPIO_PIN_2
+#define FPGA_RST_GPIO_Port GPIOG
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

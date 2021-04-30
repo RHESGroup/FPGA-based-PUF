@@ -51,9 +51,6 @@ static SRAM_HandleTypeDef SRAM_WRITE;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-uint8_t uart_char_received = 1;
-extern UART_HandleTypeDef huart1;
-char uart_rx_char = 0;
 
 /* USER CODE BEGIN PV */
 
@@ -78,8 +75,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	pFunction appEntry;
-	uint32_t appStack;
+    uint16_t dataPtr;
 
   /* USER CODE END 1 */
 
@@ -106,7 +102,26 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   uint32_t ret = 0;
+  HAL_UART_Transmit(&huart1, "Start FPGA programming", 22, 100);
   //ret = B5_FPGA_Programming();
+  HAL_UART_Transmit(&huart1, "FPGA programmed", 15, 100);
+
+
+	for (;;)
+	{
+		dataPtr = 8;
+		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
+				&dataPtr, 1);
+		HAL_Delay(1000);
+		dataPtr = 2;
+		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
+				&dataPtr, 1);
+		HAL_Delay(1000);
+		dataPtr = 5;
+		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
+				&dataPtr, 1);
+		HAL_Delay(10000);
+	}
 
   /* USER CODE END 2 */
 
@@ -115,20 +130,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if (uart_char_received == 1)
-	  {
-		  uart_char_received = 0;
-		  HAL_UART_Transmit(&huart1, &uart_rx_char, 1, 10);
-		  HAL_UART_Receive_IT(&huart1, &uart_rx_char, 1);
-	  }
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	uart_char_received = 1;
 }
 
 /**
@@ -173,6 +178,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSI, RCC_MCODIV_1);
 }
 
 /* USER CODE BEGIN 4 */
