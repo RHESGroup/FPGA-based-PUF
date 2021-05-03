@@ -22,23 +22,23 @@ Target Vendor:  LATTICE
 Target Device:  LCMXO2-7000HETQFP144
 Target Performance:   5
 Mapper:  xo2c00,  version:  Diamond (64-bit) 3.12.0.240.2
-Mapped on:  05/03/21  11:33:48
+Mapped on:  05/03/21  15:04:29
 
 
 <A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
-   Number of registers:     10 out of  7209 (0%)
-      PFU registers:           10 out of  6864 (0%)
+   Number of registers:    281 out of  7209 (4%)
+      PFU registers:          281 out of  6864 (4%)
       PIO registers:            0 out of   345 (0%)
-   Number of SLICEs:         6 out of  3432 (0%)
-      SLICEs as Logic/ROM:      6 out of  3432 (0%)
+   Number of SLICEs:       238 out of  3432 (7%)
+      SLICEs as Logic/ROM:    238 out of  3432 (7%)
       SLICEs as RAM:            0 out of  2574 (0%)
       SLICEs as Carry:          0 out of  3432 (0%)
-   Number of LUT4s:         11 out of  6864 (0%)
-      Number used as logic LUTs:         11
+   Number of LUT4s:        245 out of  6864 (4%)
+      Number used as logic LUTs:        245
       Number used as distributed RAM:     0
       Number used as ripple logic:        0
       Number used as shift registers:     0
-   Number of PIO sites used: 13 + 4(JTAG) out of 115 (15%)
+   Number of PIO sites used: 26 + 4(JTAG) out of 115 (26%)
    Number of block RAMs:  0 out of 26 (0%)
    Number of GSRs:        1 out of 1 (100%)
    EFB used :        No
@@ -64,30 +64,47 @@ Mapped on:  05/03/21  11:33:48
       2. Number of logic LUT4s does not include count of distributed RAM and
      ripple logic.
    Number of clocks:  1
-     Net cpu_fpga_clk_c: 6 loads, 6 rising, 0 falling (Driver: PIO cpu_fpga_clk
-     )
-   Number of Clock Enables:  2
+     Net cpu_fpga_clk_c: 142 loads, 142 rising, 0 falling (Driver: PIO
+     cpu_fpga_clk )
+   Number of Clock Enables:  17
 
-     Net STATE_1: 1 loads, 1 LSLICEs
-     Net cpu_fpga_clk_c_enable_8: 4 loads, 4 LSLICEs
-   Number of LSRs:  0
+     Net cpu_fpga_clk_c_enable_47: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_62: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_77: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_92: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_107: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_122: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_137: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_152: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_167: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_182: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_197: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_212: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_227: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_230: 2 loads, 2 LSLICEs
+     Net cpu_fpga_clk_c_enable_245: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_32: 8 loads, 8 LSLICEs
+     Net cpu_fpga_clk_c_enable_260: 8 loads, 8 LSLICEs
+   Number of LSRs:  2
+     Net n3534: 1 loads, 1 LSLICEs
+     Net n1789: 9 loads, 9 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net cpu_fpga_clk_c_enable_8: 4 loads
-     Net cpu_fpga_bus_nwe_c: 3 loads
-     Net STATE_1: 3 loads
-     Net STATE_0: 2 loads
-     Net cpu_fpga_bus_d_c_3: 1 loads
-     Net cpu_fpga_bus_ne1_c: 1 loads
-     Net fpga_io_gp_c_2: 1 loads
-     Net fpga_io_gp_c_6: 1 loads
-     Net n18: 1 loads
-     Net n20: 1 loads
+     Net address_0: 122 loads
+     Net address_1: 78 loads
+     Net BUFF_0_0: 65 loads
+     Net address_2: 48 loads
+     Net BUFF_0_1: 33 loads
+     Net address_3: 32 loads
+     Net BUFF_0_2: 18 loads
+     Net n3534: 17 loads
+     Net cpu_fpga_bus_d_out_0: 16 loads
+     Net cpu_fpga_bus_d_out_10: 16 loads
 
 
 
 
-   Number of warnings:  30
+   Number of warnings:  4
    Number of errors:    0
      
 
@@ -98,50 +115,10 @@ Mapped on:  05/03/21  11:33:48
 
 WARNING - map: input pad net 'cpu_fpga_bus_a[5]' has no legal load.
 WARNING - map: input pad net 'cpu_fpga_bus_a[4]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_a[3]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_a[2]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_a[1]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_a[0]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[15]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[14]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[13]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[12]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[11]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[10]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[9]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_d[8]' has no legal load.
-WARNING - map: input pad net 'cpu_fpga_bus_noe' has no legal load.
 WARNING - map: IO buffer missing for top level port
      cpu_fpga_bus_a[5:0](5)...logic will be discarded.
 WARNING - map: IO buffer missing for top level port
      cpu_fpga_bus_a[5:0](4)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_a[5:0](3)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_a[5:0](2)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_a[5:0](1)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_a[5:0](0)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](15)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-
-     cpu_fpga_bus_d[15:0](14)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](13)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](12)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](11)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](10)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](9)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port
-     cpu_fpga_bus_d[15:0](8)...logic will be discarded.
-WARNING - map: IO buffer missing for top level port cpu_fpga_bus_noe...logic
-     will be discarded.
 
 
 
@@ -150,59 +127,90 @@ WARNING - map: IO buffer missing for top level port cpu_fpga_bus_noe...logic
 +---------------------+-----------+-----------+------------+
 | IO Name             | Direction | Levelmode | IO         |
 |                     |           |  IO_TYPE  | Register   |
+
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[9]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[10]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[11]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_int_n      | OUTPUT    | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[12]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[13]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[0]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[1]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[14]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[2]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[3]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_rst        | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[4]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[15]  | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[5]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[6]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[7]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_clk        | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_ne1    | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_nwe    | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_noe    | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_a[0]   | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_d[8]   | BIDIR     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_a[1]   | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_a[2]   | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| cpu_fpga_bus_a[3]   | INPUT     | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| fpga_io_gp[0]       | OUTPUT    | LVCMOS33  |            |
++---------------------+-----------+-----------+------------+
+| fpga_io_gp[1]       | OUTPUT    | LVCMOS33  |            |
+
 +---------------------+-----------+-----------+------------+
 | fpga_io_gp[2]       | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
-| fpga_io_gp[6]       | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| fpga_io_gp[7]       | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
 | fpga_io_gp[3]       | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_int_n      | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
 | fpga_io_gp[4]       | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
 | fpga_io_gp[5]       | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
-| fpga_io_gp[1]       | OUTPUT    | LVCMOS33  |            |
+| fpga_io_gp[6]       | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
-| fpga_io_gp[0]       | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[7]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[6]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[5]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[4]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[3]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[2]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[1]   | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_d[0]   | INPUT     | LVCMOS33  |            |
-
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_nwe    | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_bus_ne1    | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_clk        | INPUT     | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| cpu_fpga_rst        | INPUT     | LVCMOS33  |            |
+| fpga_io_gp[7]       | OUTPUT    | LVCMOS33  |            |
 +---------------------+-----------+-----------+------------+
 
 
 
 <A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
 
-Block i109 undriven or does not drive anything - clipped.
-Signal n179 was merged into signal cpu_fpga_rst_c
+Block i1973 undriven or does not drive anything - clipped.
+Signal n2761 was merged into signal n1789
+Signal n2760 was merged into signal cpu_fpga_rst_c
+Signal n2626 was merged into signal cpu_fpga_bus_d_15__N_17
 Signal VCC_net undriven or does not drive anything - clipped.
-Block i91_1_lut was optimized away.
+Block i770_1_lut was optimized away.
+Block i769_1_lut was optimized away.
+Block i648_1_lut was optimized away.
 
      
 
@@ -223,6 +231,38 @@ GSR Component:
         not.
         
 
+     Components with synchronous local reset also reset by asynchronous GSR
+----------------------------------------------------------------------
+
+     These components have the GSR property set to ENABLED and the local reset
+     is synchronous. The components will respond to the synchronous local reset
+     and to the unrelated asynchronous reset signal 'cpu_fpga_rst_c' via the GSR
+     component.
+
+     Type and number of components of the type: 
+   Register = 18 
+
+     Type and instance name of component: 
+   Register : cpu_fpga_bus_d__i0
+
+   Register : i103_278
+   Register : STATE_FSM_i2
+   Register : cpu_fpga_bus_d__i1
+   Register : cpu_fpga_bus_d__i2
+   Register : cpu_fpga_bus_d__i3
+   Register : cpu_fpga_bus_d__i4
+   Register : cpu_fpga_bus_d__i5
+   Register : cpu_fpga_bus_d__i6
+   Register : cpu_fpga_bus_d__i7
+   Register : cpu_fpga_bus_d__i8
+   Register : cpu_fpga_bus_d__i9
+   Register : cpu_fpga_bus_d__i10
+   Register : cpu_fpga_bus_d__i11
+   Register : cpu_fpga_bus_d__i12
+   Register : cpu_fpga_bus_d__i13
+   Register : cpu_fpga_bus_d__i14
+   Register : cpu_fpga_bus_d__i15
+
 
 
 <A name="mrp_runtime"></A><B><U><big>Run Time and Memory Usage</big></U></B>
@@ -230,8 +270,25 @@ GSR Component:
 
    Total CPU Time: 0 secs  
    Total REAL Time: 0 secs  
-   Peak Memory Usage: 263 MB
+   Peak Memory Usage: 266 MB
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,8 +20,8 @@
 				<BScanVal>0</BScanVal>
 			</Bypass>
 <File>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/PUF_impl1.jed</File>
-<FileTime>05/03/21 11:35:16</FileTime>
-<JedecChecksum>0xB2F7</JedecChecksum>
+<FileTime>05/03/21 15:04:52</FileTime>
+<JedecChecksum>0x1558</JedecChecksum>
 <Operation>FLASH Erase,Program,Verify</Operation>
 			<Option>
 				<SVFVendor>JTAG STANDARD</SVFVendor>

@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity top_level is
 	port(	
 			cpu_fpga_bus_a		: in std_logic_vector(5 downto 0);
-			cpu_fpga_bus_d		: in std_logic_vector(15 downto 0);
+			cpu_fpga_bus_d		: inout std_logic_vector(15 downto 0);
 			cpu_fpga_bus_noe    : in std_logic;	
 			cpu_fpga_bus_nwe    : in std_logic;		
 			cpu_fpga_bus_ne1    : in std_logic;		
@@ -19,25 +19,36 @@ end top_level;
 architecture BEHAVIORAL of top_level is
 	
 	-- FSM STATES
-	type input_detector_state_type is (OFF, IDLE, WAIT_ADDSET, WAIT_DATAST);
+	type input_detector_state_type is (OFF, IDLE, WAIT_ADDSET, WAIT_DATAST_W, WAIT_DATAST_R);
 	signal STATE : input_detector_state_type;
+	
+	type buffer_type is array (15 downto 0) of std_logic_vector(15 downto 0);
+	signal BUFF: buffer_type;
+	signal address : std_logic_vector(3 downto 0);
+	signal led_output : std_logic_vector(15 downto 0);
 
 	 
 begin
 
-	process(cpu_fpga_clk) 
+	process(cpu_fpga_clk, cpu_fpga_rst) 
 	begin
+		-- Default
 
 		if(cpu_fpga_rst = '1') then
 			STATE 			<= IDLE;
 			cpu_fpga_int_n  <= '0';
-			fpga_io_gp		<= (others => '1');
+			BUFF <= (others => (others => '0'));
+			address <= (others => '0');
+			cpu_fpga_bus_d <= (others => 'Z');
+			
 
 		elsif(rising_edge(cpu_fpga_clk)) then
+			-- default
+			cpu_fpga_bus_d <= (others => 'Z');
 
 			-- FSM behavior
 			case STATE is
-			
+		
 				when IDLE =>
 					if(cpu_fpga_bus_ne1 = '0') then 
 						STATE <= WAIT_ADDSET;
@@ -45,17 +56,29 @@ begin
 
 				when WAIT_ADDSET => 
 					if(cpu_fpga_bus_nwe = '0') then
-						STATE <= WAIT_DATAST;	
+						STATE <= WAIT_DATAST_W;
+						address <= cpu_fpga_bus_a(3 downto 0);
+					elsif(cpu_fpga_bus_noe = '0') then	
+						STATE <= WAIT_DATAST_R;
+						address <= cpu_fpga_bus_a(3 downto 0);
 					else
 						STATE <= WAIT_ADDSET;
 					end if;
 
-				when WAIT_DATAST =>
+				when WAIT_DATAST_W =>
 					if(cpu_fpga_bus_nwe = '1') then
-						fpga_io_gp	<= not(cpu_fpga_bus_d(7 downto 0));
+						BUFF(to_integer(unsigned(address)))	<= cpu_fpga_bus_d;
 						STATE 		<= IDLE;
 					else
-						STATE 	<= WAIT_DATAST;
+						STATE 	<= WAIT_DATAST_W;
+					end if;
+					
+				when WAIT_DATAST_R =>
+					if(cpu_fpga_bus_noe = '0') then
+						cpu_fpga_bus_d <= BUFF(to_integer(unsigned(address)));
+						STATE 		<= WAIT_DATAST_R;
+					else
+						STATE 	<= IDLE;
 					end if;
 
 				when others =>
@@ -63,6 +86,9 @@ begin
 
 			end case;
 		end if;
-	end process; 
+	end process;
+	
+	led_output <= not(BUFF(to_integer(unsigned(BUFF(0)))));
+	fpga_io_gp <= led_output(7 downto 0);
 
 end BEHAVIORAL;

@@ -3,14 +3,15 @@
 #include "FPGA.h"
 #include "FPGA_Setup.h"
 #include <string.h>
+#include <stdio.h>
 
 extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
 uint8_t uart_char_received = 1;
+uint16_t led_address = 0;
 
 void parseCommand(char command);
 void printConsole(char* string);
-uint16_t leds = 0xAAAA;
 
 void ConsoleTask(void)
 {
@@ -45,8 +46,29 @@ void parseCommand(char command)
 	else if (command == 'l')
 	{
 		printConsole("LED on\n\r");
-		FPGA_write((uint8_t) 0x0, &leds);
-		leds = (leds << 1 | leds >> 15);
+		uint16_t leds = 0x1;
+		for (int i = 0; i<8; i++)
+		{
+			FPGA_write((uint8_t) leds, &leds);
+			leds++;
+		}
+	}
+
+	else if (command == 's')
+	{
+		uint16_t data;
+		char string[100];
+		FPGA_write((uint8_t) 0x0, &led_address);
+		if(FPGA_read(led_address, &data) == HAL_OK)
+		{
+			sprintf(string, "Showing led: %X\r\n", data);
+			printConsole(string);
+		}
+		else
+		{
+			printConsole("Error reading from FPGA\r\n");
+		}
+		led_address = (led_address + 1) % 9;
 	}
 
 }

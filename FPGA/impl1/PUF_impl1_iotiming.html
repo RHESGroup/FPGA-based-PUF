@@ -29,7 +29,7 @@ Performance Hardware Data Status:   Final          Version 34.4.
 // Package: TQFP144
 // ncd File: PUF_impl1.ncd
 // Version: Diamond (64-bit) 3.12.0.240.2
-// Written on Mon May  3 11:35:09 2021
+// Written on Mon May  3 15:04:45 2021
 // M: Minimum Performance Grade
 // iotiming PUF_impl1.ncd PUF_impl1.prf -gui -msgset /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/promote.xml
 
@@ -39,33 +39,63 @@ Worst Case Results across Performance Grades (M, 6, 5):
 
 // Input Setup and Hold Times
 
-Port              Clock        Edge  Setup Performance_Grade  Hold Performance_Grade
+Port               Clock        Edge  Setup Performance_Grade  Hold Performance_Grade
 ----------------------------------------------------------------------
-cpu_fpga_bus_d[0] cpu_fpga_clk R     3.136      5      -0.562     M
-cpu_fpga_bus_d[1] cpu_fpga_clk R     3.150      5      -0.566     M
-cpu_fpga_bus_d[2] cpu_fpga_clk R     3.073      5      -0.527     M
-cpu_fpga_bus_d[3] cpu_fpga_clk R     3.056      5      -0.519     M
-cpu_fpga_bus_d[4] cpu_fpga_clk R     2.213      5      -0.267     M
-cpu_fpga_bus_d[5] cpu_fpga_clk R     1.911      5      -0.193     M
-cpu_fpga_bus_d[6] cpu_fpga_clk R     2.150      5      -0.232     M
-cpu_fpga_bus_d[7] cpu_fpga_clk R     2.246      5      -0.269     M
-cpu_fpga_bus_ne1  cpu_fpga_clk R     0.503      5       0.621     5
-cpu_fpga_bus_nwe  cpu_fpga_clk R     3.611      5       0.723     5
+cpu_fpga_bus_a[0]  cpu_fpga_clk R     0.840      5       0.114     6
+cpu_fpga_bus_a[1]  cpu_fpga_clk R     0.714      5       0.222     6
+cpu_fpga_bus_a[2]  cpu_fpga_clk R     0.714      5       0.222     6
+cpu_fpga_bus_a[3]  cpu_fpga_clk R     0.792      5       0.162     6
+cpu_fpga_bus_d[0]  cpu_fpga_clk R     2.344      5      -0.015     M
+cpu_fpga_bus_d[10] cpu_fpga_clk R     1.536      5       0.819     5
+cpu_fpga_bus_d[11] cpu_fpga_clk R     1.709      5       0.705     5
+cpu_fpga_bus_d[12] cpu_fpga_clk R     1.452      5       0.592     5
+cpu_fpga_bus_d[13] cpu_fpga_clk R     2.292      5       0.904     5
+cpu_fpga_bus_d[14] cpu_fpga_clk R     2.432      5       0.370     6
+cpu_fpga_bus_d[15] cpu_fpga_clk R     2.570      5       0.373     6
+cpu_fpga_bus_d[1]  cpu_fpga_clk R     3.511      5      -0.014     M
+cpu_fpga_bus_d[2]  cpu_fpga_clk R     3.236      5      -0.036     M
+cpu_fpga_bus_d[3]  cpu_fpga_clk R     2.404      5       0.002     M
+cpu_fpga_bus_d[4]  cpu_fpga_clk R     2.115      5       0.374     6
+cpu_fpga_bus_d[5]  cpu_fpga_clk R     2.008      5       0.219     6
+cpu_fpga_bus_d[6]  cpu_fpga_clk R     2.285      5       0.516     5
+cpu_fpga_bus_d[7]  cpu_fpga_clk R     2.742      5       0.036     M
+cpu_fpga_bus_d[8]  cpu_fpga_clk R     2.054      5       0.381     6
+cpu_fpga_bus_d[9]  cpu_fpga_clk R     1.443      5       0.894     5
+cpu_fpga_bus_ne1   cpu_fpga_clk R     2.089      5      -0.234     M
+cpu_fpga_bus_noe   cpu_fpga_clk R     3.402      5      -0.148     M
+cpu_fpga_bus_nwe   cpu_fpga_clk R     6.762      5      -0.203     M
 
 
 // Clock to Output Delay
 
-Port          Clock        Edge  Max_Delay Performance_Grade  Min_Delay Performance_Grade
+Port               Clock        Edge  Max_Delay Performance_Grade  Min_Delay Performance_Grade
 ------------------------------------------------------------------------
-fpga_io_gp[0] cpu_fpga_clk R     8.268         5        2.723          M
-fpga_io_gp[1] cpu_fpga_clk R     8.730         5        2.859          M
-fpga_io_gp[2] cpu_fpga_clk R     8.268         5        2.723          M
-fpga_io_gp[3] cpu_fpga_clk R     8.001         5        2.642          M
-fpga_io_gp[4] cpu_fpga_clk R     8.276         5        2.710          M
-fpga_io_gp[5] cpu_fpga_clk R     8.009         5        2.630          M
-fpga_io_gp[6] cpu_fpga_clk R     8.276         5        2.710          M
-fpga_io_gp[7] cpu_fpga_clk R     8.009         5        2.630          M
+cpu_fpga_bus_d[0]  cpu_fpga_clk R    11.066         5        2.875          M
+cpu_fpga_bus_d[10] cpu_fpga_clk R     9.323         5        2.706          M
+cpu_fpga_bus_d[11] cpu_fpga_clk R     9.323         5        2.618          M
+cpu_fpga_bus_d[12] cpu_fpga_clk R     8.944         5        2.601          M
+cpu_fpga_bus_d[13] cpu_fpga_clk R     8.944         5        2.601          M
+cpu_fpga_bus_d[14] cpu_fpga_clk R     9.386         5        2.736          M
+cpu_fpga_bus_d[15] cpu_fpga_clk R     9.386         5        2.736          M
+cpu_fpga_bus_d[1]  cpu_fpga_clk R    11.066         5        2.735          M
+cpu_fpga_bus_d[2]  cpu_fpga_clk R    11.066         5        3.009          M
+cpu_fpga_bus_d[3]  cpu_fpga_clk R    11.066         5        2.972          M
+cpu_fpga_bus_d[4]  cpu_fpga_clk R    10.615         5        2.735          M
+cpu_fpga_bus_d[5]  cpu_fpga_clk R    10.615         5        2.700          M
+cpu_fpga_bus_d[6]  cpu_fpga_clk R    10.615         5        2.979          M
+cpu_fpga_bus_d[7]  cpu_fpga_clk R    10.615         5        2.872          M
+cpu_fpga_bus_d[8]  cpu_fpga_clk R     9.392         5        2.646          M
+cpu_fpga_bus_d[9]  cpu_fpga_clk R     9.392         5        2.676          M
+fpga_io_gp[0]      cpu_fpga_clk R    14.349         5        4.024          M
+fpga_io_gp[1]      cpu_fpga_clk R    16.541         5        4.199          M
+fpga_io_gp[2]      cpu_fpga_clk R    14.773         5        4.105          M
+fpga_io_gp[3]      cpu_fpga_clk R    15.803         5        4.279          M
+fpga_io_gp[4]      cpu_fpga_clk R    14.673         5        3.870          M
+fpga_io_gp[5]      cpu_fpga_clk R    14.692         5        4.130          M
+fpga_io_gp[6]      cpu_fpga_clk R    14.944         5        4.030          M
+fpga_io_gp[7]      cpu_fpga_clk R    15.308         5        3.983          M
 WARNING: you must also run trce with hold speed: 5
+WARNING: you must also run trce with hold speed: 6
 
 
 

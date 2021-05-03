@@ -1,21 +1,34 @@
 NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
 NOTE All Rights Reserved *
-NOTE DATE CREATED: Mon May  3 11:35:16 2021 *
+NOTE DATE CREATED: Mon May  3 15:04:52 2021 *
 NOTE DESIGN NAME: top_level *
 NOTE DEVICE NAME: LCMXO2-7000HE-5TQFP144 *
 NOTE PIN ASSIGNMENTS *
+NOTE PINS cpu_fpga_bus_d[9] : 54 : inout *
+NOTE PINS cpu_fpga_bus_d[10] : 55 : inout *
+NOTE PINS cpu_fpga_bus_d[11] : 56 : inout *
 NOTE PINS cpu_fpga_int_n : 111 : out *
-NOTE PINS cpu_fpga_bus_d[7] : 48 : in *
-NOTE PINS cpu_fpga_bus_d[6] : 47 : in *
-NOTE PINS cpu_fpga_bus_d[5] : 43 : in *
-NOTE PINS cpu_fpga_bus_d[4] : 42 : in *
-NOTE PINS cpu_fpga_bus_d[3] : 41 : in *
-NOTE PINS cpu_fpga_bus_d[2] : 40 : in *
-NOTE PINS cpu_fpga_bus_d[1] : 39 : in *
-NOTE PINS cpu_fpga_bus_d[0] : 38 : in *
-NOTE PINS cpu_fpga_bus_nwe : 115 : in *
-NOTE PINS cpu_fpga_bus_ne1 : 113 : in *
-NOTE PINS cpu_fpga_clk : 49 : in *
+NOTE PINS cpu_fpga_bus_d[12] : 57 : inout *
+NOTE PINS cpu_fpga_bus_d[13] : 58 : inout *
+NOTE PINS cpu_fpga_bus_d[0] : 38 : inout *
+NOTE PINS cpu_fpga_bus_d[1] : 39 : inout *
+NOTE PINS cpu_fpga_bus_d[14] : 59 : inout *
+NOTE PINS cpu_fpga_bus_d[2] : 40 : inout *
+NOTE PINS cpu_fpga_bus_d[3] : 41 : inout *
 NOTE PINS cpu_fpga_rst : 121 : in *
+NOTE PINS cpu_fpga_bus_d[4] : 42 : inout *
+NOTE PINS cpu_fpga_bus_d[15] : 60 : inout *
+NOTE PINS cpu_fpga_bus_d[5] : 43 : inout *
+NOTE PINS cpu_fpga_bus_d[6] : 47 : inout *
+NOTE PINS cpu_fpga_bus_d[7] : 48 : inout *
+NOTE PINS cpu_fpga_clk : 49 : in *
+NOTE PINS cpu_fpga_bus_ne1 : 113 : in *
+NOTE PINS cpu_fpga_bus_nwe : 115 : in *
+NOTE PINS cpu_fpga_bus_noe : 117 : in *
+NOTE PINS cpu_fpga_bus_a[0] : 61 : in *
+NOTE PINS cpu_fpga_bus_d[8] : 52 : inout *
+NOTE PINS cpu_fpga_bus_a[1] : 62 : in *
+NOTE PINS cpu_fpga_bus_a[2] : 63 : in *
+NOTE PINS cpu_fpga_bus_a[3] : 65 : in *
 NOTE CONFIGURATION MODE: NONE *
 NOTE COMPRESSION: on *

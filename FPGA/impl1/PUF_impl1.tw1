@@ -13,7 +13,7 @@ Setup and Hold Report
 
 --------------------------------------------------------------------------------
 Lattice TRACE Report - Setup, Version Diamond (64-bit) 3.12.0.240.2
-Mon May  3 11:35:07 2021
+Mon May  3 15:04:30 2021
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -38,39 +38,41 @@ BLOCK RESETPATHS
 
 ================================================================================
 Preference: FREQUENCY 90.000000 MHz ;
-            11 items scored, 0 timing errors detected.
+            1156 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
 
-Passed: The following path meets requirements by 7.941ns
+Passed: The following path meets requirements by 6.459ns
 
  Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
 
-   Source:         FF         Q              STATE_i0  (from cpu_fpga_clk_c +)
-   Destination:    FF         Data in        fpga_io_gp_i2  (to cpu_fpga_clk_c +)
-                   FF                        fpga_io_gp_i1
+   Source:         FF         Q              address_i0_i1  (from cpu_fpga_clk_c +)
+   Destination:    FF         Data in        BUFF_9__i0_i11  (to cpu_fpga_clk_c +)
+                   FF                        BUFF_9__i0_i10
 
-   Delay:               2.921ns  (29.5% logic, 70.5% route), 2 logic levels.
+   Delay:               4.403ns  (29.8% logic, 70.2% route), 3 logic levels.
 
  Constraint Details:
 
-      2.921ns physical path delay SLICE_0 to SLICE_2 meets
+      4.403ns physical path delay SLICE_128 to SLICE_125 meets
      11.111ns delay constraint less
-      0.249ns CE_SET requirement (totaling 10.862ns) by 7.941ns
+      0.249ns CE_SET requirement (totaling 10.862ns) by 6.459ns
 
  Physical Path Details:
 
-      Data path SLICE_0 to SLICE_2:
+      Data path SLICE_128 to SLICE_125:
 
    Name    Fanout   Delay (ns)          Site               Resource
-REG_DEL     ---     0.409    SLICE_0.CLK to     SLICE_0.Q0 SLICE_0 (from cpu_fpga_clk_c)
-ROUTE         2   e 1.030     SLICE_0.Q0 to     SLICE_1.B1 STATE_0
-CTOF_DEL    ---     0.452     SLICE_1.B1 to     SLICE_1.F1 SLICE_1
-ROUTE         4   e 1.030     SLICE_1.F1 to     SLICE_2.CE cpu_fpga_clk_c_enable_8 (to cpu_fpga_clk_c)
+REG_DEL     ---     0.409  SLICE_128.CLK to   SLICE_128.Q1 SLICE_128 (from cpu_fpga_clk_c)
+ROUTE        78   e 1.030   SLICE_128.Q1 to   SLICE_242.B1 address_1
+CTOF_DEL    ---     0.452   SLICE_242.B1 to   SLICE_242.F1 SLICE_242
+ROUTE         4   e 1.030   SLICE_242.F1 to   SLICE_247.C1 n5
+CTOF_DEL    ---     0.452   SLICE_247.C1 to   SLICE_247.F1 SLICE_247
+ROUTE         8   e 1.030   SLICE_247.F1 to   SLICE_125.CE cpu_fpga_clk_c_enable_92 (to cpu_fpga_clk_c)
                   --------
-                    2.921   (29.5% logic, 70.5% route), 2 logic levels.
+                    4.403   (29.8% logic, 70.2% route), 3 logic levels.
 
-Report:  315.457MHz is the maximum frequency for this preference.
+Report:  214.961MHz is the maximum frequency for this preference.
 
 Report Summary
 --------------
@@ -78,7 +80,7 @@ Report Summary
 Preference                              |   Constraint|       Actual|Levels
 ----------------------------------------------------------------------------
                                         |             |             |
-FREQUENCY 90.000000 MHz ;               |   90.000 MHz|  315.457 MHz|   2  
+FREQUENCY 90.000000 MHz ;               |   90.000 MHz|  214.961 MHz|   3  
                                         |             |             |
 ----------------------------------------------------------------------------
 
@@ -91,7 +93,7 @@ Clock Domains Analysis
 
 Found 1 clocks:
 
-Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 6
+Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
    Covered under: FREQUENCY 90.000000 MHz ;
 
 
@@ -101,11 +103,11 @@ Timing summary (Setup):
 Timing errors: 0  Score: 0
 Cumulative negative slack: 0
 
-Constraints cover 11 paths, 1 nets, and 18 connections (39.13% coverage)
+Constraints cover 1156 paths, 1 nets, and 979 connections (61.38% coverage)
 
 --------------------------------------------------------------------------------
 Lattice TRACE Report - Hold, Version Diamond (64-bit) 3.12.0.240.2
-Mon May  3 11:35:07 2021
+Mon May  3 15:04:31 2021
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -130,7 +132,7 @@ BLOCK RESETPATHS
 
 ================================================================================
 Preference: FREQUENCY 90.000000 MHz ;
-            11 items scored, 0 timing errors detected.
+            1156 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
 
@@ -138,26 +140,26 @@ Passed: The following path meets requirements by 0.447ns
 
  Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
 
-   Source:         FF         Q              STATE_i1  (from cpu_fpga_clk_c +)
-   Destination:    FF         Data in        STATE_i1  (to cpu_fpga_clk_c +)
+   Source:         FF         Q              STATE_FSM_i4  (from cpu_fpga_clk_c +)
+   Destination:    FF         Data in        STATE_FSM_i4  (to cpu_fpga_clk_c +)
 
    Delay:               0.434ns  (53.9% logic, 46.1% route), 2 logic levels.
 
  Constraint Details:
 
-      0.434ns physical path delay SLICE_1 to SLICE_1 meets
+      0.434ns physical path delay SLICE_139 to SLICE_139 meets
      -0.013ns DIN_HLD and
       0.000ns delay constraint requirement (totaling -0.013ns) by 0.447ns
 
  Physical Path Details:
 
-      Data path SLICE_1 to SLICE_1:
+      Data path SLICE_139 to SLICE_139:
 
    Name    Fanout   Delay (ns)          Site               Resource
-REG_DEL     ---     0.133    SLICE_1.CLK to     SLICE_1.Q0 SLICE_1 (from cpu_fpga_clk_c)
-ROUTE         3   e 0.199     SLICE_1.Q0 to     SLICE_1.C0 STATE_1
-CTOF_DEL    ---     0.101     SLICE_1.C0 to     SLICE_1.F0 SLICE_1
-ROUTE         1   e 0.001     SLICE_1.F0 to    SLICE_1.DI0 STATE_1_N_9_1 (to cpu_fpga_clk_c)
+REG_DEL     ---     0.133  SLICE_139.CLK to   SLICE_139.Q1 SLICE_139 (from cpu_fpga_clk_c)
+ROUTE         2   e 0.199   SLICE_139.Q1 to   SLICE_139.B1 n1790
+CTOF_DEL    ---     0.101   SLICE_139.B1 to   SLICE_139.F1 SLICE_139
+ROUTE         1   e 0.001   SLICE_139.F1 to  SLICE_139.DI1 n2661 (to cpu_fpga_clk_c)
                   --------
                     0.434   (53.9% logic, 46.1% route), 2 logic levels.
 
@@ -180,7 +182,7 @@ Clock Domains Analysis
 
 Found 1 clocks:
 
-Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 6
+Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
    Covered under: FREQUENCY 90.000000 MHz ;
 
 
@@ -190,7 +192,7 @@ Timing summary (Hold):
 Timing errors: 0  Score: 0
 Cumulative negative slack: 0
 
-Constraints cover 11 paths, 1 nets, and 18 connections (39.13% coverage)
+Constraints cover 1156 paths, 1 nets, and 979 connections (61.38% coverage)
 
 
 
