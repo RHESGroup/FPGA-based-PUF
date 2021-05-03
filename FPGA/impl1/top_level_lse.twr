@@ -1,0 +1,131 @@
+--------------------------------------------------------------------------------
+Lattice Synthesis Timing Report, Version  
+Mon May  3 11:33:48 2021
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Design:     top_level
+Constraint file:  
+Report level:    verbose report, limited to 3 items per constraint
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Constraint: create_clock -period 5.000000 -name clk0 [get_nets cpu_fpga_clk_c]
+            19 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed:  The following path meets requirements by 1.504ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1S3AX    CK             STATE_i1  (from cpu_fpga_clk_c +)
+   Destination:    FD1P3AY    SP             fpga_io_gp_i1  (to cpu_fpga_clk_c +)
+
+   Delay:                   3.237ns  (26.3% logic, 73.7% route), 2 logic levels.
+
+ Constraint Details:
+
+      3.237ns data_path STATE_i1 to fpga_io_gp_i1 meets
+      5.000ns delay constraint less
+      0.259ns LCE_S requirement (totaling 4.741ns) by 1.504ns
+
+ Path Details: STATE_i1 to fpga_io_gp_i1
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.403             CK to Q              STATE_i1 (from cpu_fpga_clk_c)
+Route         3   e 1.099                                  STATE[1]
+LUT4        ---     0.448              A to Z              i2_3_lut
+Route         8   e 1.287                                  cpu_fpga_clk_c_enable_8
+                  --------
+                    3.237  (26.3% logic, 73.7% route), 2 logic levels.
+
+
+Passed:  The following path meets requirements by 1.504ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1S3AX    CK             STATE_i1  (from cpu_fpga_clk_c +)
+   Destination:    FD1P3AY    SP             fpga_io_gp_i8  (to cpu_fpga_clk_c +)
+
+   Delay:                   3.237ns  (26.3% logic, 73.7% route), 2 logic levels.
+
+ Constraint Details:
+
+      3.237ns data_path STATE_i1 to fpga_io_gp_i8 meets
+      5.000ns delay constraint less
+      0.259ns LCE_S requirement (totaling 4.741ns) by 1.504ns
+
+ Path Details: STATE_i1 to fpga_io_gp_i8
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.403             CK to Q              STATE_i1 (from cpu_fpga_clk_c)
+Route         3   e 1.099                                  STATE[1]
+LUT4        ---     0.448              A to Z              i2_3_lut
+Route         8   e 1.287                                  cpu_fpga_clk_c_enable_8
+                  --------
+                    3.237  (26.3% logic, 73.7% route), 2 logic levels.
+
+
+Passed:  The following path meets requirements by 1.504ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1S3AX    CK             STATE_i1  (from cpu_fpga_clk_c +)
+   Destination:    FD1P3AY    SP             fpga_io_gp_i7  (to cpu_fpga_clk_c +)
+
+   Delay:                   3.237ns  (26.3% logic, 73.7% route), 2 logic levels.
+
+ Constraint Details:
+
+      3.237ns data_path STATE_i1 to fpga_io_gp_i7 meets
+      5.000ns delay constraint less
+      0.259ns LCE_S requirement (totaling 4.741ns) by 1.504ns
+
+ Path Details: STATE_i1 to fpga_io_gp_i7
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.403             CK to Q              STATE_i1 (from cpu_fpga_clk_c)
+Route         3   e 1.099                                  STATE[1]
+LUT4        ---     0.448              A to Z              i2_3_lut
+Route         8   e 1.287                                  cpu_fpga_clk_c_enable_8
+                  --------
+                    3.237  (26.3% logic, 73.7% route), 2 logic levels.
+
+Report: 3.496 ns is the maximum delay for this constraint.
+
+
+Timing Report Summary
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk0 [get_nets cpu_fpga_clk_c]          |     5.000 ns|     3.496 ns|     2  
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0
+
+Constraints cover  19 paths, 5 nets, and 24 connections (44.4% coverage)
+
+
+Peak memory: 204431360 bytes, TRCE: 696320 bytes, DLYMAN: 0 bytes
+CPU_TIME_REPORT: 0 secs 

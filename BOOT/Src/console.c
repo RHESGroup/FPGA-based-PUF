@@ -1,5 +1,8 @@
 #include "main.h"
 #include "usart.h"
+#include "FPGA.h"
+#include "FPGA_Setup.h"
+#include <string.h>
 
 extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
@@ -7,6 +10,7 @@ uint8_t uart_char_received = 1;
 
 void parseCommand(char command);
 void printConsole(char* string);
+uint16_t leds = 0xAAAA;
 
 void ConsoleTask(void)
 {
@@ -38,9 +42,16 @@ void parseCommand(char command)
 		printConsole("FPGA programming completed\n\r");
 	}
 
+	else if (command == 'l')
+	{
+		printConsole("LED on\n\r");
+		FPGA_write((uint8_t) 0x0, &leds);
+		leds = (leds << 1 | leds >> 15);
+	}
+
 }
 
 void printConsole(char* string)
 {
-	HAL_UART_Transmit(&huart1, string, strlen(string), 100);
+	HAL_UART_Transmit(&huart1, (uint8_t*) string, strlen(string), 100);
 }

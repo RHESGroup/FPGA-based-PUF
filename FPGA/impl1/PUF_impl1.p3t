@@ -1,0 +1,5 @@
+-rem
+-distrce
+-log "PUF_impl1.log"
+-o "PUF_impl1.csv"
+-pr "PUF_impl1.prf"

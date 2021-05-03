@@ -1,0 +1,240 @@
+synthesis:  version Diamond (64-bit) 3.12.0.240.2
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
+Mon May  3 11:33:47 2021
+
+
+Command Line:  synthesis -f PUF_impl1_lattice.synproj -gui -msgset /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/promote.xml 
+
+Synthesis options:
+The -a option is MachXO2.
+The -s option is 5.
+The -t option is TQFP144.
+The -d option is LCMXO2-7000HE.
+Using package TQFP144.
+Using performance grade 5.
+                                                          
+
+##########################################################
+
+### Lattice Family : MachXO2
+
+### Device  : LCMXO2-7000HE
+
+### Package : TQFP144
+
+### Speed   : 5
+
+##########################################################
+
+                                                          
+
+INFO - synthesis: User-Selected Strategy Settings
+Optimization goal = Balanced
+Top-level module name = top_level.
+Target frequency = 200.000000 MHz.
+Maximum fanout = 1000.
+Timing path count = 3
+BRAM utilization = 100.000000 %
+DSP usage = true
+DSP utilization = 100.000000 %
+fsm_encoding_style = auto
+resolve_mixed_drivers = 0
+fix_gated_clocks = 1
+
+Mux style = Auto
+Use Carry Chain = true
+carry_chain_length = 0
+Loop Limit = 1950.
+Use IO Insertion = TRUE
+Use IO Reg = AUTO
+
+Resource Sharing = TRUE
+Propagate Constants = TRUE
+Remove Duplicate Registers = TRUE
+force_gsr = auto
+ROM style = auto
+RAM style = auto
+The -comp option is FALSE.
+The -syn option is FALSE.
+-p /usr/local/diamond/3.12/ispfpga/xo2c00/data (searchpath added)
+-p /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1 (searchpath added)
+-p /home/damiano/Documenti/Esami/Tesi/PUF/FPGA (searchpath added)
+VHDL library = work
+VHDL design file = /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd
+NGD file = PUF_impl1.ngd
+-sdc option: SDC file input not used.
+-lpf option: Output file option is ON.
+Hardtimer checking is enabled (default). The -dt option is not used.
+The -r option is OFF. [ Remove LOC Properties is OFF. ]
+Technology check ok...
+
+Analyzing Verilog file /usr/local/diamond/3.12/ispfpga/userware/unix/SYNTHESIS_HEADERS/machxo2.v. VERI-1482
+Compile design.
+Compile Design Begin
+INFO - synthesis: The default VHDL library search path is now "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1". VHDL-1504
+Analyzing VHDL file /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd. VHDL-1481
+INFO - synthesis: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(5): analyzing entity top_level. VHDL-1012
+INFO - synthesis: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(19): analyzing architecture behavioral. VHDL-1010
+unit top_level is not yet analyzed. VHDL-1485
+unit top_level is not yet analyzed. VHDL-1485
+/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(5): executing top_level(BEHAVIORAL)
+
+WARNING - synthesis: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(31): cpu_fpga_rst should be on the sensitivity list of the process. VHDL-1251
+WARNING - synthesis: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(66): incomplete sensitivity list specified, assuming completeness. VHDL-1613
+WARNING - synthesis: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(17): replacing existing netlist top_level(BEHAVIORAL). VHDL-1205
+Top module name (VHDL): top_level
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/or5g00/data/orc5glib.ngl'...
+Loading device for application map from file 'xo2c7000.nph' in environment: /usr/local/diamond/3.12/ispfpga.
+Package Status:                     Final          Version 1.39.
+Top-level module name = top_level.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[5] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[4] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[3] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[2] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[1] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[0] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[15] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[14] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[13] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[12] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[11] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[10] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[9] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[8] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_noe 's net has no driver and is unused.
+INFO - synthesis: Extracted state machine for register 'STATE' with gray encoding
+original encoding -> new encoding (gray encoding)
+
+ 01 -> 01
+
+ 10 -> 11
+
+ 11 -> 10
+
+
+
+
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[5] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[4] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[3] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[2] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[1] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_a[0] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[15] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[14] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[13] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[12] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[11] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[10] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[9] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_d[8] 's net has no driver and is unused.
+WARNING - synthesis: I/O Port cpu_fpga_bus_noe 's net has no driver and is unused.
+GSR instance connected to net n179.
+WARNING - synthesis: mRegister cpu_fpga_rst_I_0 is stuck at Zero
+Applying 200.000000 MHz constraint to all clocks
+
+WARNING - synthesis: No user .sdc file.
+Results of NGD DRC are available in top_level_drc.log.
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/or5g00/data/orc5glib.ngl'...
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[5]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[5]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[4]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[4]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[3]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[3]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[2]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[2]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[1]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[1]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[0]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[0]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[15]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[15]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[14]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[14]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[13]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[13]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[12]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[12]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[11]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[11]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[10]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[10]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[9]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[9]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[8]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[8]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_noe' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_noe' has no legal load.
+WARNING - synthesis: DRC complete with 30 warnings.
+All blocks are expanded and NGD expansion is successful.
+Writing NGD file PUF_impl1.ngd.
+
+################### Begin Area Report (top_level)######################
+Number of register bits => 10 of 7209 (0 % )
+FD1P3AY => 9
+FD1S3AX => 1
+GSR => 1
+IB => 12
+LUT4 => 11
+OB => 9
+################### End Area Report ##################
+
+################### Begin BlackBox Report ######################
+TSALL => 1
+################### End BlackBox Report ##################
+
+################### Begin Clock Report ######################
+Clock Nets
+Number of Clocks: 1
+  Net : cpu_fpga_clk_c, loads : 10
+Clock Enable Nets
+Number of Clock Enables: 2
+Top 2 highest fanout Clock Enables:
+  Net : cpu_fpga_clk_c_enable_8, loads : 8
+  Net : STATE_1, loads : 3
+Highest fanout non-clock nets
+Top 10 highest fanout non-clock nets:
+  Net : cpu_fpga_clk_c_enable_8, loads : 8
+  Net : cpu_fpga_bus_nwe_c, loads : 3
+  Net : STATE_1, loads : 3
+  Net : STATE_0, loads : 2
+  Net : cpu_fpga_bus_d_c_7, loads : 1
+  Net : cpu_fpga_bus_d_c_6, loads : 1
+  Net : cpu_fpga_bus_d_c_5, loads : 1
+  Net : cpu_fpga_bus_d_c_4, loads : 1
+  Net : cpu_fpga_bus_d_c_3, loads : 1
+  Net : cpu_fpga_bus_d_c_2, loads : 1
+################### End Clock Report ##################
+
+Timing Report Summary
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk0 [get_nets cpu_fpga_clk_c]          |  200.000 MHz|  286.041 MHz|     2  
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Peak Memory Usage: 196.969  MB
+
+--------------------------------------------------------------
+Elapsed CPU time for LSE flow : 0.466  secs
+--------------------------------------------------------------

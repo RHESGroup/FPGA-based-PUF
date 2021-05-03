@@ -1,0 +1,86 @@
+<HTML>
+<HEAD><TITLE>Lattice TCL Log</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="pn210430183557"></A><B><U><big>pn210430183557</big></U></B>
+#Start recording tcl command: 4/30/2021 17:57:41
+#Project Location: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA; Project name: PUF
+prj_project new -name "PUF" -impl "impl1" -dev LCMXO2-7000HE-5TG144C -synthesis "lse"
+prj_project save
+file copy -force -- "/home/damiano/Documenti/Esami/Tesi/diamond/PUF/ring_cell.vhd" "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/ring_cell.vhd"
+prj_src remove "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/ring_cell.vhd"
+file copy -force -- "/home/damiano/Documenti/Esami/Tesi/diamond/PUF/impl1/source/dummy_lut.vhd" "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/dummy_lut.vhd"
+prj_src remove "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/dummy_lut.vhd"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/dummy_lut.vhd"
+prj_src remove "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/dummy_lut.vhd"
+file copy -force -- "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/dummy_lut.vhd" "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/dummy_lut.vhd"
+prj_src remove "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/dummy_lut.vhd"
+file copy -force -- "/home/damiano/Documenti/Esami/Tesi/diamond/PUF/impl1/source/dummy_lut.vhd" "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/dummy_lut.vhd"
+source run.tcl
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/UART.vhd"
+prj_src add "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd"
+#Stop recording: 4/30/2021 18:35:57
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

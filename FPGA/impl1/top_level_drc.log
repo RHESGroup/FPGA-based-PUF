@@ -1,0 +1,46 @@
+Results of NGD DRC are available in top_level_drc.log.
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/or5g00/data/orc5glib.ngl'...
+
+
+Running DRC...
+
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[5]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[5]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[4]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[4]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[3]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[3]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[2]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[2]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[1]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[1]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_a[0]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_a[0]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[15]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[15]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[14]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[14]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[13]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[13]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[12]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[12]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[11]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[11]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[10]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[10]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[9]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[9]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_d[8]' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_d[8]' has no legal load.
+WARNING - synthesis: logical net 'cpu_fpga_bus_noe' has no load.
+WARNING - synthesis: input pad net 'cpu_fpga_bus_noe' has no legal load.
+WARNING - synthesis: DRC complete with 30 warnings.
+
+Design Results:
+     46 blocks expanded
+completed the first expansion
+All blocks are expanded and NGD expansion is successful.
+Writing NGD file PUF_impl1.ngd.

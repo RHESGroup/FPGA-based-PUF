@@ -28,6 +28,7 @@
 #include "FPGA.h"
 #include "stm32f4xx_hal_sram.h"
 #include "console.h"
+#include "FPGA_Setup.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,10 +98,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_FMC_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  FPGA_init();
 
   uint32_t ret = 0;
 
