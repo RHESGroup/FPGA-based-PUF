@@ -5,42 +5,41 @@
             <Task name="IBIS" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVlg" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVHD" build_result="0" update_result="3" update_time="0"/>
-            <Task name="Bitgen" build_result="2" update_result="0" update_time="1620047088"/>
-            <Task name="Jedecgen" build_result="2" update_result="0" update_time="1620047092"/>
+            <Task name="Bitgen" build_result="0" update_result="2" update_time="1632735334"/>
+            <Task name="Jedecgen" build_result="0" update_result="2" update_time="1632735334"/>
         </Milestone>
-        <Milestone name="Map" build_result="2" build_time="1620047070">
-            <Task name="Map" build_result="2" update_result="0" update_time="1620047070"/>
-            <Task name="MapTrace" build_result="2" update_result="0" update_time="1620047071"/>
+        <Milestone name="Map" build_result="0" build_time="1632735334">
+            <Task name="Map" build_result="0" update_result="2" update_time="1632735334"/>
+            <Task name="MapTrace" build_result="0" update_result="2" update_time="1632735334"/>
             <Task name="MapVerilogSimFile" build_result="0" update_result="3" update_time="0"/>
             <Task name="MapVHDLSimFile" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="PAR" build_result="2" build_time="1620047083">
-            <Task name="PAR" build_result="2" update_result="0" update_time="1620047083"/>
-            <Task name="PARTrace" build_result="2" update_result="0" update_time="1620047083"/>
-            <Task name="IOTiming" build_result="2" update_result="0" update_time="1620047085"/>
+        <Milestone name="PAR" build_result="0" build_time="1632735334">
+            <Task name="PAR" build_result="0" update_result="2" update_time="1632735334"/>
+            <Task name="PARTrace" build_result="0" update_result="2" update_time="1632735334"/>
+            <Task name="IOTiming" build_result="0" update_result="2" update_time="1632735334"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="2" build_time="1620047069">
-            <Task name="Lattice_Synthesis" build_result="2" update_result="0" update_time="1620047069"/>
-            <Task name="LSE_Compile" build_result="2" update_result="0" update_time="1620047071"/>
+        <Milestone name="Synthesis" build_result="0" build_time="1620207349">
+            <Task name="Lattice_Synthesis" build_result="0" update_result="2" update_time="1620207349"/>
+            <Task name="LSE_Compile" build_result="0" update_result="2" update_time="1620207349"/>
         </Milestone>
         <Milestone name="TOOL_Report" build_result="0" build_time="0">
-            <Task name="HDLE" build_result="2" update_result="0" update_time="1620047062"/>
-            <Task name="BKM" build_result="0" update_result="3" update_time="0"/>
+            <Task name="HDLE" build_result="2" update_result="0" update_time="1620207349"/>
+            <Task name="BKM" build_result="0" update_result="2" update_time="1620207349"/>
             <Task name="SSO" build_result="0" update_result="3" update_time="0"/>
             <Task name="PIODRC" build_result="0" update_result="3" update_time="0"/>
             <Task name="DEC" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Report name=".vdbs/PUF_impl1_map.vdb" last_build_time="1620047070" last_build_size="133777"/>
-        <Report name="PUF_impl1.bgn" last_build_time="1620047092" last_build_size="4256"/>
-        <Report name="PUF_impl1.bit" last_build_time="1620047088" last_build_size="29999"/>
-        <Report name="PUF_impl1.ior" last_build_time="1620047085" last_build_size="4972"/>
-        <Report name="PUF_impl1.jed" last_build_time="1620047092" last_build_size="1454180"/>
-        <Report name="PUF_impl1.lsedata" last_build_time="1620047068" last_build_size="517959"/>
-        <Report name="PUF_impl1.ncd" last_build_time="1620047083" last_build_size="425176"/>
-        <Report name="PUF_impl1.ngd" last_build_time="1620047068" last_build_size="332020"/>
-        <Report name="PUF_impl1.tw1" last_build_time="1620047071" last_build_size="7804"/>
-        <Report name="PUF_impl1.twr" last_build_time="1620047083" last_build_size="42438"/>
-        <Report name="PUF_impl1_map.ncd" last_build_time="1620047069" last_build_size="299735"/>
+        <Report name=".vdbs/PUF_impl1_map.vdb" last_build_time="1620049304" last_build_size="31296"/>
+        <Report name="PUF_impl1.bgn" last_build_time="1620049318" last_build_size="4250"/>
+        <Report name="PUF_impl1.bit" last_build_time="1620049314" last_build_size="25093"/>
+        <Report name="PUF_impl1.ior" last_build_time="1620048611" last_build_size="4469"/>
+        <Report name="PUF_impl1.jed" last_build_time="1620049318" last_build_size="1453184"/>
+        <Report name="PUF_impl1.lsedata" last_build_time="1620051876" last_build_size="488752"/>
+        <Report name="PUF_impl1.ncd" last_build_time="1620049310" last_build_size="2908"/>
+        <Report name="PUF_impl1.ngd" last_build_time="1620049549" last_build_size="3263"/>
+        <Report name="PUF_impl1.tw1" last_build_time="1620048603" last_build_size="7768"/>
+        <Report name="PUF_impl1.twr" last_build_time="1620049311" last_build_size="5042"/>
+        <Report name="PUF_impl1_map.ncd" last_build_time="1620049304" last_build_size="2669"/>
     </Strategy>
 </BuildStatus>
-                           

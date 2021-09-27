@@ -1,19 +1,9 @@
 ----------------------------------------------------------------------
-Report for cell top_level.TECH
-Register bits:  281 of 7209 (3.898%)
-I/O cells:      34
+Report for cell PUF.TECH
+Register bits:  0 of 7209 (0.000%)
+I/O cells:      2
                                   Cell usage:
                                cell     count   Res Usage(%)
-                                 BB        16          100.0
-                            FD1P3AX       260          100.0
-                            FD1S3AX         3          100.0
-                            FD1S3IX        17          100.0
-                            FD1S3JX         1          100.0
                                 GSR         1          100.0
-                                 IB         9          100.0
-                            L6MUX21        56          100.0
-                               LUT4       231          100.0
-                              MUX21        16          100.0
-                                 OB         9          100.0
-                              PFUMX        96          100.0
-                              TOTAL       715
+                                 OB         2          100.0
+                              TOTAL         3

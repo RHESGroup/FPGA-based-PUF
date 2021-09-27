@@ -22,7 +22,7 @@ Setup and Hold Report
 
 --------------------------------------------------------------------------------
 <A name="Map_Twr_setup"></A><B><U><big>Lattice TRACE Report - Setup, Version Diamond (64-bit) 3.12.0.240.2</big></U></B>
-Mon May  3 15:04:30 2021
+Mon May  3 15:30:02 2021
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -41,8 +41,8 @@ Report level:    verbose report, limited to 1 item per preference
 
 <A name="mtw1_set_ps"></A><B><U><big>Preference Summary</big></U></B>
 
-<LI><A href='#map_twr_pref_0_0' Target='right'>FREQUENCY 90.000000 MHz (0 errors)</A></LI>            1156 items scored, 0 timing errors detected.
-Report:  214.961MHz is the maximum frequency for this preference.
+<LI><A href='#map_twr_pref_0_0' Target='right'>FREQUENCY 90.000000 MHz (0 errors)</A></LI>            544 items scored, 0 timing errors detected.
+Report:  152.648MHz is the maximum frequency for this preference.
 
 BLOCK ASYNCPATHS
 BLOCK RESETPATHS
@@ -52,41 +52,43 @@ BLOCK RESETPATHS
 
 ================================================================================
 <A name="map_twr_pref_0_0"></A>Preference: FREQUENCY 90.000000 MHz ;
-            1156 items scored, 0 timing errors detected.
+            544 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
 
-Passed: The following path meets requirements by 6.459ns
+Passed: The following path meets requirements by 4.560ns
 
  Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
 
-   Source:         FF         Q              address_i0_i1  (from cpu_fpga_clk_c +)
-   Destination:    FF         Data in        BUFF_9__i0_i11  (to cpu_fpga_clk_c +)
-                   FF                        BUFF_9__i0_i10
+   Source:         FF         Q              creset_275  (from cpu_fpga_clk_c +)
+   Destination:    FF         Data in        cpu_fpga_bus_d_i9  (to cpu_fpga_clk_c +)
+                   FF                        cpu_fpga_bus_d_i8
 
-   Delay:               4.403ns  (29.8% logic, 70.2% route), 3 logic levels.
+   Delay:               6.303ns  (34.6% logic, 65.4% route), 4 logic levels.
 
  Constraint Details:
 
-      4.403ns physical path delay SLICE_128 to SLICE_125 meets
+      6.303ns physical path delay SLICE_18 to SLICE_1 meets
      11.111ns delay constraint less
-      0.249ns CE_SET requirement (totaling 10.862ns) by 6.459ns
+      0.248ns LSR_SET requirement (totaling 10.863ns) by 4.560ns
 
  Physical Path Details:
 
-      Data path SLICE_128 to SLICE_125:
+      Data path SLICE_18 to SLICE_1:
 
    Name    Fanout   Delay (ns)          Site               Resource
-REG_DEL     ---     0.409  SLICE_128.CLK to   SLICE_128.Q1 SLICE_128 (from cpu_fpga_clk_c)
-ROUTE        78   e 1.030   SLICE_128.Q1 to   SLICE_242.B1 address_1
-CTOF_DEL    ---     0.452   SLICE_242.B1 to   SLICE_242.F1 SLICE_242
-ROUTE         4   e 1.030   SLICE_242.F1 to   SLICE_247.C1 n5
-CTOF_DEL    ---     0.452   SLICE_247.C1 to   SLICE_247.F1 SLICE_247
-ROUTE         8   e 1.030   SLICE_247.F1 to   SLICE_125.CE cpu_fpga_clk_c_enable_92 (to cpu_fpga_clk_c)
+REG_DEL     ---     0.409   SLICE_18.CLK to    SLICE_18.Q0 SLICE_18 (from cpu_fpga_clk_c)
+ROUTE         1   e 1.030    SLICE_18.Q0 to *4/SLICE_35.A0 n375
+CTOOFX_DEL  ---     0.661 *4/SLICE_35.A0 to *SLICE_35.OFX0 i794/SLICE_35
+ROUTE         1   e 1.030 *SLICE_35.OFX0 to *0/SLICE_34.A0 n937
+CTOOFX_DEL  ---     0.661 *0/SLICE_34.A0 to *SLICE_34.OFX0 i800/SLICE_34
+ROUTE         1   e 1.030 *SLICE_34.OFX0 to    SLICE_50.D1 n943
+CTOF_DEL    ---     0.452    SLICE_50.D1 to    SLICE_50.F1 SLICE_50
+ROUTE         8   e 1.030    SLICE_50.F1 to    SLICE_1.LSR n817 (to cpu_fpga_clk_c)
                   --------
-                    4.403   (29.8% logic, 70.2% route), 3 logic levels.
+                    6.303   (34.6% logic, 65.4% route), 4 logic levels.
 
-Report:  214.961MHz is the maximum frequency for this preference.
+Report:  152.648MHz is the maximum frequency for this preference.
 
 <A name="mtw1_set_rs"></A><B><U><big>Report Summary</big></U></B>
 --------------
@@ -94,7 +96,7 @@ Report:  214.961MHz is the maximum frequency for this preference.
 Preference                              |   Constraint|       Actual|Levels
 ----------------------------------------------------------------------------
                                         |             |             |
-FREQUENCY 90.000000 MHz ;               |   90.000 MHz|  214.961 MHz|   3  
+FREQUENCY 90.000000 MHz ;               |   90.000 MHz|  152.648 MHz|   4  
                                         |             |             |
 ----------------------------------------------------------------------------
 
@@ -107,7 +109,7 @@ All preferences were met.
 
 Found 1 clocks:
 
-Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
+Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 38
    Covered under: FREQUENCY 90.000000 MHz ;
 
 
@@ -117,11 +119,11 @@ Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
 Timing errors: 0  Score: 0
 Cumulative negative slack: 0
 
-Constraints cover 1156 paths, 1 nets, and 979 connections (61.38% coverage)
+Constraints cover 544 paths, 1 nets, and 360 connections (81.63% coverage)
 
 --------------------------------------------------------------------------------
 <A name="Map_Twr_hold"></A><B><U><big>Lattice TRACE Report - Hold, Version Diamond (64-bit) 3.12.0.240.2</big></U></B>
-Mon May  3 15:04:31 2021
+Mon May  3 15:30:03 2021
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -140,7 +142,7 @@ Report level:    verbose report, limited to 1 item per preference
 
 <A name="mtw1_hold_ps"></A><B><U><big>Preference Summary</big></U></B>
 
-<LI><A href='#map_twr_pref_1_0' Target='right'>FREQUENCY 90.000000 MHz (0 errors)</A></LI>            1156 items scored, 0 timing errors detected.
+<LI><A href='#map_twr_pref_1_0' Target='right'>FREQUENCY 90.000000 MHz (0 errors)</A></LI>            544 items scored, 0 timing errors detected.
 
 BLOCK ASYNCPATHS
 BLOCK RESETPATHS
@@ -150,36 +152,34 @@ BLOCK RESETPATHS
 
 ================================================================================
 <A name="map_twr_pref_1_0"></A>Preference: FREQUENCY 90.000000 MHz ;
-            1156 items scored, 0 timing errors detected.
+            544 items scored, 0 timing errors detected.
 --------------------------------------------------------------------------------
 
 
-Passed: The following path meets requirements by 0.447ns
+Passed: The following path meets requirements by 0.290ns
 
  Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
 
-   Source:         FF         Q              STATE_FSM_i4  (from cpu_fpga_clk_c +)
-   Destination:    FF         Data in        STATE_FSM_i4  (to cpu_fpga_clk_c +)
+   Source:         Sync_RAM   Q              BUFF1/RAM0  (from cpu_fpga_clk_c +)
+   Destination:    FF         Data in        cpu_fpga_bus_d_i8  (to cpu_fpga_clk_c +)
 
-   Delay:               0.434ns  (53.9% logic, 46.1% route), 2 logic levels.
+   Delay:               0.277ns  (99.6% logic, 0.4% route), 1 logic levels.
 
  Constraint Details:
 
-      0.434ns physical path delay SLICE_139 to SLICE_139 meets
+      0.277ns physical path delay SLICE_1 to SLICE_1 meets
      -0.013ns DIN_HLD and
-      0.000ns delay constraint requirement (totaling -0.013ns) by 0.447ns
+      0.000ns delay constraint requirement (totaling -0.013ns) by 0.290ns
 
  Physical Path Details:
 
-      Data path SLICE_139 to SLICE_139:
+      Data path SLICE_1 to SLICE_1:
 
    Name    Fanout   Delay (ns)          Site               Resource
-REG_DEL     ---     0.133  SLICE_139.CLK to   SLICE_139.Q1 SLICE_139 (from cpu_fpga_clk_c)
-ROUTE         2   e 0.199   SLICE_139.Q1 to   SLICE_139.B1 n1790
-CTOF_DEL    ---     0.101   SLICE_139.B1 to   SLICE_139.F1 SLICE_139
-ROUTE         1   e 0.001   SLICE_139.F1 to  SLICE_139.DI1 n2661 (to cpu_fpga_clk_c)
+CLKTOF_DEL  ---     0.276    SLICE_1.WCK to     SLICE_1.F0 SLICE_1 (from cpu_fpga_clk_c)
+ROUTE         1   e 0.001     SLICE_1.F0 to    SLICE_1.DI0 n470 (to cpu_fpga_clk_c)
                   --------
-                    0.434   (53.9% logic, 46.1% route), 2 logic levels.
+                    0.277   (99.6% logic, 0.4% route), 1 logic levels.
 
 <A name="mtw1_hold_rs"></A><B><U><big>Report Summary</big></U></B>
 --------------
@@ -187,7 +187,7 @@ ROUTE         1   e 0.001   SLICE_139.F1 to  SLICE_139.DI1 n2661 (to cpu_fpga_cl
 Preference(MIN Delays)                  |   Constraint|       Actual|Levels
 ----------------------------------------------------------------------------
                                         |             |             |
-FREQUENCY 90.000000 MHz ;               |            -|            -|   2  
+FREQUENCY 90.000000 MHz ;               |            -|            -|   1  
                                         |             |             |
 ----------------------------------------------------------------------------
 
@@ -200,7 +200,7 @@ All preferences were met.
 
 Found 1 clocks:
 
-Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
+Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 38
    Covered under: FREQUENCY 90.000000 MHz ;
 
 
@@ -210,7 +210,7 @@ Clock Domain: cpu_fpga_clk_c   Source: cpu_fpga_clk.PAD   Loads: 142
 Timing errors: 0  Score: 0
 Cumulative negative slack: 0
 
-Constraints cover 1156 paths, 1 nets, and 979 connections (61.38% coverage)
+Constraints cover 544 paths, 1 nets, and 360 connections (81.63% coverage)
 
 
 

@@ -48,9 +48,9 @@ append xcf_path "/" $impl_name ".xcf"
 
 # RUN CONFIG #
 
-prj_run Map -impl $impl_name -task MapTrace
-prj_run PAR -impl $impl_name -task PARTrace
-prj_run PAR -impl $impl_name -task IOTiming
+# prj_run Map -impl $impl_name -task MapTrace
+# prj_run PAR -impl $impl_name -task PARTrace
+# prj_run PAR -impl $impl_name -task IOTiming
 prj_run Export -impl $impl_name -task Bitgen
 prj_run Export -impl $impl_name -task Jedecgen
 

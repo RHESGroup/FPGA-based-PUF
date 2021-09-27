@@ -74,8 +74,8 @@ void Error_Handler(void);
 #define FPGA_PROGRAMN_GPIO_Port GPIOE
 #define FPGA_INTN_Pin GPIO_PIN_9
 #define FPGA_INTN_GPIO_Port GPIOA
-#define GPIO1_INT_N_OUT_Pin GPIO_PIN_10
-#define GPIO1_INT_N_OUT_GPIO_Port GPIOF
+#define SD_DETECT_Pin GPIO_PIN_10
+#define SD_DETECT_GPIO_Port GPIOF
 #define GPIO0_RST_OUT_Pin GPIO_PIN_3
 #define GPIO0_RST_OUT_GPIO_Port GPIOG
 #define FPGA_RST_Pin GPIO_PIN_2

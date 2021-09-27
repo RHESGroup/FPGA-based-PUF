@@ -14,7 +14,7 @@ WARNING - synthesis: input pad net 'cpu_fpga_bus_a[4]' has no legal load.
 WARNING - synthesis: DRC complete with 4 warnings.
 
 Design Results:
-    718 blocks expanded
+    125 blocks expanded
 completed the first expansion
 All blocks are expanded and NGD expansion is successful.
 Writing NGD file PUF_impl1.ngd.

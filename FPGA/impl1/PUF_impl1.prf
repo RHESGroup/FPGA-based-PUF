@@ -1,41 +1,7 @@
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 3.12.0.240.2 -- WARNING: Map write only section -- Mon May  3 15:04:29 2021
+# map:  version Diamond (64-bit) 3.12.0.240.2 -- WARNING: Map write only section -- Mon May  3 15:41:44 2021
 
 SYSCONFIG SDM_PORT=DISABLE SLAVE_SPI_PORT=DISABLE I2C_PORT=DISABLE MASTER_SPI_PORT=DISABLE COMPRESS_CONFIG=ON CONFIGURATION=CFG MY_ASSP=OFF ONE_TIME_PROGRAM=OFF CONFIG_SECURE=OFF MCCLK_FREQ=2.08 JTAG_PORT=ENABLE ENABLE_TRANSFR=DISABLE SHAREDEBRINIT=DISABLE MUX_CONFIGURATION_PORTS=DISABLE BACKGROUND_RECONFIG=OFF INBUF=ON ;
-LOCATE COMP "cpu_fpga_bus_d[9]" SITE "54" ;
-LOCATE COMP "cpu_fpga_bus_d[10]" SITE "55" ;
-LOCATE COMP "cpu_fpga_bus_d[11]" SITE "56" ;
-LOCATE COMP "cpu_fpga_int_n" SITE "111" ;
-LOCATE COMP "cpu_fpga_bus_d[12]" SITE "57" ;
-LOCATE COMP "cpu_fpga_bus_d[13]" SITE "58" ;
-LOCATE COMP "cpu_fpga_bus_d[0]" SITE "38" ;
-LOCATE COMP "cpu_fpga_bus_d[1]" SITE "39" ;
-LOCATE COMP "cpu_fpga_bus_d[14]" SITE "59" ;
-LOCATE COMP "cpu_fpga_bus_d[2]" SITE "40" ;
-LOCATE COMP "cpu_fpga_bus_d[3]" SITE "41" ;
-LOCATE COMP "cpu_fpga_rst" SITE "121" ;
-LOCATE COMP "cpu_fpga_bus_d[4]" SITE "42" ;
-LOCATE COMP "cpu_fpga_bus_d[15]" SITE "60" ;
-LOCATE COMP "cpu_fpga_bus_d[5]" SITE "43" ;
-LOCATE COMP "cpu_fpga_bus_d[6]" SITE "47" ;
-LOCATE COMP "cpu_fpga_bus_d[7]" SITE "48" ;
-LOCATE COMP "cpu_fpga_clk" SITE "49" ;
-LOCATE COMP "cpu_fpga_bus_ne1" SITE "113" ;
-LOCATE COMP "cpu_fpga_bus_nwe" SITE "115" ;
-LOCATE COMP "cpu_fpga_bus_noe" SITE "117" ;
-LOCATE COMP "cpu_fpga_bus_a[0]" SITE "61" ;
-LOCATE COMP "cpu_fpga_bus_d[8]" SITE "52" ;
-LOCATE COMP "cpu_fpga_bus_a[1]" SITE "62" ;
-LOCATE COMP "cpu_fpga_bus_a[2]" SITE "63" ;
-LOCATE COMP "cpu_fpga_bus_a[3]" SITE "65" ;
-LOCATE COMP "fpga_io_gp[0]" SITE "PR16C" ;
-LOCATE COMP "fpga_io_gp[1]" SITE "PR16D" ;
-LOCATE COMP "fpga_io_gp[2]" SITE "PR17C" ;
-LOCATE COMP "fpga_io_gp[3]" SITE "PR17D" ;
-LOCATE COMP "fpga_io_gp[4]" SITE "PR18C" ;
-LOCATE COMP "fpga_io_gp[5]" SITE "PR18D" ;
-LOCATE COMP "fpga_io_gp[6]" SITE "PR19A" ;
-LOCATE COMP "fpga_io_gp[7]" SITE "PR19B" ;
 SCHEMATIC END ;
 BLOCK RESETPATHS ;
 BLOCK ASYNCPATHS ;

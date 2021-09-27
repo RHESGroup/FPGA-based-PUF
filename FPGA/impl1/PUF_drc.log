@@ -1,0 +1,26 @@
+Results of NGD DRC are available in PUF_drc.log.
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library '/usr/local/diamond/3.12/ispfpga/or5g00/data/orc5glib.ngl'...
+
+
+Running DRC...
+
+WARNING - synthesis: logical net 'clk' has no load.
+WARNING - synthesis: input pad net 'clk' has no legal load.
+WARNING - synthesis: logical net 'rst' has no load.
+WARNING - synthesis: input pad net 'rst' has no legal load.
+WARNING - synthesis: logical net 'challenge[2]' has no load.
+WARNING - synthesis: input pad net 'challenge[2]' has no legal load.
+WARNING - synthesis: logical net 'challenge[1]' has no load.
+WARNING - synthesis: input pad net 'challenge[1]' has no legal load.
+WARNING - synthesis: logical net 'challenge[0]' has no load.
+WARNING - synthesis: input pad net 'challenge[0]' has no legal load.
+WARNING - synthesis: DRC complete with 10 warnings.
+
+Design Results:
+      6 blocks expanded
+completed the first expansion
+All blocks are expanded and NGD expansion is successful.
+Writing NGD file PUF_impl1.ngd.

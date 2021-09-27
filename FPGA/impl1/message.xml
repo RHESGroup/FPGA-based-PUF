@@ -2,26 +2,347 @@
 <BaliMessageLog>
     <Task name="Map">
         <Message>
-            <ID>1166064</ID>
+            <ID>1100679</ID>
             <Severity>Warning</Severity>
-            <Dynamic>input</Dynamic>
-            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(6): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_clk&quot; SITE &quot;PB16A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_clk</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>6</Navigation>
         </Message>
         <Message>
-            <ID>1166064</ID>
+            <ID>1100679</ID>
             <Severity>Warning</Severity>
-            <Dynamic>input</Dynamic>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(7): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_noe&quot; SITE &quot;PT28A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_noe</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>7</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(8): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_nwe&quot; SITE &quot;PT28B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_nwe</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>8</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(9): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_rst&quot; SITE &quot;PT25B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_rst</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>9</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(10): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_int_n&quot; SITE &quot;PT35B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_int_n</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>10</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(11): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_ne1&quot; SITE &quot;PT33B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_ne1</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>11</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(13): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[0]&quot; SITE &quot;PB31A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_a[0]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>13</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(14): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[1]&quot; SITE &quot;PB31B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_a[1]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>14</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(15): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[2]&quot; SITE &quot;PB31D&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_a[2]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>15</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(16): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[3]&quot; SITE &quot;PB35A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_a[3]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>16</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(17): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[4]&quot; SITE &quot;PB35B&quot; ;&quot;: </Dynamic>
             <Dynamic>cpu_fpga_bus_a[4]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>17</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(18): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_a[5]&quot; SITE &quot;PB37A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>18</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(20): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[0]&quot; SITE &quot;PB4A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[0]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>20</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(21): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[1]&quot; SITE &quot;PB4B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[1]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>21</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(22): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[2]&quot; SITE &quot;PB6A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[2]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>22</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(23): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[3]&quot; SITE &quot;PB6B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[3]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>23</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(24): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[4]&quot; SITE &quot;PB9A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[4]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>24</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(25): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[5]&quot; SITE &quot;PB9B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[5]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>25</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(26): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[6]&quot; SITE &quot;PB13A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[6]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>26</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(27): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[7]&quot; SITE &quot;PB13B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[7]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>27</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(28): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[8]&quot; SITE &quot;PB18A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[8]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>28</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(29): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[9]&quot; SITE &quot;PB18B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[9]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>29</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(30): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[10]&quot; SITE &quot;PB23A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[10]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>30</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(31): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[11]&quot; SITE &quot;PB23B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[11]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>31</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(32): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[12]&quot; SITE &quot;PB26A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[12]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>32</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(33): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[13]&quot; SITE &quot;PB26B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[13]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>33</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(34): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[14]&quot; SITE &quot;PB29A&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[14]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>34</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(35): Semantic error in &quot;LOCATE COMP &quot;cpu_fpga_bus_d[15]&quot; SITE &quot;PB29B&quot; ;&quot;: </Dynamic>
+            <Dynamic>cpu_fpga_bus_d[15]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>35</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(37): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[0]&quot; SITE &quot;PR16C&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[0]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>37</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(38): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[1]&quot; SITE &quot;PR16D&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[1]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>38</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(39): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[2]&quot; SITE &quot;PR17C&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[2]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>39</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(40): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[3]&quot; SITE &quot;PR17D&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[3]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>40</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(41): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[4]&quot; SITE &quot;PR18C&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[4]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>41</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(42): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[5]&quot; SITE &quot;PR18D&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[5]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>42</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(43): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[6]&quot; SITE &quot;PR19A&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[6]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>43</Navigation>
+        </Message>
+        <Message>
+            <ID>1100679</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(44): Semantic error in &quot;LOCATE COMP &quot;fpga_io_gp[7]&quot; SITE &quot;PR19B&quot; ;&quot;: </Dynamic>
+            <Dynamic>fpga_io_gp[7]</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf</Navigation>
+            <Navigation>44</Navigation>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>clk</Dynamic>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>rst</Dynamic>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>challenge[2]</Dynamic>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>challenge[1]</Dynamic>
+        </Message>
+        <Message>
+            <ID>1166064</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>input</Dynamic>
+            <Dynamic>challenge[0]</Dynamic>
         </Message>
         <Message>
             <ID>51001046</ID>
             <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[5:0](5)</Dynamic>
+            <Dynamic>clk</Dynamic>
         </Message>
         <Message>
             <ID>51001046</ID>
             <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[5:0](4)</Dynamic>
+            <Dynamic>rst</Dynamic>
+        </Message>
+        <Message>
+            <ID>51001046</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>challenge[2:0](2)</Dynamic>
+        </Message>
+        <Message>
+            <ID>51001046</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>challenge[2:0](1)</Dynamic>
+        </Message>
+        <Message>
+            <ID>51001046</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>challenge[2:0](0)</Dynamic>
         </Message>
     </Task>
     <Task name="Lattice_Synthesis">
@@ -56,87 +377,20 @@
             <Navigation>19</Navigation>
         </Message>
         <Message>
-            <ID>35921205</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(17): </Dynamic>
-            <Dynamic>top_level</Dynamic>
-            <Dynamic>BEHAVIORAL</Dynamic>
-            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd</Navigation>
-            <Navigation>17</Navigation>
-        </Message>
-        <Message>
-            <ID>35002005</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
-        </Message>
-        <Message>
-            <ID>35002005</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[4]</Dynamic>
-        </Message>
-        <Message>
-            <ID>35001774</ID>
+            <ID>35921012</ID>
             <Severity>Info</Severity>
-            <Dynamic>STATE</Dynamic>
-            <Dynamic>one-hot</Dynamic>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.vhd(6): </Dynamic>
+            <Dynamic>puf</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.vhd</Navigation>
+            <Navigation>6</Navigation>
         </Message>
         <Message>
-            <ID>35002005</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
-        </Message>
-        <Message>
-            <ID>35002005</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_bus_a[4]</Dynamic>
-        </Message>
-        <Message>
-            <ID>35935013</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd(87): </Dynamic>
-            <Dynamic>STATE_FSM_i1</Dynamic>
-            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/source/top_level.vhd</Navigation>
-            <Navigation>87</Navigation>
-        </Message>
-        <Message>
-            <ID>35001752</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>cpu_fpga_rst_I_0</Dynamic>
-        </Message>
-        <Message>
-            <ID>35001611</ID>
-            <Severity>Warning</Severity>
-        </Message>
-        <Message>
-            <ID>1166052</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>logical</Dynamic>
-            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
-            <Navigation>cpu_fpga_bus_a[5]</Navigation>
-        </Message>
-        <Message>
-            <ID>1166064</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>input</Dynamic>
-            <Dynamic>cpu_fpga_bus_a[5]</Dynamic>
-        </Message>
-        <Message>
-            <ID>1166052</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>logical</Dynamic>
-            <Dynamic>cpu_fpga_bus_a[4]</Dynamic>
-            <Navigation>cpu_fpga_bus_a[4]</Navigation>
-        </Message>
-        <Message>
-            <ID>1166064</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>input</Dynamic>
-            <Dynamic>cpu_fpga_bus_a[4]</Dynamic>
-        </Message>
-        <Message>
-            <ID>1163101</ID>
-            <Severity>Warning</Severity>
-            <Dynamic>4</Dynamic>
+            <ID>35921261</ID>
+            <Severity>Error</Severity>
+            <Dynamic>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.vhd(15): </Dynamic>
+            <Dynamic>;</Dynamic>
+            <Navigation>/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.vhd</Navigation>
+            <Navigation>15</Navigation>
         </Message>
     </Task>
 </BaliMessageLog>

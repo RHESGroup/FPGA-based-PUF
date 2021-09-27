@@ -1,9 +1,8 @@
 ---------------------------------------------------
-Report for cell top_level
-   Instance path: top_level
+Report for cell PUF
+   Instance path: PUF
                      Cell usage:
                                   cell	      count    Res Usage(%)
-                                  SLIC	     238.00        100.0
-                                  LUT4	     245.00        100.0
-                                 IOBUF	         34        100.0
-                                PFUREG	        281        100.0
+                                  SLIC	       1.00        100.0
+                                  LUT4	       1.00        100.0
+                                 IOBUF	          2        100.0

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<userSetting name="/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/promote.xml" version="Diamond (64-bit) 3.12.0.240.2" date="Fri Apr 30 18:35:57 2021" vendor="Lattice Semiconductor Corporation" >
+<userSetting name="/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/promote.xml" version="Diamond (64-bit) 3.12.0.240.2" date="Mon Sep 27 13:03:31 2021" vendor="Lattice Semiconductor Corporation" >
   <msg mid="35921504" type="Info" />
+  <msg mid="35921265" type="Error" />
   <msg mid="35921205" type="Warning" />
+  <msg mid="35921251" type="Warning" />
+  <msg mid="35921613" type="Warning" />
 </userSetting>

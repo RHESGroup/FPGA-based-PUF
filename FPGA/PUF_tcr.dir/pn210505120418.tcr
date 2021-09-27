@@ -1,0 +1,5 @@
+#Start recording tcl command: 5/5/2021 11:16:00
+#Project Location: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA; Project name: PUF
+prj_project open "/home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.ldf"
+source run.tcl
+#Stop recording: 5/5/2021 12:04:18
