@@ -2,15 +2,15 @@
 <BaliProject version="3.2" title="PUF" device="LCMXO2-7000HE-5TG144C" default_implementation="impl1">
     <Options/>
     <Implementation title="impl1" dir="impl1" description="impl1" synthesis="lse" default_strategy="Strategy1">
-        <Options def_top="dummy_lut"/>
+        <Options def_top="top_level"/>
         <Source name="src/top_level.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="top_level"/>
         </Source>
-        <Source name="src/PUF.vhd" type="VHDL" type_short="VHDL">
+        <Source name="src/PUF.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
             <Options/>
         </Source>
-        <Source name="src/dummy_lut.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="dummy_lut"/>
+        <Source name="src/dummy_lut.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
+            <Options/>
         </Source>
         <Source name="PUF.lpf" type="Logic Preference" type_short="LPF">
             <Options/>
