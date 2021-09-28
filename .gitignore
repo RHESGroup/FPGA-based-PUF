@@ -73,7 +73,6 @@ impl*/
 .spreadsheet_view.ini
 *.dir/
 *.log
-*.tcl
 *.ccl
 *.srp
 *.dmp
