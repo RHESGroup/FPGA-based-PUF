@@ -29,6 +29,7 @@
 #include "ff_gen_drv.h"
 #include "sd_diskio.h"
 #include "stdbool.h"
+#include "sdio.h"
 
 #include <string.h>
 
@@ -190,12 +191,12 @@ DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
     return res;
   }
 
-  if(secube_sdio_read(0, buff, sector, count) == true)
+  if(HAL_SD_ReadBlocks_DMA(&hsd, (uint8_t *)buff, sector, count) == HAL_OK)
   {
     timeout = HAL_GetTick();
     while((HAL_GetTick() - timeout) < SD_TIMEOUT)
     {
-      if (secube_sdio_isready() == true)
+      if (HAL_SD_GetCardState(&hsd) == HAL_SD_CARD_TRANSFER)
       {
         res = RES_OK;
         break;
@@ -229,14 +230,14 @@ DRESULT SD_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
     return res;
   }
 
-  if(secube_sdio_write(0, buff, sector, count) == true)
+  if(HAL_SD_WriteBlocks_DMA(&hsd, (uint8_t *)buff, sector, count) == HAL_OK)
   {
 	WriteStatus = 0;
 	timeout = HAL_GetTick();
 
 	while((HAL_GetTick() - timeout) < SD_TIMEOUT)
 	{
-	  if (secube_sdio_isready() == true)
+	  if (HAL_SD_GetCardState(&hsd) == HAL_SD_CARD_TRANSFER)
 	  {
 		res = RES_OK;
 		break;

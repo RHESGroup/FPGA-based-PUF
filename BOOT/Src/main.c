@@ -135,7 +135,7 @@ int main(void)
 
   fres = f_mount (&fs, "", 0);
   fres = f_open(&fp, "popopo.txt", FA_OPEN_ALWAYS | FA_WRITE);
-  fres = f_printf(&fp, "ejapopo1");
+  fres = f_printf(&fp, "ejapopo2");
   fres = f_close(&fp);
 
   /* USER CODE END 2 */
