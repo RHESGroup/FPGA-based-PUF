@@ -1,368 +1,0 @@
-<HTML>
-<HEAD><TITLE>Project Summary</TITLE>
-<STYLE TYPE="text/css">
-<!--
- body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
--->
-</STYLE>
-</HEAD>
-<PRE><A name="Mrp"></A>
-             Lattice Mapping Report File for Design Module 'PUF'
-
-
-
-<A name="mrp_di"></A><B><U><big>Design Information</big></U></B>
-
-Command line:   map -a MachXO2 -p LCMXO2-7000HE -t TQFP144 -s 5 -oc Commercial
-     PUF_impl1.ngd -o PUF_impl1_map.ncd -pr PUF_impl1.prf -mp PUF_impl1.mrp -lpf
-     /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/impl1/PUF_impl1.lpf -lpf
-     /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf -c 0 -gui -msgset
-     /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/promote.xml 
-Target Vendor:  LATTICE
-Target Device:  LCMXO2-7000HETQFP144
-Target Performance:   5
-Mapper:  xo2c00,  version:  Diamond (64-bit) 3.12.0.240.2
-Mapped on:  05/03/21  15:41:43
-
-
-<A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
-   Number of registers:      0 out of  7209 (0%)
-      PFU registers:            0 out of  6864 (0%)
-      PIO registers:            0 out of   345 (0%)
-   Number of SLICEs:         1 out of  3432 (0%)
-      SLICEs as Logic/ROM:      1 out of  3432 (0%)
-      SLICEs as RAM:            0 out of  2574 (0%)
-      SLICEs as Carry:          0 out of  3432 (0%)
-   Number of LUT4s:          1 out of  6864 (0%)
-      Number used as logic LUTs:          1
-      Number used as distributed RAM:     0
-      Number used as ripple logic:        0
-      Number used as shift registers:     0
-   Number of PIO sites used: 2 + 4(JTAG) out of 115 (5%)
-   Number of block RAMs:  0 out of 26 (0%)
-   Number of GSRs:        0 out of 1 (0%)
-   EFB used :        No
-   JTAG used :       No
-   Readback used :   No
-   Oscillator used : No
-   Startup used :    No
-   POR :             On
-   Bandgap :         On
-   Number of Power Controller:  0 out of 1 (0%)
-   Number of Dynamic Bank Controller (BCINRD):  0 out of 6 (0%)
-   Number of Dynamic Bank Controller (BCLVDSO):  0 out of 1 (0%)
-   Number of DCCA:  0 out of 8 (0%)
-   Number of DCMA:  0 out of 2 (0%)
-   Number of PLLs:  0 out of 2 (0%)
-   Number of DQSDLLs:  0 out of 2 (0%)
-   Number of CLKDIVC:  0 out of 4 (0%)
-   Number of ECLKSYNCA:  0 out of 4 (0%)
-   Number of ECLKBRIDGECS:  0 out of 2 (0%)
-   Notes:-
-      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
-     distributed RAMs) + 2*(Number of ripple logic)
-      2. Number of logic LUT4s does not include count of distributed RAM and
-     ripple logic.
-   Number of clocks:  0
-   Number of Clock Enables:  0
-   Number of LSRs:  0
-   Number of nets driven by tri-state buffers:  0
-
-   Top 10 highest fanout non-clock nets:
-
-
-
-
-   Number of warnings:  46
-   Number of errors:    0
-     
-
-
-
-
-<A name="mrp_dwe"></A><B><U><big>Design Errors/Warnings</big></U></B>
-
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(6): Semantic
-     error in "LOCATE COMP "cpu_fpga_clk" SITE "PB16A" ;": COMP "cpu_fpga_clk"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(7): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_noe" SITE "PT28A" ;": COMP
-     "cpu_fpga_bus_noe" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(8): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_nwe" SITE "PT28B" ;": COMP
-     "cpu_fpga_bus_nwe" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(9): Semantic
-     error in "LOCATE COMP "cpu_fpga_rst" SITE "PT25B" ;": COMP "cpu_fpga_rst"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(10): Semantic
-     error in "LOCATE COMP "cpu_fpga_int_n" SITE "PT35B" ;": COMP
-     "cpu_fpga_int_n" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(11): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_ne1" SITE "PT33B" ;": COMP
-     "cpu_fpga_bus_ne1" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(13): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[0]" SITE "PB31A" ;": COMP
-     "cpu_fpga_bus_a[0]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(14): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[1]" SITE "PB31B" ;": COMP
-     "cpu_fpga_bus_a[1]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(15): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[2]" SITE "PB31D" ;": COMP
-     "cpu_fpga_bus_a[2]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(16): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[3]" SITE "PB35A" ;": COMP
-     "cpu_fpga_bus_a[3]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(17): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[4]" SITE "PB35B" ;": COMP
-     "cpu_fpga_bus_a[4]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(18): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_a[5]" SITE "PB37A" ;": COMP
-
-     "cpu_fpga_bus_a[5]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(20): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[0]" SITE "PB4A" ;": COMP
-     "cpu_fpga_bus_d[0]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(21): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[1]" SITE "PB4B" ;": COMP
-     "cpu_fpga_bus_d[1]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(22): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[2]" SITE "PB6A" ;": COMP
-     "cpu_fpga_bus_d[2]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(23): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[3]" SITE "PB6B" ;": COMP
-     "cpu_fpga_bus_d[3]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(24): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[4]" SITE "PB9A" ;": COMP
-     "cpu_fpga_bus_d[4]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(25): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[5]" SITE "PB9B" ;": COMP
-     "cpu_fpga_bus_d[5]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(26): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[6]" SITE "PB13A" ;": COMP
-     "cpu_fpga_bus_d[6]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(27): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[7]" SITE "PB13B" ;": COMP
-     "cpu_fpga_bus_d[7]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(28): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[8]" SITE "PB18A" ;": COMP
-     "cpu_fpga_bus_d[8]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(29): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[9]" SITE "PB18B" ;": COMP
-     "cpu_fpga_bus_d[9]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(30): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[10]" SITE "PB23A" ;": COMP
-     "cpu_fpga_bus_d[10]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(31): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[11]" SITE "PB23B" ;": COMP
-     "cpu_fpga_bus_d[11]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(32): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[12]" SITE "PB26A" ;": COMP
-     "cpu_fpga_bus_d[12]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(33): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[13]" SITE "PB26B" ;": COMP
-
-     "cpu_fpga_bus_d[13]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(34): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[14]" SITE "PB29A" ;": COMP
-     "cpu_fpga_bus_d[14]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(35): Semantic
-     error in "LOCATE COMP "cpu_fpga_bus_d[15]" SITE "PB29B" ;": COMP
-     "cpu_fpga_bus_d[15]" cannot be found in design. This preference has been
-     disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(37): Semantic
-     error in "LOCATE COMP "fpga_io_gp[0]" SITE "PR16C" ;": COMP "fpga_io_gp[0]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(38): Semantic
-     error in "LOCATE COMP "fpga_io_gp[1]" SITE "PR16D" ;": COMP "fpga_io_gp[1]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(39): Semantic
-     error in "LOCATE COMP "fpga_io_gp[2]" SITE "PR17C" ;": COMP "fpga_io_gp[2]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(40): Semantic
-     error in "LOCATE COMP "fpga_io_gp[3]" SITE "PR17D" ;": COMP "fpga_io_gp[3]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(41): Semantic
-     error in "LOCATE COMP "fpga_io_gp[4]" SITE "PR18C" ;": COMP "fpga_io_gp[4]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(42): Semantic
-     error in "LOCATE COMP "fpga_io_gp[5]" SITE "PR18D" ;": COMP "fpga_io_gp[5]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(43): Semantic
-     error in "LOCATE COMP "fpga_io_gp[6]" SITE "PR19A" ;": COMP "fpga_io_gp[6]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: /home/damiano/Documenti/Esami/Tesi/PUF/FPGA/PUF.lpf(44): Semantic
-     error in "LOCATE COMP "fpga_io_gp[7]" SITE "PR19B" ;": COMP "fpga_io_gp[7]"
-     cannot be found in design. This preference has been disabled.
-WARNING - map: input pad net 'clk' has no legal load.
-WARNING - map: input pad net 'rst' has no legal load.
-WARNING - map: input pad net 'challenge[2]' has no legal load.
-WARNING - map: input pad net 'challenge[1]' has no legal load.
-WARNING - map: input pad net 'challenge[0]' has no legal load.
-WARNING - map: IO buffer missing for top level port clk...logic will be
-     discarded.
-WARNING - map: IO buffer missing for top level port rst...logic will be
-     discarded.
-WARNING - map: IO buffer missing for top level port challenge[2:0](2)...logic
-     will be discarded.
-WARNING - map: IO buffer missing for top level port challenge[2:0](1)...logic
-     will be discarded.
-WARNING - map: IO buffer missing for top level port challenge[2:0](0)...logic
-     will be discarded.
-
-
-
-<A name="mrp_ioa"></A><B><U><big>IO (PIO) Attributes</big></U></B>
-
-+---------------------+-----------+-----------+------------+
-| IO Name             | Direction | Levelmode | IO         |
-|                     |           |  IO_TYPE  | Register   |
-
-+---------------------+-----------+-----------+------------+
-| response            | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-| finished            | OUTPUT    | LVCMOS33  |            |
-+---------------------+-----------+-----------+------------+
-
-
-
-<A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
-
-Block i12 undriven or does not drive anything - clipped.
-Block GSR_INST undriven or does not drive anything - clipped.
-Signal VCC_net undriven or does not drive anything - clipped.
-
-     
-
-
-
-<A name="mrp_runtime"></A><B><U><big>Run Time and Memory Usage</big></U></B>
--------------------------
-
-   Total CPU Time: 0 secs  
-   Total REAL Time: 0 secs  
-   Peak Memory Usage: 234 MB
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-     Copyright (c) 1995 AT&T Corp.   All rights reserved.
-     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-     Copyright (c) 2001 Agere Systems   All rights reserved.
-     Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights
-     reserved.
-
-
-
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-</PRE></FONT>
-</BODY>
-</HTML>

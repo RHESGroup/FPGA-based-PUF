@@ -1,244 +1,0 @@
-<HTML>
-<HEAD><TITLE>Lattice Synthesis Timing Report</TITLE>
-<STYLE TYPE="text/css">
-<!--
- body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
--->
-</STYLE>
-</HEAD>
-<PRE><A name="Map_Twr"></A><B><U><big>Lattice Synthesis Timing Report</big></U></B>
---------------------------------------------------------------------------------
-Lattice Synthesis Timing Report, Version  
-Mon May  3 15:30:00 2021
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
-
-<A name="mtw1_ri"></A><B><U><big>Report Information</big></U></B>
-------------------
-Design:     top_level
-Constraint file:  
-Report level:    verbose report, limited to 3 items per constraint
---------------------------------------------------------------------------------
-
-
-
-================================================================================
-Constraint: create_clock -period 5.000000 -name clk0 [get_nets cpu_fpga_clk_c]
-            686 items scored, 560 timing errors detected.
---------------------------------------------------------------------------------
-
-
-Error:  The following path violates requirements by 2.013ns
-
- Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
-
-   Source:         FD1P3AX    CK             address_i0  (from cpu_fpga_clk_c +)
-   Destination:    FD1S3IX    CD             cpu_fpga_bus_d_i6  (to cpu_fpga_clk_c +)
-
-   Delay:                   6.867ns  (31.6% logic, 68.4% route), 6 logic levels.
-
- Constraint Details:
-
-      6.867ns data_path address_i0 to cpu_fpga_bus_d_i6 violates
-      5.000ns delay constraint less
-      0.146ns L_S requirement (totaling 4.854ns) by 2.013ns
-
- Path Details: address_i0 to cpu_fpga_bus_d_i6
-
-   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
-L_CO        ---     0.403             CK to Q              address_i0 (from cpu_fpga_clk_c)
-Route        16   e 1.564                                  address[0]
-LUT4        ---     0.448              C to Z              i787_3_lut
-Route         1   e 0.020                                  n930
-MUXL5       ---     0.212           ALUT to Z              i794
-Route         1   e 0.788                                  n937
-LUT4        ---     0.448              A to Z              i798_3_lut
-Route         1   e 0.020                                  n941
-MUXL5       ---     0.212           BLUT to Z              i800
-Route         1   e 0.788                                  n943
-LUT4        ---     0.448              D to Z              i814_3_lut_4_lut
-Route        16   e 1.516                                  n817
-                  --------
-                    6.867  (31.6% logic, 68.4% route), 6 logic levels.
-
-
-Error:  The following path violates requirements by 2.013ns
-
- Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
-
-   Source:         FD1P3AX    CK             address_i0  (from cpu_fpga_clk_c +)
-   Destination:    FD1S3IX    CD             cpu_fpga_bus_d_i6  (to cpu_fpga_clk_c +)
-
-   Delay:                   6.867ns  (31.6% logic, 68.4% route), 6 logic levels.
-
- Constraint Details:
-
-      6.867ns data_path address_i0 to cpu_fpga_bus_d_i6 violates
-      5.000ns delay constraint less
-      0.146ns L_S requirement (totaling 4.854ns) by 2.013ns
-
- Path Details: address_i0 to cpu_fpga_bus_d_i6
-
-   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
-L_CO        ---     0.403             CK to Q              address_i0 (from cpu_fpga_clk_c)
-Route        16   e 1.564                                  address[0]
-LUT4        ---     0.448              C to Z              i788_3_lut
-Route         1   e 0.020                                  n931
-MUXL5       ---     0.212           BLUT to Z              i795
-Route         1   e 0.788                                  n938
-LUT4        ---     0.448              B to Z              i798_3_lut
-Route         1   e 0.020                                  n941
-MUXL5       ---     0.212           BLUT to Z              i800
-Route         1   e 0.788                                  n943
-LUT4        ---     0.448              D to Z              i814_3_lut_4_lut
-Route        16   e 1.516                                  n817
-                  --------
-                    6.867  (31.6% logic, 68.4% route), 6 logic levels.
-
-
-Error:  The following path violates requirements by 2.013ns
-
- Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
-
-   Source:         FD1P3AX    CK             address_i0  (from cpu_fpga_clk_c +)
-   Destination:    FD1S3IX    CD             cpu_fpga_bus_d_i6  (to cpu_fpga_clk_c +)
-
-   Delay:                   6.867ns  (31.6% logic, 68.4% route), 6 logic levels.
-
- Constraint Details:
-
-      6.867ns data_path address_i0 to cpu_fpga_bus_d_i6 violates
-      5.000ns delay constraint less
-      0.146ns L_S requirement (totaling 4.854ns) by 2.013ns
-
- Path Details: address_i0 to cpu_fpga_bus_d_i6
-
-   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
-L_CO        ---     0.403             CK to Q              address_i0 (from cpu_fpga_clk_c)
-Route        16   e 1.564                                  address[0]
-LUT4        ---     0.448              C to Z              i791_3_lut
-Route         1   e 0.020                                  n934
-MUXL5       ---     0.212           ALUT to Z              i796
-Route         1   e 0.788                                  n939
-LUT4        ---     0.448              A to Z              i799_3_lut
-Route         1   e 0.020                                  n942
-MUXL5       ---     0.212           ALUT to Z              i800
-Route         1   e 0.788                                  n943
-LUT4        ---     0.448              D to Z              i814_3_lut_4_lut
-Route        16   e 1.516                                  n817
-                  --------
-                    6.867  (31.6% logic, 68.4% route), 6 logic levels.
-
-Warning: 7.013 ns is the maximum delay for this constraint.
-
-
-<A name="mtw1_rs"></A><B><U><big>Timing Report Summary</big></U></B>
---------------
---------------------------------------------------------------------------------
-Constraint                              |   Constraint|       Actual|Levels
---------------------------------------------------------------------------------
-                                        |             |             |
-create_clock -period 5.000000 -name     |             |             |
-clk0 [get_nets cpu_fpga_clk_c]          |     5.000 ns|     7.013 ns|     6 *
-                                        |             |             |
---------------------------------------------------------------------------------
-
-
-1 constraints not met.
-
---------------------------------------------------------------------------------
-Critical Nets                           |   Loads|  Errors| % of total
---------------------------------------------------------------------------------
-n817                                    |      16|     496|     88.57%
-                                        |        |        |
-n943                                    |       1|     496|     88.57%
-                                        |        |        |
-n941                                    |       1|     240|     42.86%
-                                        |        |        |
-n942                                    |       1|     240|     42.86%
-                                        |        |        |
-address[0]                              |      16|     144|     25.71%
-                                        |        |        |
-n937                                    |       1|     112|     20.00%
-                                        |        |        |
-n938                                    |       1|     112|     20.00%
-                                        |        |        |
-n939                                    |       1|     112|     20.00%
-                                        |        |        |
-n940                                    |       1|     112|     20.00%
-                                        |        |        |
-address[1]                              |      12|      64|     11.43%
-                                        |        |        |
---------------------------------------------------------------------------------
-
-
-<A name="mtw1_ts"></A><B><U><big>Timing summary:</big></U></B>
----------------
-
-Timing errors: 560  Score: 750304
-
-Constraints cover  686 paths, 72 nets, and 234 connections (66.1% coverage)
-
-
-Peak memory: 206020608 bytes, TRCE: 1544192 bytes, DLYMAN: 0 bytes
-CPU_TIME_REPORT: 0 secs 
-
-
-
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-</PRE></FONT>
-</BODY>
-</HTML>
