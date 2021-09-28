@@ -53,7 +53,7 @@ void MX_FMC_Init(void)
   hsram1.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW;
   hsram1.Init.WrapMode = FMC_WRAP_MODE_DISABLE;
   hsram1.Init.WaitSignalActive = FMC_WAIT_TIMING_BEFORE_WS;
-  hsram1.Init.WriteOperation = FMC_WRITE_OPERATION_ENABLE;
+  hsram1.Init.WriteOperation = FMC_WRITE_OPERATION_DISABLE;
   hsram1.Init.WaitSignal = FMC_WAIT_SIGNAL_DISABLE;
   hsram1.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;
   hsram1.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_DISABLE;
@@ -88,7 +88,7 @@ void MX_FMC_Init(void)
   hsram2.Init.WaitSignalPolarity = FMC_WAIT_SIGNAL_POLARITY_LOW;
   hsram2.Init.WrapMode = FMC_WRAP_MODE_DISABLE;
   hsram2.Init.WaitSignalActive = FMC_WAIT_TIMING_BEFORE_WS;
-  hsram2.Init.WriteOperation = FMC_WRITE_OPERATION_ENABLE;
+  hsram2.Init.WriteOperation = FMC_WRITE_OPERATION_DISABLE;
   hsram2.Init.WaitSignal = FMC_WAIT_SIGNAL_DISABLE;
   hsram2.Init.ExtendedMode = FMC_EXTENDED_MODE_DISABLE;
   hsram2.Init.AsynchronousWait = FMC_ASYNCHRONOUS_WAIT_DISABLE;
@@ -148,8 +148,6 @@ static void HAL_FMC_MspInit(void){
   PD14   ------> FMC_D0
   PD9   ------> FMC_D14
   PD8   ------> FMC_D13
-  PF12   ------> FMC_A6
-  PF13   ------> FMC_A7
   PE8   ------> FMC_D5
   PE9   ------> FMC_D6
   PE11   ------> FMC_D8
@@ -173,7 +171,7 @@ static void HAL_FMC_MspInit(void){
 
   /* GPIO_InitStruct */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_12|GPIO_PIN_13;
+                          |GPIO_PIN_4|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -247,8 +245,6 @@ static void HAL_FMC_MspDeInit(void){
   PD14   ------> FMC_D0
   PD9   ------> FMC_D14
   PD8   ------> FMC_D13
-  PF12   ------> FMC_A6
-  PF13   ------> FMC_A7
   PE8   ------> FMC_D5
   PE9   ------> FMC_D6
   PE11   ------> FMC_D8
@@ -265,7 +261,7 @@ static void HAL_FMC_MspDeInit(void){
                           |GPIO_PIN_9|GPIO_PIN_8);
 
   HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_12|GPIO_PIN_13);
+                          |GPIO_PIN_4|GPIO_PIN_5);
 
   HAL_GPIO_DeInit(GPIOG, GPIO_PIN_9);
 
