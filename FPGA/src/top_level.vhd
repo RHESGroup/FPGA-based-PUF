@@ -25,19 +25,20 @@ architecture BEHAVIORAL of top_level is
 	type buffer_type is array (15 downto 0) of std_logic_vector(15 downto 0);
 	signal BUFF: buffer_type;
 	signal address : std_logic_vector(3 downto 0);
+	signal led_output : std_logic_vector(15 downto 0);
 	
-	component PUF is
-	  Port (   	clk, rst: in std_logic;
-				challenge: in std_logic_vector (2 downto 0);
-				response: out std_logic;
-				finished: out std_logic
-	);
-	end component;
+	--component PUF is
+	  --Port (   	clk, rst: in std_logic;
+				--challenge: in std_logic_vector (2 downto 0);
+				--response: out std_logic;
+				--finished: out std_logic
+	--);
+	--end component;
 begin
 
-	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(2 downto 0), response => fpga_io_gp(0));
+	--PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(2 downto 0), response => fpga_io_gp(0));
 
-	fpga_io_gp(7 downto 1) <= (others => '1');
+	--fpga_io_gp(7 downto 1) <= (others => '1');
 	
 	process(cpu_fpga_clk, cpu_fpga_rst) 
 	begin
@@ -97,5 +98,8 @@ begin
 			end case;
 		end if;
 	end process;
+	
+	led_output <= not(BUFF(to_integer(unsigned(BUFF(0)))));
+	fpga_io_gp <= led_output(7 downto 0);
 
 end BEHAVIORAL;
