@@ -24,7 +24,6 @@
 #include "sdio.h"
 #include "usart.h"
 #include "gpio.h"
-#include "fmc.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -109,7 +108,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
-  //MX_FMC_Init();
   /* USER CODE BEGIN 2 */
   FPGA_init();
 
