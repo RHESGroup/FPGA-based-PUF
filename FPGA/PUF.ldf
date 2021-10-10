@@ -6,10 +6,10 @@
         <Source name="src/top_level.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="top_level"/>
         </Source>
-        <Source name="src/PUF.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
+        <Source name="src/PUF.vhd" type="VHDL" type_short="VHDL">
             <Options/>
         </Source>
-        <Source name="src/dummy_lut.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
+        <Source name="src/dummy_lut.vhd" type="VHDL" type_short="VHDL">
             <Options/>
         </Source>
         <Source name="PUF.lpf" type="Logic Preference" type_short="LPF">
