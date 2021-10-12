@@ -29,14 +29,15 @@ architecture BEHAVIORAL of top_level is
 	
 	component PUF is
 	  Port (   	clk, rst: in std_logic;
-				challenge: in std_logic_vector (2 downto 0);
+				challenge: in std_logic_vector (3 downto 0);
+				enable: in std_logic;
 				response: out std_logic;
 				finished: out std_logic
 	);
 	end component;
 begin
 
-	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(2 downto 0), response => fpga_io_gp(0));
+	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(3 downto 0), enable=> not buff(1)(4), response => fpga_io_gp(0));
 
 	fpga_io_gp(7 downto 1) <= (others => '1');
 	

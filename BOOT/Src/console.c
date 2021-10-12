@@ -9,6 +9,7 @@ extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
 uint8_t uart_char_received = 1;
 uint16_t led_address = 0;
+uint16_t puf_conf = 0;
 
 void parseCommand(char command);
 void printConsole(char* string);
@@ -69,6 +70,36 @@ void parseCommand(char command)
 			printConsole("Error reading from FPGA\r\n");
 		}
 		led_address = (led_address + 1) % 9;
+	}
+
+	else if (command == 'e')
+	{
+		if (puf_conf & 0x0010)
+		{
+			puf_conf &= 0xFFEF;
+			FPGA_write((uint8_t) 0x1, &puf_conf);
+			printConsole("PUF pre-loaded\r\n");
+		}
+		else
+		{
+			puf_conf |= 0x0010;
+			FPGA_write((uint8_t) 0x1, &puf_conf);
+			printConsole("PUF run!\r\n");
+		}
+	}
+
+	else if (command == 'p')
+	{
+		uint8_t challenge;
+		char string[100];
+
+		challenge = 0x0F & puf_conf;
+		challenge = (challenge+1)%16;
+		puf_conf &= 0xFFF0;
+		puf_conf |= challenge;
+		sprintf(string, "Challenge: %X\r\n", challenge);
+		printConsole(string);
+
 	}
 
 }
