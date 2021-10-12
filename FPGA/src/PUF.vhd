@@ -32,7 +32,7 @@ begin
 	DL2: dummy_lut port map (a => a, s => challenge(1 downto 0), e => enable, o => feedback);
 	
 	
-	process
+	process(clk, rst)
 	begin
 		if(rst = '1') then
 			response <= '0';
