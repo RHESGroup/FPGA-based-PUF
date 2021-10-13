@@ -26,6 +26,7 @@ architecture BEHAVIORAL of top_level is
 	signal BUFF: buffer_type;
 	signal address : std_logic_vector(3 downto 0);
 	signal led_output : std_logic_vector(15 downto 0);
+	signal response: std_logic;
 	
 	component PUF is
 	  Port (   	clk, rst: in std_logic;
@@ -37,9 +38,10 @@ architecture BEHAVIORAL of top_level is
 	end component;
 begin
 
-	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(3 downto 0), enable=> not buff(1)(4), response => fpga_io_gp(0));
+	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(3 downto 0), enable=> not buff(1)(4), response => response);
 
 	fpga_io_gp(7 downto 1) <= (others => '1');
+	fpga_io_gp(0) <= response;
 	
 	process(cpu_fpga_clk, cpu_fpga_rst) 
 	begin
@@ -57,7 +59,10 @@ begin
 		elsif(rising_edge(cpu_fpga_clk)) then
 			-- default
 			cpu_fpga_bus_d <= (others => 'Z');
-
+			
+			-- update internal signals
+			BUFF(2)(0) <= response;
+			
 			-- FSM behavior
 			case STATE is
 		

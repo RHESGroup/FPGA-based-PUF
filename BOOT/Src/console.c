@@ -82,9 +82,16 @@ void parseCommand(char command)
 		}
 		else
 		{
+			uint16_t puf_response;
+			char string[100];
+
 			puf_conf |= 0x0010;
 			FPGA_write((uint8_t) 0x1, &puf_conf);
 			printConsole("PUF run!\r\n");
+			FPGA_read((uint8_t) 0x2, &puf_response);
+			puf_response &= 0x0001;
+			sprintf(string, "Response: %d\r\n", puf_response);
+			printConsole(string);
 		}
 	}
 
