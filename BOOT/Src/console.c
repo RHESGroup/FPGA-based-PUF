@@ -9,7 +9,7 @@ extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
 uint8_t uart_char_received = 1;
 uint16_t led_address = 0;
-uint16_t puf_conf = 0;
+uint16_t challenge = 0;
 
 void parseCommand(char command);
 void printConsole(char* string);
@@ -72,7 +72,7 @@ void parseCommand(char command)
 		led_address = (led_address + 1) % 9;
 	}
 
-	else if (command == 'e')
+	/*else if (command == 'e')
 	{
 		if (puf_conf & 0x0010)
 		{
@@ -93,19 +93,47 @@ void parseCommand(char command)
 			sprintf(string, "Response: %d\r\n", puf_response);
 			printConsole(string);
 		}
-	}
+	}*/
 
 	else if (command == 'p')
 	{
-		uint8_t challenge;
 		char string[100];
+		uint16_t run_puf_mask = 16;
+		uint16_t responseH, responseL;
+		uint8_t count;
+		FPGA_write((uint8_t) 0x2, &challenge);
+		FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
-		challenge = 0x0F & puf_conf;
-		challenge = (challenge+1)%16;
-		puf_conf &= 0xFFF0;
-		puf_conf |= challenge;
-		sprintf(string, "Challenge: %X\r\n", challenge);
+		while(run_puf_mask & 16)
+		{
+			FPGA_read((uint8_t) 0x1, &run_puf_mask);
+		}
+
+		FPGA_read((uint8_t) 0x2, &responseH);
+		FPGA_read((uint8_t) 0x3, &responseL);
+		//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
+		sprintf(string, "\r\n\r\nChallenge: %02X\r\n", challenge);
 		printConsole(string);
+
+		sprintf(string, "Final value: %d\r\n", responseL & 0x1);
+		printConsole(string);
+
+		responseL = responseL & 0xFFFE;
+		count = 0;
+		while (responseL) {
+		        count += responseL & 1;
+		        responseL >>= 1;
+		}
+
+		while (responseH) {
+				        count += responseH & 1;
+				        responseH >>= 1;
+		}
+
+		sprintf(string, "Number of oscillations: %d\r\n", count);
+		printConsole(string);
+
+		challenge = (challenge+1)%16;
 
 	}
 

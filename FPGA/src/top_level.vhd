@@ -26,22 +26,22 @@ architecture BEHAVIORAL of top_level is
 	signal BUFF: buffer_type;
 	signal address : std_logic_vector(3 downto 0);
 	signal led_output : std_logic_vector(15 downto 0);
-	signal response: std_logic;
+	signal puf_response: std_logic_vector(31 downto 0);
+	signal update_puf_response: std_logic;
 	
 	component PUF is
 	  Port (   	clk, rst: in std_logic;
 				challenge: in std_logic_vector (3 downto 0);
 				enable: in std_logic;
-				response: out std_logic;
+				response: out std_logic_vector(31 downto 0);
 				finished: out std_logic
 	);
 	end component;
 begin
 
-	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(1)(3 downto 0), enable=> not buff(1)(4), response => response);
+	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(2)(3 downto 0), enable=> buff(1)(4), response => puf_response, finished => update_puf_response);
 
-	fpga_io_gp(7 downto 1) <= (others => '1');
-	fpga_io_gp(0) <= response;
+	fpga_io_gp(7 downto 0) <= (others => '1');
 	
 	process(cpu_fpga_clk, cpu_fpga_rst) 
 	begin
@@ -61,7 +61,11 @@ begin
 			cpu_fpga_bus_d <= (others => 'Z');
 			
 			-- update internal signals
-			BUFF(2)(0) <= response;
+			if (update_puf_response = '1') then
+				BUFF(2) <= puf_response(31 downto 16);
+				BUFF(3) <= puf_response(15 downto 0);
+				buff(1)(4) <= '0';
+			end if;
 			
 			-- FSM behavior
 			case STATE is
