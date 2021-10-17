@@ -17,6 +17,6 @@ architecture Behavioral of dummy_lut is
 	attribute syn_hier : string;
 	attribute syn_hier of Behavioral: architecture is "hard"; --disable cross-boundaries optimization
 begin
-    o <=  (not a and s(0) and s(1)) or (not a and not s(0) and s(1)) or (not a and s(0) and not s(1)) or (not a and not s(0) and s(1)) or e;
+    o <= ((not a and s(0) and s(1)) or (not a and not s(0) and s(1)) or (not a and s(0) and not s(1)) or (not a and not s(0) and not s(1)) ) and e;
 
 end Behavioral;

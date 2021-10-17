@@ -26,23 +26,30 @@ architecture BEHAVIORAL of top_level is
 	signal BUFF: buffer_type;
 	signal address : std_logic_vector(3 downto 0);
 	signal led_output : std_logic_vector(15 downto 0);
-	signal puf_response: std_logic_vector(31 downto 0);
+	signal puf_response: std_logic_vector(63 downto 0);
 	signal update_puf_response: std_logic;
+	signal challenge: std_logic_vector(63 downto 0);
 	
 	component PUF is
+		generic ( n_inverters : integer := 2);
 	  Port (   	clk, rst: in std_logic;
-				challenge: in std_logic_vector (3 downto 0);
+				challenge: in std_logic_vector (2*n_inverters-1 downto 0);
 				enable: in std_logic;
-				response: out std_logic_vector(31 downto 0);
+				response: out std_logic_vector(63 downto 0);
 				finished: out std_logic
 	);
 	end component;
 begin
 
-	PUF1: PUF port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => BUFF(2)(3 downto 0), enable=> buff(1)(4), response => puf_response, finished => update_puf_response);
+	PUF1: PUF 
+	generic map (n_inverters => 2)
+	port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => buff(5)(3 downto 0), enable=> buff(1)(4), response => puf_response, finished => update_puf_response);
 
 	fpga_io_gp(7 downto 0) <= (others => '1');
-	
+	challenge(63 downto 48) <= buff(2);
+	challenge(47 downto 32) <= buff(3);
+	challenge(31 downto 16) <= buff(4);
+	challenge(15 downto 0) <= buff(5);
 	process(cpu_fpga_clk, cpu_fpga_rst) 
 	begin
 	
@@ -62,8 +69,10 @@ begin
 			
 			-- update internal signals
 			if (update_puf_response = '1') then
-				BUFF(2) <= puf_response(31 downto 16);
-				BUFF(3) <= puf_response(15 downto 0);
+				BUFF(6) <= puf_response(63 downto 48);
+				BUFF(7) <= puf_response(47 downto 32);
+				BUFF(8) <= puf_response(31 downto 16);
+				BUFF(9) <= puf_response(15 downto 0);
 				buff(1)(4) <= '0';
 			end if;
 			

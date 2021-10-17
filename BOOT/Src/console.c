@@ -99,9 +99,14 @@ void parseCommand(char command)
 	{
 		char string[100];
 		uint16_t run_puf_mask = 16;
-		uint16_t responseH, responseL;
+		uint16_t responseH, responseL, responseHH, responseLL;
 		uint8_t count;
+		/*uint16_t challenge;
+		challenge = 0xFFFF;
 		FPGA_write((uint8_t) 0x2, &challenge);
+		FPGA_write((uint8_t) 0x3, &challenge);
+		FPGA_write((uint8_t) 0x4, &challenge);*/
+		FPGA_write((uint8_t) 0x5, &challenge);
 		FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
 		while(run_puf_mask & 16)
@@ -109,31 +114,44 @@ void parseCommand(char command)
 			FPGA_read((uint8_t) 0x1, &run_puf_mask);
 		}
 
-		FPGA_read((uint8_t) 0x2, &responseH);
-		FPGA_read((uint8_t) 0x3, &responseL);
+		FPGA_read((uint8_t) 0x6, &responseHH);
+		FPGA_read((uint8_t) 0x7, &responseH);
+		FPGA_read((uint8_t) 0x8, &responseL);
+		FPGA_read((uint8_t) 0x9, &responseLL);
 		//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
 		sprintf(string, "\r\n\r\nChallenge: %02X\r\n", challenge);
 		printConsole(string);
 
-		sprintf(string, "Final value: %d\r\n", responseL & 0x1);
+		sprintf(string, "Final value: %01X\r\n", responseL&0x1);
 		printConsole(string);
 
-		responseL = responseL & 0xFFFE;
+		responseLL = responseLL & 0xFFFE;
 		count = 0;
+
+		while (responseLL) {
+				count += responseLL & 1;
+				responseLL >>= 1;
+		}
+
 		while (responseL) {
 		        count += responseL & 1;
 		        responseL >>= 1;
 		}
 
 		while (responseH) {
-				        count += responseH & 1;
-				        responseH >>= 1;
+				count += responseH & 1;
+				responseH >>= 1;
+		}
+
+		while (responseHH) {
+				count += responseHH & 1;
+				responseHH >>= 1;
 		}
 
 		sprintf(string, "Number of oscillations: %d\r\n", count);
 		printConsole(string);
 
-		challenge = (challenge+1)%16;
+		challenge = (challenge+1)%256;
 
 	}
 
