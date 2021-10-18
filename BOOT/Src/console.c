@@ -122,7 +122,7 @@ void parseCommand(char command)
 		sprintf(string, "\r\n\r\nChallenge: %02X\r\n", challenge);
 		printConsole(string);
 
-		sprintf(string, "Final value: %01X\r\n", responseL&0x1);
+		sprintf(string, "Final value: %01X\r\n", responseLL &0x1);
 		printConsole(string);
 
 		responseLL = responseLL & 0xFFFE;
