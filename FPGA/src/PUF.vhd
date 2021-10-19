@@ -13,7 +13,7 @@ entity PUF is
 			
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
 			enable_to_metastable: out std_logic;
-			response_from_metastable: in std_logic := '0'
+			response_from_metastable: in std_logic
 			
             );
 	attribute syn_force_pads : boolean;
@@ -64,7 +64,7 @@ begin
 			--DL2: dummy_lut port map (a => inv_connections(i-1), s => challenge_reg(2*i+1 downto 2*i), e => enable_counter, o => inv_connections(i));
 		--end generate;
 	--end generate;
-	COUNT_1: up_counter port map (cout => response(63 downto 1), enable => enable_counter, clk => counter_clk, reset => reset_counter);
+	COUNT_1: up_counter port map (cout => response(63 downto 1), enable => enable_counter, clk => response_from_metastable, reset => reset_counter);
 	response(0) <= response_reg;
 	--response(31 downto 1) <= (others => '0'); 
 	
@@ -72,12 +72,12 @@ begin
 	challenge_to_metastable <= challenge_reg;
 	enable_to_metastable <= enable_counter;
 	
-	process(response_from_metastable)
-	begin
-		if (rising_edge(response_from_metastable)) then
-			counter_clk <= not counter_clk;
-		end if;
-	end process;
+	--process(response_from_metastable)
+	--begin
+		--if (rising_edge(response_from_metastable)) then
+			--counter_clk <= not counter_clk;
+		--end if;
+	--end process;
 	
 	process(state, challenge_reg, wait_run)
 	begin
