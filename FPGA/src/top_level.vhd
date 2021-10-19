@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity top_level is
+	generic ( n_inverters : integer := 2);
 	port(	
 			cpu_fpga_bus_a		: in std_logic_vector(5 downto 0);
 			cpu_fpga_bus_d		: inout std_logic_vector(15 downto 0);
@@ -14,7 +15,7 @@ entity top_level is
 			cpu_fpga_rst		: in std_logic;
 			fpga_io_gp			: out std_logic_vector(7 downto 0);
 			
-			challenge_to_metastable: out std_logic_vector (3 downto 0);
+			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
 			enable_to_metastable: out std_logic;
 			response_from_metastable: in std_logic := '0'
 		);

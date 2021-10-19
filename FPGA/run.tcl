@@ -51,6 +51,12 @@ append xcf_path "/" $impl_name ".xcf"
 # prj_run Map -impl $impl_name -task MapTrace
 # prj_run PAR -impl $impl_name -task PARTrace
 # prj_run PAR -impl $impl_name -task IOTiming
+prj_run PAR -impl $impl_name
+
+exec fpgac place_metastable.tcl $impl_name 2
+
+#stop
+
 prj_run Export -impl $impl_name -task Bitgen
 prj_run Export -impl $impl_name -task Jedecgen
 
