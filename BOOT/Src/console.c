@@ -9,7 +9,9 @@ extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
 uint8_t uart_char_received = 1;
 uint16_t led_address = 0;
-uint16_t challenge = 0;
+uint16_t challenge = 0xA0;
+
+uint16_t previous_count = 0;
 
 void parseCommand(char command);
 void printConsole(char* string);
@@ -100,12 +102,13 @@ void parseCommand(char command)
 		char string[100];
 		uint16_t run_puf_mask = 16;
 		uint16_t responseH, responseL, responseHH, responseLL;
-		uint8_t count;
-		/*uint16_t challenge;
-		challenge = 0xFFFF;
-		FPGA_write((uint8_t) 0x2, &challenge);
-		FPGA_write((uint8_t) 0x3, &challenge);
-		FPGA_write((uint8_t) 0x4, &challenge);*/
+		uint16_t count;
+		uint16_t zeros = 0x0;
+
+
+		FPGA_write((uint8_t) 0x2, &zeros);
+		FPGA_write((uint8_t) 0x3, &zeros);
+		FPGA_write((uint8_t) 0x4, &zeros);
 		FPGA_write((uint8_t) 0x5, &challenge);
 		FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
@@ -119,13 +122,13 @@ void parseCommand(char command)
 		FPGA_read((uint8_t) 0x8, &responseL);
 		FPGA_read((uint8_t) 0x9, &responseLL);
 		//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
-		sprintf(string, "\r\n\r\nChallenge: %02X\r\n", challenge);
+		sprintf(string, "\r\n\r\nChallenge: %04X\r\n", challenge);
 		printConsole(string);
 
 		sprintf(string, "Final value: %01X\r\n", responseLL &0x1);
-		printConsole(string);
+		//printConsole(string);
 
-		responseLL = responseLL & 0xFFFE;
+		/*responseLL = responseLL & 0xFFFE;
 		count = 0;
 
 		while (responseLL) {
@@ -147,11 +150,14 @@ void parseCommand(char command)
 				count += responseHH & 1;
 				responseHH >>= 1;
 		}
-
-		sprintf(string, "Number of oscillations: %d\r\n", count);
+*/
+		count =  (responseLL) - previous_count;
+		sprintf(string, "Number of oscillations: %u\r\n", count>>2);
 		printConsole(string);
 
-		challenge = (challenge+1)%256;
+		previous_count = responseLL;
+
+		challenge = (challenge+1)%16+0xCC0;
 
 	}
 

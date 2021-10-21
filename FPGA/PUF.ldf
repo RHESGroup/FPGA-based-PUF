@@ -12,7 +12,7 @@
         <Source name="src/dummy_lut.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
             <Options/>
         </Source>
-        <Source name="src/counter.vhd" type="VHDL" type_short="VHDL">
+        <Source name="src/counter.vhd" type="VHDL" type_short="VHDL" excluded="TRUE">
             <Options/>
         </Source>
         <Source name="PUF.lpf" type="Logic Preference" type_short="LPF">

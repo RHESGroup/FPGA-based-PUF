@@ -1,14 +1,318 @@
-#include <stdint.h>
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx.h"
-#include "FPGA.h"
-#include "TEST_FPGA.h"
+set platform $tcl_platform(platform)
+set proj_path [pwd]
+set open_bracket "{"
+set flag 0
+
+set exe_path [info nameofexecutable]
+set end [string last "/" $exe_path]
+set deploy_path [string range $exe_path 0 $end]
+append deploy_path "ddtcmd"
+
+# retrieve project and implementation names
+set full_name [glob *.ldf]
+set length [string length $full_name]
+set begin 0
+set end [expr $length - 5]
+set proj_name [string range $full_name $begin $end]
+set proj_file $proj_name
+append proj_file ".ldf"
+
+set inputfile [open $proj_file]
+
+# $input will contain the contents of the file
+set input [read $inputfile]
+
+# $lines will be an array containing each line of test.txt
+set lines [split $input "\n"]
+
+# Loop through each line
+foreach line $lines {
+   set found [string match "*default_implementation*" $line]
+   if {$found > 0} {
+      set begin [string first "default_implementation" $line]
+      set begin [expr $begin + 24]
+      set end [string length $line]
+      set end [expr $end - 3]
+      set impl_name [string range $line $begin $end]
+   }
+}
+
+# Close
+close $inputfile
+
+set impl_path $proj_path
+append impl_path "/" $impl_name
+
+set xcf_path $impl_path
+append xcf_path "/" $impl_name ".xcf"
+
+# RUN CONFIG #
+
+# prj_run Map -impl $impl_name -task MapTrace
+# prj_run PAR -impl $impl_name -task PARTrace
+# prj_run PAR -impl $impl_name -task IOTiming
+prj_run PAR -impl $impl_name
+
+exec fpgac scripts/place_metastable.tcl $impl_name 32
+
+#stop
+
+prj_run Export -impl $impl_name -task Bitgen
+prj_run Export -impl $impl_name -task Jedecgen
+
+# ########## .LDF FILE ########## #
+
+set jed_path [pwd]
+append jed_path "/"
+append jed_path $impl_name "/"
+append jed_path $proj_name "_" $impl_name ".jed"
+
+set inputfile [open $jed_path]
+
+# $input will contain the contents of the file
+set input [read $inputfile]
+
+# $lines will be an array containing each line of test.txt
+set lines [split $input "\n"]
+
+# Loop through each line
+foreach line $lines {
+	set len [string length $line]
+	if {$len == 6} {
+		set first [string index $line 0]
+		if {$first == "C"} {
+			set checksum [string range $line 1 4]
+		}
+	}
+}
+
+# Close
+close $inputfile
 
 
+# ########## .XCF FILE ########## #
 
-uint32_t g_iAlgoSize = 129857;
-uint32_t g_iDataSize = 239524;
+set line1 "<File>"
+append line1 $jed_path
+append line1 "</File>"
 
+set systime [clock seconds]
+set now [clock format $systime -format %m]
+append now "/" [clock format $systime -format %d]
+append now "/" [clock format $systime -format %y]
+append now " " [clock format $systime -format %T]
+
+set line2 "<FileTime>"
+append line2 $now
+append line2 "</FileTime>"
+
+set line3 "<JedecChecksum>"
+append line3 "0x"
+append line3 $checksum
+append line3 "</JedecChecksum>"
+
+set outputFile [open $xcf_path w]
+
+# Write first part of TEST_FPGA.h file
+puts $outputFile "<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE		ispXCF	SYSTEM	\"IspXCF.dtd\" >
+<ispXCF version=\"3.10.0\">
+	<Comment></Comment>
+	<Chain>
+		<Comm>JTAG</Comm>
+		<Device>
+			<SelectedProg value=\"TRUE\"/>
+			<Pos>1</Pos>
+			<Vendor>Lattice</Vendor>
+			<Family>MachXO2</Family>
+			<Name>LCMXO2-7000HE</Name>
+			<IDCode>0x012b5043</IDCode>
+			<Package>All</Package>
+			<PON>LCMXO2-7000HE</PON>
+			<Bypass>
+				<InstrLen>8</InstrLen>
+				<InstrVal>11111111</InstrVal>
+				<BScanLen>1</BScanLen>
+				<BScanVal>0</BScanVal>
+			</Bypass>"
+puts $outputFile $line1
+puts $outputFile $line2
+puts $outputFile $line3
+puts $outputFile "<Operation>FLASH Erase,Program,Verify</Operation>
+			<Option>
+				<SVFVendor>JTAG STANDARD</SVFVendor>
+				<IOState>HighZ</IOState>
+				<PreloadLength>664</PreloadLength>
+				<IOVectorData>0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IOVectorData>
+				<SVFProcessor>SVF Processor</SVFProcessor>
+				<Usercode>0x00000000</Usercode>
+				<AccessMode>FLASH</AccessMode>
+			</Option>
+		</Device>
+	</Chain>
+	<ProjectOptions>
+		<Program>SEQUENTIAL</Program>
+		<Process>ENTIRED CHAIN</Process>
+		<OperationOverride>No Override</OperationOverride>
+		<StartTAP>TLR</StartTAP>
+		<EndTAP>TLR</EndTAP>
+		<VerifyUsercode value=\"FALSE\"/>
+		<TCKDelay>1</TCKDelay>
+	</ProjectOptions>
+	<CableOptions>
+		<CableName>USB</CableName>
+		<PortAdd>EzUSB-0</PortAdd>
+		<PROGConnect value=\"TRUE\"/>
+		<INITConnect value=\"TRUE\"/>
+	</CableOptions>
+</ispXCF>"
+
+# Close
+close $outputFile
+
+
+# add xcf file to project
+
+#pgr_project close
+#prj_src add -exclude $xcf_path
+#prj_src enable $xcf_path
+#pgr_project open $xcf_path
+
+set synthesis_dir $impl_path
+append synthesis_dir "/synthesis"
+file mkdir $synthesis_dir
+
+set algo_file $synthesis_dir
+append algo_file "/" $impl_name "_algo.vme"
+
+set data_file $synthesis_dir
+append data_file "/" $impl_name "_data.vme"
+
+
+# DEPLOYMENT TOOL
+
+exec $deploy_path -oft -slimvme -if $xcf_path -hex -ofa $algo_file -ofd $data_file
+
+
+# ##############################################
+
+
+set TEST_FPGA_H $synthesis_dir
+append TEST_FPGA_H "/" "TEST_FPGA.h"
+# Open TEST_FPGA.h for writing
+set outputFile [open $TEST_FPGA_H w]
+
+# Write first part of TEST_FPGA.h file
+puts $outputFile "#include <stdint.h>\n\n\nconst uint8_t __fpga_alg\[\] = {"
+
+#************************ *_algo.c FILE ****************************
+# Open *_algo.c for reading
+# $file will contain the file pointer to proj_name_algo.c (file must exist)
+set algoFile $synthesis_dir
+append algoFile "/" $impl_name
+append algoFile "_algo.c"
+
+set inputfile [open $algoFile]
+
+# $input will contain the contents of the file
+set input [read $inputfile]
+
+# $lines will be an array containing each line of test.txt
+set lines [split $input "\n"]
+
+# Loop through each line
+foreach line $lines {
+	if {$flag == 0} {
+		set test [string first $open_bracket $line]
+		if {$test > 0} {
+			set flag 1
+		}
+		set test2 [string match "*AlgoSize*" $line]
+		if {$test2 > 0} {
+			set length [string length $line]
+			set begin [expr $length - 7]
+			set end [expr $length - 2]
+			set AlgoSize [string range $line $begin $end]
+		}
+	} else {
+		puts $outputFile $line
+	}
+}
+set flag 0
+
+# Close
+close $inputfile
+
+
+# Write second part of TEST_FPGA.h file
+puts $outputFile "\n const uint8_t __fpga_data\[\] = {"
+
+#************************ _data.c FILE ****************************
+# Open *_data.c for reading
+# $file will contain the file pointer to proj_name_data.c (file must exist)
+set dataFile $synthesis_dir
+append dataFile "/" $impl_name
+append dataFile "_data.c"
+
+set inputfile [open $dataFile]
+
+# $input will contain the contents of the file
+set input [read $inputfile]
+
+# $lines will be an array containing each line of test.txt
+set lines [split $input "\n"]
+
+# Loop through each line
+foreach line $lines {
+	if {$flag == 0} {
+		set test [string first $open_bracket $line]
+		if {$test > 0} {
+			set flag 1
+		}
+		set test2 [string match "*DataSize*" $line]
+		if {$test2 > 0} {
+			set length [string length $line]
+			set begin [expr $length - 7]
+			set end [expr $length - 2]
+			set DataSize [string range $line $begin $end]
+		}
+	} else {
+		puts $outputFile $line
+	}
+}
+set flag 0
+
+# Close
+close $inputfile
+
+# Close TEST_FPGA.h file
+close $outputFile
+
+#************************ GENERATE FPGA.c FILE ****************************
+set FPGA_C $synthesis_dir
+append FPGA_C "/" "FPGA.c"
+set fp [open $FPGA_C w]
+
+puts $fp "#include <stdint.h>
+#include \"stm32f4xx_hal.h\"
+#include \"stm32f4xx.h\"
+#include \"FPGA.h\"
+#include \"TEST_FPGA.h\"
+
+
+"
+
+set algoline "uint32_t g_iAlgoSize = "
+append algoline $AlgoSize
+append algoline ";"
+puts $fp $algoline
+
+set dataline "uint32_t g_iDataSize = "
+append dataline $DataSize
+append dataline ";"
+puts $fp $dataline
+
+puts $fp "
 
 // Lattice Cable Pins
 
@@ -273,7 +577,7 @@ const struct iState
 	uint8_t  NextState;		/*** Step to this state ***/
 	uint8_t  Pattern;			/*** The pattern of TMS ***/
 	uint8_t  Pulses;			/*** The number of steps ***/
-} iStates[25] =
+} iStates\[25\] =
 {
 	{ DRPAUSE,	SHIFTDR,	0x80, 2 },
 	{ IRPAUSE,	SHIFTIR,	0x80, 2 },
@@ -504,8 +808,7 @@ int16_t ispProcessVME()
 				g_usLCOUNTSize = (int16_t)ispVMDataSize();
 
 #ifdef VME_DEBUG
-				printf( "MaxLoopCount %d
-", g_usLCOUNTSize );
+				printf( \"MaxLoopCount %d\n\", g_usLCOUNTSize );
 #endif
 				/*************************************************************
 				*                                                            *
@@ -1087,7 +1390,7 @@ uint8_t GetByte(int32_t a_iCurrentIndex, char a_cAlgo)
 		{
 			return (unsigned char) 0xFF;
 		}
-		ucData = (unsigned char) __fpga_alg[a_iCurrentIndex];
+		ucData = (unsigned char) __fpga_alg\[a_iCurrentIndex\];
 	}
 	else
 	{
@@ -1101,7 +1404,7 @@ uint8_t GetByte(int32_t a_iCurrentIndex, char a_cAlgo)
 		{
 			return (unsigned char) 0xFF;
 		}
-		ucData = (unsigned char) __fpga_data[a_iCurrentIndex];
+		ucData = (unsigned char) __fpga_data\[a_iCurrentIndex\];
 	}
 
 	return ucData;
@@ -1385,15 +1688,15 @@ void ispVMStateMachine(char a_cNextState)
 
 	for (cStateIndex = 0;cStateIndex < 25; cStateIndex++)
 	{
-		if ((g_cCurrentJTAGState == iStates[cStateIndex].CurState) &&(a_cNextState == iStates[cStateIndex].NextState))
+		if ((g_cCurrentJTAGState == iStates\[cStateIndex\].CurState) &&(a_cNextState == iStates\[cStateIndex\].NextState))
 		{
 			break;
 		}
 	}
 	g_cCurrentJTAGState = a_cNextState;
-	for (cPathIndex = 0;cPathIndex < iStates[cStateIndex].Pulses; cPathIndex++)
+	for (cPathIndex = 0;cPathIndex < iStates\[cStateIndex\].Pulses; cPathIndex++)
 	{
-		if ((iStates[cStateIndex].Pattern << cPathIndex) & 0x80)
+		if ((iStates\[cStateIndex\].Pattern << cPathIndex) & 0x80)
 		{
 			writePort(pinTMS, (uint8_t) 0x01);
 		}
@@ -1540,7 +1843,7 @@ extern void DisableHardware (void);
 * Supported VME versions.
 *
 ***************************************************************/
-char *g_szSupportedVersions[] = { (char *) "_SVME1.1", (char *) "_SVME1.2", (char *) "_SVME1.3", 0 };
+char *g_szSupportedVersions\[\] = { (char *) \"_SVME1.1\", (char *) \"_SVME1.2\", (char *) \"_SVME1.3\", 0 };
 
 
 
@@ -1569,7 +1872,7 @@ char *g_szSupportedVersions[] = { (char *) "_SVME1.1", (char *) "_SVME1.2", (cha
 
 int32_t B5_FPGA_Programming()
 {
-	char szFileVersion[ 9 ] = { 0 };
+	char szFileVersion\[ 9 \] = { 0 };
 	int16_t siRetCode     = 0;
 	int16_t iIndex        = 0;
 	int16_t cVersionIndex = 0;
@@ -1596,7 +1899,7 @@ int32_t B5_FPGA_Programming()
 	***************************************************************/
 
 	for ( iIndex = 0; iIndex < 8; iIndex++ ) {
-		szFileVersion[ iIndex ] = GetByte( g_iMovingAlgoIndex++, 1 );
+		szFileVersion\[ iIndex \] = GetByte( g_iMovingAlgoIndex++, 1 );
 	}
 
 	/***************************************************************
@@ -1605,9 +1908,9 @@ int32_t B5_FPGA_Programming()
 	*
 	***************************************************************/
 
-	for ( cVersionIndex = 0; g_szSupportedVersions[ cVersionIndex ] != 0; cVersionIndex++ ) {
+	for ( cVersionIndex = 0; g_szSupportedVersions\[ cVersionIndex \] != 0; cVersionIndex++ ) {
 		for ( iIndex = 0; iIndex < 8; iIndex++ ) {
-			if ( szFileVersion[ iIndex ] != g_szSupportedVersions[ cVersionIndex ][ iIndex ] ) {
+			if ( szFileVersion\[ iIndex \] != g_szSupportedVersions\[ cVersionIndex \]\[ iIndex \] ) {
 				siRetCode = ERR_WRONG_VERSION;
 				break;
 			}
@@ -1847,4 +2150,28 @@ void B5_FPGA_FpgaCpuGPIO (uint8_t gpioNum, GPIO_PinState set)
 		default:
 			break;
 	}
-}
+}"
+
+close $fp
+
+#************************ GENERATE FPGA.h FILE ****************************
+set FPGA_H $synthesis_dir
+append FPGA_H "/" "FPGA.h"
+set fp [open $FPGA_H w]
+
+puts $fp "/*
+ * FPGA.h
+ *
+ */
+
+#ifndef APPLICATION_SRC_FPGA_H_
+#define APPLICATION_SRC_FPGA_H_
+
+int32_t     B5_FPGA_Programming (void);
+void        B5_FPGA_SetMux (uint8_t mux);
+void        B5_FPGA_FpgaCpuGPIO (uint8_t gpioNum, GPIO_PinState set);
+
+
+#endif /* APPLICATION_SRC_FPGA_H_ */"
+
+close $fp
