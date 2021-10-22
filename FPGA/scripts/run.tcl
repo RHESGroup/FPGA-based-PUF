@@ -53,7 +53,7 @@ append xcf_path "/" $impl_name ".xcf"
 # prj_run PAR -impl $impl_name -task IOTiming
 prj_run PAR -impl $impl_name
 
-exec fpgac scripts/place_metastable.tcl $impl_name 32
+exec fpgac scripts/place_metastable.tcl $impl_name 8
 
 #stop
 

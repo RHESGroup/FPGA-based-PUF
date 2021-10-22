@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity top_level is
-	generic ( n_inverters : integer := 32);
+	generic ( n_inverters : integer := 8);
 	port(	
 			cpu_fpga_bus_a		: in std_logic_vector(5 downto 0);
 			cpu_fpga_bus_d		: inout std_logic_vector(15 downto 0);
@@ -17,9 +17,10 @@ entity top_level is
 			
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
 			enable_to_metastable: out std_logic;
-			response_from_metastable: in std_logic_vector(15 downto 0);
-			reset_to_metastable: out std_logic
+			response_from_counter: in std_logic_vector(15 downto 0);
+			response_from_metastable: in std_logic_vector(n_inverters-1 downto 0)
 		);
+		
 end top_level;
 
 architecture BEHAVIORAL of top_level is
@@ -46,8 +47,8 @@ architecture BEHAVIORAL of top_level is
 				
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
 			enable_to_metastable: out std_logic;
-			response_from_metastable: in std_logic_vector(15 downto 0);
-			reset_to_metastable: out std_logic
+			response_from_counter: in std_logic_vector(15 downto 0);
+			response_from_metastable: in std_logic_vector(n_inverters-1 downto 0)
 	);
 	end component;
 begin
@@ -55,7 +56,7 @@ begin
 	PUF1: PUF 
 	generic map (n_inverters => n_inverters)
 	port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => challenge(2*n_inverters-1 downto 0), enable=> buff(1)(4), response => puf_response, finished => update_puf_response,
-				challenge_to_metastable => challenge_to_metastable, enable_to_metastable => enable_to_metastable, response_from_metastable => response_from_metastable, reset_to_metastable => reset_to_metastable);
+				challenge_to_metastable => challenge_to_metastable, enable_to_metastable => enable_to_metastable, response_from_counter => response_from_counter, response_from_metastable => response_from_metastable);
 
 	fpga_io_gp(7 downto 0) <= (others => '1');
 	challenge(63 downto 48) <= buff(2);

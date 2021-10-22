@@ -9,7 +9,8 @@ extern UART_HandleTypeDef huart1;
 uint8_t uart_rx_char;
 uint8_t uart_char_received = 1;
 uint16_t led_address = 0;
-uint16_t challenge = 0xA0;
+uint16_t challenge = 0xACE1u;
+
 
 uint16_t previous_count = 0;
 
@@ -103,30 +104,46 @@ void parseCommand(char command)
 		uint16_t run_puf_mask = 16;
 		uint16_t responseH, responseL, responseHH, responseLL;
 		uint16_t count;
+		uint16_t media = 0x0;
 		uint16_t zeros = 0x0;
-
+		uint16_t bit;
+		int i;
 
 		FPGA_write((uint8_t) 0x2, &zeros);
 		FPGA_write((uint8_t) 0x3, &zeros);
-		FPGA_write((uint8_t) 0x4, &zeros);
+		FPGA_write((uint8_t) 0x4, &challenge);
 		FPGA_write((uint8_t) 0x5, &challenge);
-		FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
-		while(run_puf_mask & 16)
+		for (i = 0; i < 10; i++)
 		{
-			FPGA_read((uint8_t) 0x1, &run_puf_mask);
-		}
+			run_puf_mask = 16;
+			FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
-		FPGA_read((uint8_t) 0x6, &responseHH);
-		FPGA_read((uint8_t) 0x7, &responseH);
-		FPGA_read((uint8_t) 0x8, &responseL);
-		FPGA_read((uint8_t) 0x9, &responseLL);
-		//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
+			while(run_puf_mask & 16)
+			{
+				FPGA_read((uint8_t) 0x1, &run_puf_mask);
+			}
+
+			FPGA_read((uint8_t) 0x6, &responseHH);
+			FPGA_read((uint8_t) 0x7, &responseH);
+			FPGA_read((uint8_t) 0x8, &responseL);
+			FPGA_read((uint8_t) 0x9, &responseLL);
+			if(responseLL != 0xAA && responseLL != 0x55)
+			{
+				printConsole("Error \r\n");
+				return;
+			}
+			media = media+responseL;
+			//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
+
+		}
+		media = media/10;
+
 		sprintf(string, "\r\n\r\nChallenge: %04X\r\n", challenge);
 		printConsole(string);
 
-		sprintf(string, "Final value: %01X\r\n", responseLL &0x1);
-		//printConsole(string);
+		sprintf(string, "Final value: %01X\r\n", responseLL);
+		printConsole(string);
 
 		/*responseLL = responseLL & 0xFFFE;
 		count = 0;
@@ -151,14 +168,23 @@ void parseCommand(char command)
 				responseHH >>= 1;
 		}
 */
-		count =  (responseLL) - previous_count;
-		sprintf(string, "Number of oscillations: %u\r\n", count>>2);
+
+
+		count =  media;// - previous_count;
+		sprintf(string, "Number of oscillations: %u\r\n", count);
 		printConsole(string);
+		printConsole("Number of oscillations: ");
+		for(int bit=0;bit<(sizeof(count) * 8); bit++)
+		{
+		  sprintf(string, "%i", count & 0x1);
+		  printConsole(string);
+		  count = count >> 1;
+		}
 
-		previous_count = responseLL;
+		printConsole("\r\n");
 
-		challenge = (challenge+1)%16+0xCC0;
-
+		bit = ((challenge >> 0) ^ (challenge >> 2) ^ (challenge >> 3) ^ (challenge >> 5)) /* & 1u */;
+		challenge = (challenge >> 1) | (bit << 15);
 	}
 
 }
