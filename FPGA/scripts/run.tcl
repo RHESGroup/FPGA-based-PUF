@@ -2175,3 +2175,8 @@ void        B5_FPGA_FpgaCpuGPIO (uint8_t gpioNum, GPIO_PinState set);
 #endif /* APPLICATION_SRC_FPGA_H_ */"
 
 close $fp
+
+set secube_dir "../BOOT"
+file copy -force "${synthesis_dir}/FPGA.h" "${secube_dir}/inc"
+file copy -force "${synthesis_dir}/TEST_FPGA.h" "${secube_dir}/inc"
+file copy -force "${synthesis_dir}/FPGA.c" "${secube_dir}/src"
