@@ -107,14 +107,16 @@ void parseCommand(char command)
 		uint16_t media = 0x0;
 		uint16_t zeros = 0x0;
 		uint16_t bit;
+		uint8_t run_count;
 		int i;
 
 		FPGA_write((uint8_t) 0x2, &zeros);
 		FPGA_write((uint8_t) 0x3, &zeros);
-		FPGA_write((uint8_t) 0x4, &challenge);
+		FPGA_write((uint8_t) 0x4, &zeros);
 		FPGA_write((uint8_t) 0x5, &challenge);
 
-		for (i = 0; i < 10; i++)
+		run_count = 0;
+		for (i = 0; i < 100; i++)
 		{
 			run_puf_mask = 16;
 			FPGA_write((uint8_t) 0x1, &run_puf_mask);
@@ -128,18 +130,18 @@ void parseCommand(char command)
 			FPGA_read((uint8_t) 0x7, &responseH);
 			FPGA_read((uint8_t) 0x8, &responseL);
 			FPGA_read((uint8_t) 0x9, &responseLL);
-			if(responseLL != 0xAA && responseLL != 0x55)
+			if(responseLL == 0xAAAA || responseLL == 0x5555)
 			{
-				printConsole("Error \r\n");
-				return;
+				media = media+responseL;
+				run_count++;
 			}
-			media = media+responseL;
+
 			//FPGA_read((uint8_t) 0x3, (uint16_t*) (&response+2));
 
 		}
-		media = media/10;
+		media = media/run_count;
 
-		sprintf(string, "\r\n\r\nChallenge: %04X\r\n", challenge);
+		sprintf(string, "\r\n\r\nChallenge: %04X.   Valid measures: %d\r\n", challenge, run_count);
 		printConsole(string);
 
 		sprintf(string, "Final value: %01X\r\n", responseLL);
@@ -183,8 +185,9 @@ void parseCommand(char command)
 
 		printConsole("\r\n");
 
-		bit = ((challenge >> 0) ^ (challenge >> 2) ^ (challenge >> 3) ^ (challenge >> 5)) /* & 1u */;
-		challenge = (challenge >> 1) | (bit << 15);
+		//bit = ((challenge >> 0) ^ (challenge >> 2) ^ (challenge >> 3) ^ (challenge >> 5)) /* & 1u */;
+		//challenge = (challenge >> 1) | (bit << 15);
+		challenge = challenge+0x10;
 	}
 
 }
