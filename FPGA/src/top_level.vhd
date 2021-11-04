@@ -15,10 +15,10 @@ entity top_level is
 			cpu_fpga_rst		: in std_logic;
 			fpga_io_gp			: out std_logic_vector(7 downto 0);
 			
-			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
-			enable_to_metastable: out std_logic;
-			response_from_counter: in std_logic_vector(15 downto 0);
-			response_from_metastable: in std_logic_vector(n_inverters-1 downto 0)
+			--challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
+			enable_to_metastable: out std_logic
+			--response_from_counter: in std_logic_vector(15 downto 0);
+			--response_from_metastable: in std_logic_vector(n_inverters-1 downto 0)
 		);
 		
 end top_level;
@@ -36,6 +36,8 @@ architecture BEHAVIORAL of top_level is
 	signal puf_response: std_logic_vector(63 downto 0);
 	signal update_puf_response: std_logic;
 	signal challenge: std_logic_vector(63 downto 0);
+	
+	signal dummy_connection: std_logic_vector(31 downto 0);
 	
 	component PUF is
 		generic ( n_inverters : integer := 2);
@@ -56,7 +58,7 @@ begin
 	PUF1: PUF 
 	generic map (n_inverters => n_inverters)
 	port map (clk => cpu_fpga_clk, rst => cpu_fpga_rst, challenge => challenge(2*n_inverters-1 downto 0), enable=> buff(1)(4), response => puf_response, finished => update_puf_response,
-				challenge_to_metastable => challenge_to_metastable, enable_to_metastable => enable_to_metastable, response_from_counter => response_from_counter, response_from_metastable => response_from_metastable);
+				challenge_to_metastable => dummy_connection, enable_to_metastable => enable_to_metastable, response_from_counter => dummy_connection(31 downto 16), response_from_metastable => dummy_connection(15 downto 0));
 
 	fpga_io_gp(7 downto 0) <= (others => '1');
 	challenge(63 downto 48) <= buff(2);

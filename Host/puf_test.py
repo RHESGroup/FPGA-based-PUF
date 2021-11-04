@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 cursor = ['-', '\\', '|', '/']
 ser = serial.Serial('COM3')  # open serial port
 ser.rtscts = True
-ser.baudrate = 115200
+ser.baudrate = 57600
 ser.write(b'helo000000000000000')
 line = ser.read(16)
 print(line.decode("utf-8"))
-challenge = [48, 48, 48, 48, 255, 1, 20, 3]
+challenge = [48, 48, 48, 48, 1, 0xAA, 0, 1]
 n_osc = []
 valid_res=0
 #ser.timeout = 2.0
@@ -22,8 +22,10 @@ for i in range(0, 1000):
         n_osc.append(int.from_bytes(puf_resp[0:6], 'little'))
     print("  ["+cursor[(i//10)%4] + "]", end='\r')
 
-plt.hist(n_osc, numpy.linspace(min(n_osc),1000,50))
-print("Number of oscillations: " + str(numpy.average(n_osc)))
+sigma = numpy.std(n_osc)
+avg = numpy.average(n_osc)
+plt.hist(n_osc, numpy.linspace(max(0, avg - 3 *sigma),avg + 3 *sigma,20))
+print("Number of oscillations: " + str(avg))
 print("Valid results: " + str(valid_res))
 plt.show()
 

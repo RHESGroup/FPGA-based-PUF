@@ -33,7 +33,7 @@ set inv_comps [list]
 #Inverters
 set row $start_row
 set colum $start_colum
-set slice 3
+set slice 0
 set i 0
 while {$i < $n_inverters/2} {
 	set sliceLetter [lindex $slices $slice]
@@ -43,12 +43,12 @@ while {$i < $n_inverters/2} {
 	eco_add comp -name $compName -site $siteName
 	eco_config comp -comp $compName $inverters_conf_string
 	
-	if {$slice == 0} {
-		set slice 3;
+	#if {$slice == 0} {
+	#	set slice 3;
 		incr colum
-	} else {
-		set slice [expr $slice -1]
-	}
+	#} else {
+	#	set slice [expr $slice -1]
+	#}
 	
 	
 	incr i
@@ -145,7 +145,7 @@ while {$i < 16} {
 	eco_add netpin -net "enable_to_metastable_c" -netpin "$siteName.LSR"
 	if {$i == 0} {
 	
-		eco_add netpin -net "inv_connections_3" -netpin "$siteName.CLK"
+		eco_add netpin -net "inv_connections_[expr $n_inverters-1]" -netpin "$siteName.CLK"
 
 	} else {
 		eco_add netpin -net "feedback_ff_counter_c_[expr $i-1]" -netpin "$siteName.CLK"
