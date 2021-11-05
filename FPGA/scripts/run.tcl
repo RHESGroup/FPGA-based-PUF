@@ -51,9 +51,44 @@ append xcf_path "/" $impl_name ".xcf"
 # prj_run Map -impl $impl_name -task MapTrace
 # prj_run PAR -impl $impl_name -task PARTrace
 # prj_run PAR -impl $impl_name -task IOTiming
-prj_run PAR -impl $impl_name
+prj_run Map -impl $impl_name
 
-exec fpgac scripts/place_metastable.tcl $impl_name 16
+exec fpgac scripts/place_metastable.tcl $impl_name 32
+
+prj_project close
+
+set buildStatusFILE [open "${impl_path}/.build_status"]
+set buildStatusXML [read $buildStatusFILE]
+close $buildStatusFILE
+
+set buildStatusFILE [open "${impl_path}/.build_status" w]
+set lines [split $buildStatusXML "\n"]
+set i 0
+foreach line $lines {
+   set found [string match "*Milestone name=\"PAR\"*" $line]
+	if {$found > 0} {
+		set begin [string first build_result $line]
+		set begin [expr $begin + 14]
+		set line [string replace $line $begin $begin "2"]
+	}
+
+	set found [string match "*Task name=\"PAR\"*" $line]
+	if {$found > 0} {
+		set begin [string first build_result $line]
+		set begin [expr $begin + 14]
+		set line [string replace $line $begin $begin "2"]
+
+		set begin [string first update_result $line]
+		set begin [expr $begin + 15]
+		set line [string replace $line $begin $begin "0"]
+	}
+	puts $buildStatusFILE $line
+	set i [expr $i+1]
+}
+close $buildStatusFILE
+
+
+prj_project open "${proj_path}/PUF.ldf"
 
 #stop
 

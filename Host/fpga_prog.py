@@ -2,7 +2,7 @@ import serial
 
 ser = serial.Serial('COM3')  # open serial port
 ser.rtscts = True
-ser.baudrate = 57600
+ser.baudrate = 115200
 
 ser.write(b'fpga000000000000')
 line = ser.read(16)

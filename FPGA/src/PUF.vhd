@@ -42,9 +42,9 @@ architecture mixed of PUF is
 begin
 
 	response(n_inverters-1 downto 0) <= response_from_metastable;
-	response(15 downto n_inverters) <= (others => '0');
-	response(31 downto 16) <= response_from_counter;
-	response(63 downto 32) <= (others => '0'); 
+	response(31 downto n_inverters) <= (others => '0');
+	response(47 downto 32) <= response_from_counter;
+	response(63 downto 48) <= (others => '0'); 
 	
 	challenge_to_metastable <= challenge_reg;
 	
