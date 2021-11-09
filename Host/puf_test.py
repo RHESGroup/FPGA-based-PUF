@@ -9,7 +9,7 @@ ser.baudrate = 115200
 ser.write(b'helo000000000000000')
 line = ser.read(16)
 print(line.decode("utf-8"))
-challenge = [0, 0xFF, 0xFF, 0, 0x44, 0, 0xFF, 1]
+challenge = [0, 0, 0, 0, 0xFF, 3, 0xff, 1]
 n_osc = []
 valid_res=0
 ser.timeout = 2.0
@@ -17,7 +17,7 @@ for i in range(0, 1000):
     ser.write(b'puff' + bytearray(challenge) + bytearray(4))
     puf_resp = ser.read(16)
     final_value = int.from_bytes(puf_resp[0:4], 'little')
-    if (final_value == 0xAAAAAAAA or final_value == 0x55555555):
+    if (final_value == 0xAAAA or final_value == 0x5555):
         valid_res = valid_res+1       
         n_osc.append(int.from_bytes(puf_resp[4:6], 'little'))
     print("  ["+cursor[(i//10)%4] + "]", end='\r')

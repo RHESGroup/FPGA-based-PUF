@@ -6,7 +6,7 @@ eco_design open -ncd "D:/Damiano/Documenti/Esami/Tesi/PUF/FPGA/${impl_name}/PUF_
 set slices {A B C D}
 
 set start_row 2
-set start_colum 2
+set start_colum 3
 
 
 set inverters_conf_string "MODE:LOGIC K1::H1=(~A*~D*C*B)+(~A*~D*~C*B)+(~A*~D*C*~B)+(~A*~D*~C*~B) K0::H0=(~A*~D*C*B)+(~A*~D*~C*B)+(~A*~D*C*~B)+(~A*~D*~C*~B) REG1:::REGSET=RESET,CLKDELAY=DEL0:SD=1 REG0:::REGSET=RESET,CLKDELAY=DEL0:SD=1 Q1:Q Q0:Q F1:F F0:F GSR:ENABLED CLKMUX:CLK:::0=0,CLK=#SIG CEMUX:1:::1=1,CE=#SIG LSRMUX:LSR:::0=0,LSR=#SIG OFX1:#OFF SRMODE:ASYNC OFX0:#OFF LSRONMUX:#OFF M1MUX:#OFF M0MUX:#OFF REGMODE:FF ALU2_MULT:#OFF FCO:#OFF CCU2:#OFF WDO0:#OFF WDO1:#OFF WADO0:#OFF WADO1:#OFF WADO2:#OFF WADO3:#OFF WDO2:#OFF WDO3:#OFF WD0MUX:#OFF WD1MUX:#OFF WD2MUX:#OFF WD3MUX:#OFF WAD0MUX:#OFF WAD1MUX:#OFF WAD2MUX:#OFF WAD3MUX:#OFF DPRAM:#OFF WCKMUX:#OFF WREMUX:#OFF"
@@ -120,14 +120,14 @@ while {$i < $n_inverters} {
 		
 		eco_add netpin -net "challenge_to_metastable_c_[expr 2*$i]" -netpin "$siteName.C1"
 		eco_add netpin -net "challenge_to_metastable_c_[expr 2*$i+1]" -netpin "$siteName.B1"
-		eco_add netpin -net "PUF1/enable_to_metastable_c" -netpin "$siteName.D1"
+		eco_add netpin -net "enable_to_metastable_c" -netpin "$siteName.D1"
 		eco_add netpin -net "response_from_metastable_c_${i}" -netpin "${siteName}.Q1"
 	} else {
 		set siteName [lindex $inv_comps [expr $n_inverters - 1 -$i]]
 		
 		eco_add netpin -net "challenge_to_metastable_c_[expr 2*$i]" -netpin "$siteName.C0"
 		eco_add netpin -net "challenge_to_metastable_c_[expr 2*$i+1]" -netpin "$siteName.B0"
-		eco_add netpin -net "PUF1/enable_to_metastable_c" -netpin "$siteName.D0"
+		eco_add netpin -net "enable_to_metastable_c" -netpin "$siteName.D0"
 		eco_add netpin -net "response_from_metastable_c_${i}" -netpin "${siteName}.Q0"
 	}
 	
@@ -142,7 +142,7 @@ while {$i < 16} {
 	set siteName [lindex $counter_comps $i]
 	
 	#eco_add netpin -net "inv_connections_${i}" -netpin "$siteName.DI1"
-	eco_add netpin -net "PUF1/enable_to_metastable_c" -netpin "$siteName.LSR"
+	eco_add netpin -net "enable_to_metastable_c" -netpin "$siteName.LSR"
 	if {$i == 0} {
 	
 		eco_add netpin -net "inv_connections_[expr $n_inverters-1]" -netpin "$siteName.CLK"

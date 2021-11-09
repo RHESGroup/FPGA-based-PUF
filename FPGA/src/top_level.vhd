@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity top_level is
-	generic ( n_inverters : integer := 32);
+	generic ( n_inverters : integer := 16);
 	port(	
 			cpu_fpga_bus_a		: in std_logic_vector(5 downto 0);
 			cpu_fpga_bus_d		: inout std_logic_vector(15 downto 0);

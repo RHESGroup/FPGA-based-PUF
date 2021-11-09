@@ -7,7 +7,7 @@
 
 
 uint32_t g_iAlgoSize = 129857;
-uint32_t g_iDataSize = 239525;
+uint32_t g_iDataSize = 239515;
 
 
 // Lattice Cable Pins
