@@ -6,10 +6,10 @@ cursor = ['-', '\\', '|', '/']
 ser = serial.Serial('COM3')  # open serial port
 ser.rtscts = True
 ser.baudrate = 115200
-ser.write(b'helo000000000000000')
+ser.write(b'helo000000000000')
 line = ser.read(16)
 print(line.decode("utf-8"))
-challenge = [0, 0, 0, 0, 0xFF, 3, 0xff, 1]
+challenge = [0, 0, 0, 0, 0xa, 0xaa, 0xff, 1]
 n_osc = []
 valid_res=0
 ser.timeout = 2.0

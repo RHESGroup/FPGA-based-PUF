@@ -22,12 +22,14 @@ void sendPacketSerial(uint8_t *data);
 
 void ConsoleTask(void)
 {
-	if (uart_char_received == 1)
+	/*if (uart_char_received == 1)
 	{
 		uart_char_received = 0;
 		parseCommand(command);
 		HAL_UART_Receive_DMA(&huart1, command, PACKET_SIZE);
-	}
+	}*/
+	if (HAL_UART_Receive(&huart1, command, PACKET_SIZE, 1000) == HAL_OK)
+		parseCommand(command);
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -110,5 +112,5 @@ void printConsole(char* string)
 
 void sendPacketSerial(uint8_t *data)
 {
-	HAL_UART_Transmit(&huart1, data, PACKET_SIZE, 1000);
+	HAL_UART_Transmit(&huart1, data, PACKET_SIZE, 10000);
 }
