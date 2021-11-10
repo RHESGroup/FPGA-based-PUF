@@ -53,7 +53,7 @@ append xcf_path "/" $impl_name ".xcf"
 # prj_run PAR -impl $impl_name -task IOTiming
 prj_run Map -impl $impl_name
 
-exec fpgac scripts/place_metastable.tcl $impl_name 16
+exec fpgac scripts/place_metastable.tcl $impl_name 32
 
 prj_project close
 
@@ -65,11 +65,26 @@ set buildStatusFILE [open "${impl_path}/.build_status" w]
 set lines [split $buildStatusXML "\n"]
 set i 0
 foreach line $lines {
+	set found [string match "*Milestone name=\"Map\"*" $line]
+	if {$found > 0} {
+		set begin [string first build_time $line]
+		set begin [expr $begin + 12]
+		set end [string length $line]
+      	set end [expr $end - 3]
+		set build_time [string range $line $begin $end]
+		set build_time [expr $build_time+2]
+	}
+	
    set found [string match "*Milestone name=\"PAR\"*" $line]
 	if {$found > 0} {
 		set begin [string first build_result $line]
 		set begin [expr $begin + 14]
 		set line [string replace $line $begin $begin "2"]
+		
+		set begin [string first build_time $line]
+		set begin [expr $begin + 12]
+		set end [string length $line]
+		set line [string replace $line $begin $end "${build_time}\">"]
 	}
 
 	set found [string match "*Task name=\"PAR\"*" $line]
@@ -81,6 +96,11 @@ foreach line $lines {
 		set begin [string first update_result $line]
 		set begin [expr $begin + 15]
 		set line [string replace $line $begin $begin "0"]
+
+		set begin [string first update_time $line]
+		set begin [expr $begin + 13]
+		set end [string length $line]
+		set line [string replace $line $begin $end "${build_time}\"/>"]
 	}
 	puts $buildStatusFILE $line
 	set i [expr $i+1]
@@ -88,9 +108,10 @@ foreach line $lines {
 close $buildStatusFILE
 
 
+
 prj_project open "${proj_path}/PUF.ldf"
 
-#stop
+
 
 prj_run Export -impl $impl_name -task Bitgen
 prj_run Export -impl $impl_name -task Jedecgen

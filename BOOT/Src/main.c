@@ -114,27 +114,6 @@ int main(void)
   uint32_t ret = 0;
 
 
-	/*for (;;)
-	{
-		dataPtr = 8;
-		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
-				&dataPtr, 1);
-		HAL_Delay(1000);
-		dataPtr = 2;
-		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
-				&dataPtr, 1);
-		HAL_Delay(1000);
-		dataPtr = 5;
-		HAL_SRAM_Write_16b(&SRAM_WRITE, (uint32_t*) FPGA_IPM_SRAM_BASE_ADDR,
-				&dataPtr, 1);
-		HAL_Delay(10000);
-	}*/
-
-
-  fres = f_mount (&fs, "", 0);
-  fres = f_open(&fp, "popopo.txt", FA_OPEN_ALWAYS | FA_WRITE);
-  fres = f_printf(&fp, "ejapopo2");
-  fres = f_close(&fp);
 
   /* USER CODE END 2 */
 
