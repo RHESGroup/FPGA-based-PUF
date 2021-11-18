@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('COM3')  # open serial port
+ser = serial.Serial('/dev/ttyUSB0')  # open serial port
 ser.rtscts = True
 ser.baudrate = 115200
 
