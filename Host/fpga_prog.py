@@ -1,6 +1,7 @@
 import serial
+import sys
 
-ser = serial.Serial('/dev/ttyUSB0')  # open serial port
+ser = serial.Serial(sys.argv[1])  # open serial port
 ser.rtscts = True
 ser.baudrate = 115200
 

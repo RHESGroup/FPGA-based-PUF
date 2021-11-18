@@ -1,6 +1,7 @@
 import serial
 import numpy
 import matplotlib.pyplot as plt
+import sys
 
 
 def run_puf(port, challenge, n=1000):
@@ -28,9 +29,9 @@ def run_puf(port, challenge, n=1000):
 
 challenge = [0, 0xaa, 0, 0, 0, 1, 0, 0]
 challenge2 = [0, 0xaa, 0xff, 0xff, 0xff, 1, 0, 0]
-n_osc, valid_res = run_puf('/dev/ttyUSB2', challenge, 10000)
+n_osc, valid_res = run_puf(sys.argv[1], challenge, 10000)
 n_osc = n_osc/valid_res
-n_osc2, valid_res2 = run_puf('/dev/ttyUSB2', challenge2, 10000)
+n_osc2, valid_res2 = run_puf(sys.argv[1], challenge2, 10000)
 n_osc2 = n_osc2/valid_res2
 #valid_res = len(n_osc)
 #sigma = numpy.std(n_osc)
