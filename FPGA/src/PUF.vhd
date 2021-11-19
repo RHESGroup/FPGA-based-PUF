@@ -71,7 +71,7 @@ begin
 					next_challenge_reg <= challenge;
 					if (wait_run = to_unsigned(0,32)) then
 						next_state <= run_S;
-						next_wait_run <= to_unsigned(20000,32);
+						next_wait_run <= to_unsigned(2000,32);
 					else
 						next_state <= PRELOAD_S;
 						next_wait_run <= wait_run - to_unsigned(1,32);

@@ -1,7 +1,9 @@
 set impl_name [lindex $argv 0]
 set n_inverters [lindex $argv 1]
 
-eco_design open -ncd "D:/Damiano/Documenti/Esami/Tesi/PUF/FPGA/${impl_name}/PUF_${impl_name}_map.ncd" -prf "D:/Damiano/Documenti/Esami/Tesi/PUF/FPGA/${impl_name}/PUF_${impl_name}.prf"
+set proj_path [pwd]
+
+eco_design open -ncd "${proj_path}/${impl_name}/PUF_${impl_name}_map.ncd" -prf "${proj_path}/${impl_name}/PUF_${impl_name}.prf"
 
 set slices {A B C D}
 

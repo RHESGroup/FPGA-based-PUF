@@ -43,7 +43,7 @@ def run_puf(port, challenge, mysql_cnx, n=1000):
             data_results = (run_id, i, int(n_osc[i]))
             cursor.execute(add_results, data_results)
     
-    mysql_cnx.commit()
+    #mysql_cnx.commit()
     cursor.close();
     
     return n_osc, valid_res 
@@ -61,13 +61,8 @@ n_osc2, valid_res2 = run_puf(sys.argv[1], challenge2, cnx, 1000)
 n_osc2 = n_osc2/valid_res2
 
 cnx.close()
-#valid_res = len(n_osc)
-#sigma = numpy.std(n_osc)
-#avg = numpy.average(n_osc)
-#plt.hist(n_osc, numpy.linspace(max(0, avg - 3 *sigma),avg + 3 *sigma,50))
+
 dist = numpy.linalg.norm(n_osc-n_osc2)
-#print("Number of oscillations: " + str(avg))
-#print("Valid results: " + str(valid_res))
 print("Valid results1: " + str(valid_res))
 print("Valid results2: " + str(valid_res2))
 print("Distance: " + str(dist))
