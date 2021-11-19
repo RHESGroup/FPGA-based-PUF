@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `PUF_runs`;
 CREATE TABLE `PUF_runs` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `secube` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `challenge` binary(64) DEFAULT NULL,
+  `challenge` binary(8) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `valid_responses` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
