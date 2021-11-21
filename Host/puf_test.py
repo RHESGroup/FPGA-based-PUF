@@ -4,18 +4,19 @@ import numpy
 import sys
 import mysql.connector
 import random
-
+import threading, queue
 import matplotlib.pyplot as plt
 
-def run_puf(port, challenge, mysql_cnx, n=1000):
-    cursor = ['-', '\\', '|', '/']
-    max_osc = 10000
+max_osc = 10000
+
+def run_puf(port, challenge, n=1000):
+    global max_osc
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
     ser.baudrate = 921600    
     n_osc = numpy.zeros(max_osc, dtype=int)
     valid_res=0
-    ser.timeout = 2.0
+    ser.timeout = 0.1
     for i in range(0, n):
         ser.write(b'puff' + challenge + bytearray(4))
         puf_resp = ser.read(16)
@@ -26,28 +27,7 @@ def run_puf(port, challenge, mysql_cnx, n=1000):
             n_osc[result] += 1
     ser.close()
     
-    cursor = mysql_cnx.cursor()
     
-    add_run = ("INSERT INTO PUF_runs "
-               "(secube, challenge, valid_responses) "
-               "VALUES (%s, %s, %s)")
-               
-    data_run = (port, challenge, valid_res)
-    cursor.execute(add_run, data_run)
-    
-    run_id = cursor.lastrowid
-    
-    for i in range(0, max_osc):
-        if (n_osc[i] > 0):
-            add_results = ("INSERT INTO PUF_results "
-               "(runID, response, n_occurrences) "
-               "VALUES (%s, %s, %s)")
-               
-            data_results = (run_id, i, int(n_osc[i]))
-            cursor.execute(add_results, data_results)
-    
-    mysql_cnx.commit()
-    cursor.close();
     
     return n_osc, valid_res 
     
@@ -55,16 +35,54 @@ def run_puf(port, challenge, mysql_cnx, n=1000):
 cnx = mysql.connector.connect(user='user', password='cc5XunxY',
                               host='127.0.0.1',
                               database='PUF_CRPs')
-                              
 
-random.seed(0)                              
+q = queue.Queue()
+
+def mysql_worker():
+    global max_osc
+    global cnx
+    while True:
+        (port, challenge, valid_res, n_osc) = q.get()
+        cursor = cnx.cursor()
+    
+        add_run = ("INSERT INTO PUF_runs "
+                   "(secube, challenge, valid_responses) "
+                   "VALUES (%s, %s, %s)")
+                   
+        data_run = (port, challenge, valid_res)
+        cursor.execute(add_run, data_run)
+        
+        run_id = cursor.lastrowid
+        
+        for i in range(0, max_osc):
+            if (n_osc[i] > 0):
+                add_results = ("INSERT INTO PUF_results "
+                   "(runID, response, n_occurrences) "
+                   "VALUES (%s, %s, %s)")
+                   
+                data_results = (run_id, i, int(n_osc[i]))
+                cursor.execute(add_results, data_results)
+        
+        cnx.commit()
+        cursor.close();
+        q.task_done()
+
+threading.Thread(target=mysql_worker, daemon=True).start()
+
+port = sys.argv[1]
+
 for i in range(0,10):
-    challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
-    run_puf(sys.argv[1], challenge, cnx, 10000)
-    #n_osc, valid_res = run_puf(sys.argv[1], challenge, cnx, 10000)
-    #n_osc = n_osc/valid_res
-    #print("Valid results1: " + str(valid_res))
-    #plt.plot(range(0,10000), n_osc)
+    random.seed(0)                              
+    for i in range(0,1000):
+        challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
+        (n_osc, valid_res) = run_puf(port, challenge, 10000)
+        q.put((port, challenge, valid_res, n_osc))
+        #n_osc, valid_res = run_puf(sys.argv[1], challenge, cnx, 10000)
+        #n_osc = n_osc/valid_res
+        #print("Valid results1: " + str(valid_res))
+        #plt.plot(range(0,10000), n_osc)
+
+q.join()
 
 cnx.close()
 
