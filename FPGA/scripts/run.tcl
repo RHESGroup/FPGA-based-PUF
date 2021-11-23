@@ -53,9 +53,15 @@ append xcf_path "/" $impl_name ".xcf"
 # prj_run PAR -impl $impl_name -task IOTiming
 prj_run Map -impl $impl_name
 
+prj_project close
+
 exec fpgac scripts/place_metastable.tcl $impl_name 32
 
-prj_project close
+
+
+#Force PAR to completed status
+
+
 
 set buildStatusFILE [open "${impl_path}/.build_status"]
 set buildStatusXML [read $buildStatusFILE]
@@ -110,7 +116,6 @@ close $buildStatusFILE
 
 
 prj_project open "${proj_path}/PUF.ldf"
-
 
 
 prj_run Export -impl $impl_name -task Bitgen
