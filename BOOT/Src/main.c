@@ -111,9 +111,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   FPGA_init();
 
-  uint32_t ret = 0;
-
-
+  //Reset FPGA
+  HAL_GPIO_WritePin(GPIOG, GPIO0_RST_OUT_Pin|FPGA_RST_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOG, GPIO0_RST_OUT_Pin|FPGA_RST_Pin, GPIO_PIN_RESET);
 
   /* USER CODE END 2 */
 
