@@ -180,5 +180,5 @@ for {set i 0} {$i < $n_inverters} {incr i} {
 
 eco_route auto -all
 
-eco_design save -ncd "D:/Damiano/Documenti/Esami/Tesi/PUF/FPGA/${impl_name}/PUF_${impl_name}.ncd"
+eco_design save -ncd "${proj_path}/${impl_name}/PUF_${impl_name}.ncd"
 eco_design close

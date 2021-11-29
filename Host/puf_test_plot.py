@@ -7,13 +7,14 @@ import random
 import threading, queue
 import matplotlib.pyplot as plt
 
-max_osc = 10000
+max_osc = 1000
 
 def run_puf(port, challenge, n=1000):
     global max_osc
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
-    ser.baudrate = 921600    
+    ser.baudrate = 921600
+    final_result_count = numpy.zeros(2, dtype=int)   
     n_osc = numpy.zeros(max_osc, dtype=int)
     valid_res=0
     ser.timeout = 0.1
@@ -23,51 +24,16 @@ def run_puf(port, challenge, n=1000):
         final_value = int.from_bytes(puf_resp[0:4], 'little')
         result = int.from_bytes(puf_resp[4:6], 'little')
         if ((final_value == 0xAAAAAAAA or final_value == 0x55555555) and result < max_osc):
+            final_result_count[final_value&0x1] += 1
             valid_res+=1;    
             n_osc[result] += 1
     ser.close()
     
     
     
-    return n_osc, valid_res 
+    return n_osc, valid_res, final_result_count
     
 
-#cnx = mysql.connector.connect(user='user', password='cc5XunxY',
- #                             host='127.0.0.1',
-#                              database='PUF_CRPs')
-
-#q = queue.Queue()
-
-def mysql_worker():
-    global max_osc
-    global cnx
-    while True:
-        (port, challenge, valid_res, n_osc) = q.get()
-        cursor = cnx.cursor()
-    
-        add_run = ("INSERT INTO PUF_runs "
-                   "(secube, challenge, valid_responses) "
-                   "VALUES (%s, %s, %s)")
-                   
-        data_run = (port, challenge, valid_res)
-        cursor.execute(add_run, data_run)
-        
-        run_id = cursor.lastrowid
-        
-        for i in range(0, max_osc):
-            if (n_osc[i] > 0):
-                add_results = ("INSERT INTO PUF_results "
-                   "(runID, response, n_occurrences) "
-                   "VALUES (%s, %s, %s)")
-                   
-                data_results = (run_id, i, int(n_osc[i]))
-                cursor.execute(add_results, data_results)
-        
-        cnx.commit()
-        cursor.close()
-        q.task_done()
-
-#threading.Thread(target=mysql_worker, daemon=True).start()
 
 port = sys.argv[1]
 
@@ -75,15 +41,13 @@ port = sys.argv[1]
 random.seed(0)                              
 for i in range(0,4):
     challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
-    (n_osc, valid_res) = run_puf(port, challenge, 10000)
+    (n_osc, valid_res, final_value_count) = run_puf(port, challenge, 10000)
     #q.put((port, challenge, valid_res, n_osc))
     #n_osc = n_osc/valid_res
     print("Valid results1: " + str(valid_res))
+    print("Final values A: " + str(final_value_count[0]) + "    5: " + str(final_value_count[1]))
     plt.plot(range(0,max_osc), n_osc)
 
-#q.join()
-
-#cnx.close()
 
 plt.show()
 

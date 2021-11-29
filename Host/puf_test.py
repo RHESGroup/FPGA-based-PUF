@@ -64,16 +64,16 @@ def mysql_worker():
                 cursor.execute(add_results, data_results)
         
         cnx.commit()
-        cursor.close();
+        cursor.close()
         q.task_done()
 
 threading.Thread(target=mysql_worker, daemon=True).start()
 
 port = sys.argv[1]
 
-for i in range(0,10):
+for i in range(0,100):
     random.seed(0)                              
-    for i in range(0,1000):
+    for i in range(0,200):
         challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
         (n_osc, valid_res) = run_puf(port, challenge, 10000)
         q.put((port, challenge, valid_res, n_osc))
