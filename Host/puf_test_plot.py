@@ -11,23 +11,27 @@ max_osc = 1000
 
 def run_puf(port, challenge, n=1000):
     global max_osc
+    n_osc = numpy.zeros(max_osc, dtype=int)
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
-    ser.baudrate = 921600
-    final_result_count = numpy.zeros(2, dtype=int)   
-    n_osc = numpy.zeros(max_osc, dtype=int)
+    ser.baudrate = 921600    
     valid_res=0
-    ser.timeout = 0.1
+    ser.timeout = 1
+    ser.write_timeout = 1
+    ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
+    ser.write(b'puff')
     for i in range(0, n):
-        ser.write(b'puff' + challenge + bytearray(4))
-        puf_resp = ser.read(16)
+        puf_resp = ser.read(8)
+        if(len(puf_resp) < 8):
+            raise Exception('Timeout expired while reading from serial')
         final_value = int.from_bytes(puf_resp[0:4], 'little')
         result = int.from_bytes(puf_resp[4:6], 'little')
         if ((final_value == 0xAAAAAAAA or final_value == 0x55555555) and result < max_osc):
-            final_result_count[final_value&0x1] += 1
             valid_res+=1;    
             n_osc[result] += 1
     ser.close()
+    
+    return n_osc, valid_res 
     
     
     
@@ -41,11 +45,10 @@ port = sys.argv[1]
 random.seed(0)                              
 for i in range(0,4):
     challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
-    (n_osc, valid_res, final_value_count) = run_puf(port, challenge, 10000)
+    (n_osc, valid_res) = run_puf(port, challenge, 10000)
     #q.put((port, challenge, valid_res, n_osc))
     #n_osc = n_osc/valid_res
-    print("Valid results1: " + str(valid_res))
-    print("Final values A: " + str(final_value_count[0]) + "    5: " + str(final_value_count[1]))
+    print("Valid results: " + str(valid_res))
     plt.plot(range(0,max_osc), n_osc)
 
 
