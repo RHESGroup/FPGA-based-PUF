@@ -7,27 +7,34 @@ import random
 import threading, queue
 import matplotlib.pyplot as plt
 
+import logging
+import sys
+logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', stream=sys.stdout, level=logging.DEBUG)
+logger = logging.getLogger()
+
 max_osc = 10000
 
 def run_puf(port, challenge, n=1000):
     global max_osc
+    n_osc = numpy.zeros(max_osc, dtype=int)
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
     ser.baudrate = 921600    
-    n_osc = numpy.zeros(max_osc, dtype=int)
     valid_res=0
-    ser.timeout = 0.1
+    ser.timeout = 1
+    ser.write_timeout = 1
+    ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
+    ser.write(b'puff')
     for i in range(0, n):
-        ser.write(b'puff' + challenge + bytearray(4))
-        puf_resp = ser.read(16)
+        puf_resp = ser.read(8)
+        if(len(puf_resp) < 8):
+            raise Exception('Timeout expired while reading from serial')
         final_value = int.from_bytes(puf_resp[0:4], 'little')
         result = int.from_bytes(puf_resp[4:6], 'little')
         if ((final_value == 0xAAAAAAAA or final_value == 0x55555555) and result < max_osc):
             valid_res+=1;    
             n_osc[result] += 1
     ser.close()
-    
-    
     
     return n_osc, valid_res 
     
@@ -75,7 +82,14 @@ for i in range(0,100):
     random.seed(0)                              
     for i in range(0,200):
         challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
-        (n_osc, valid_res) = run_puf(port, challenge, 10000)
+        valid_res=0
+        while(valid_res == 0):
+            logger.info("Running challenge " + challenge.hex())
+            try:
+                (n_osc, valid_res) = run_puf(port, challenge, 10000)
+            except Exception as e:
+                logger.error(e)
+        logger.info(str(valid_res) + " responses read successfully")
         q.put((port, challenge, valid_res, n_osc))
         #n_osc, valid_res = run_puf(sys.argv[1], challenge, cnx, 10000)
         #n_osc = n_osc/valid_res
