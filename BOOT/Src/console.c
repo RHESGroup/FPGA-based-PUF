@@ -85,32 +85,39 @@ void parseCommand(uint8_t *command)
 	else if (!strncmp(command, "puff", 4))
 	{
 		uint16_t run_puf_mask = 16;
-		uint16_t responseH, responseL, responseHH, responseLL;
+		uint32_t finalValue;
+		uint16_t n_osc;
+
 		int i;
 
+		run_puf_mask = 16;
+		FPGA_write((uint8_t) 0x1, &run_puf_mask);
 		for (i=0; i<run_number; i++)
 		{
-			run_puf_mask = 16;
-			FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
 			while(run_puf_mask & 16)
 			{
 				FPGA_read((uint8_t) 0x1, &run_puf_mask);
 			}
 
-			FPGA_read((uint8_t) 0x6, &responseHH);
-			FPGA_read((uint8_t) 0x7, &responseH);
-			FPGA_read((uint8_t) 0x8, &responseL);
-			FPGA_read((uint8_t) 0x9, &responseLL);
+			FPGA_read((uint8_t) 0x9, (uint16_t*) &finalValue);
+			FPGA_read((uint8_t) 0x8, ((uint16_t*) &finalValue)+1);
 
-			memset(buffer,0, BUFFER_SIZE);
 
-			memcpy(buffer, &responseLL, 2);
-			memcpy(buffer+2, &responseL, 2);
-			memcpy(buffer+4, &responseH, 2);
-			memcpy(buffer+6, &responseHH, 2);
+			if (finalValue != 0xAAAAAAAA && finalValue != 0x55555555)
+				n_osc = 0xFFFF;
+			else
+				FPGA_read((uint8_t) 0x7, &n_osc);
 
-			sendPacketSerial(buffer, 8);
+			//Pipeline the following measurement for time optimization
+			run_puf_mask = 16;
+			FPGA_write((uint8_t) 0x1, &run_puf_mask);
+
+			memset(buffer,0, 16);
+
+			memcpy(buffer, &n_osc, 2);
+
+			sendPacketSerial(buffer, 2);
 		}
 
 		return;

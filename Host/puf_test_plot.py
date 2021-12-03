@@ -22,12 +22,11 @@ def run_puf(port, challenge, n=1000):
     ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
     ser.write(b'puff')
     for i in range(0, n):
-        puf_resp = ser.read(8)
-        if(len(puf_resp) < 8):
+        puf_resp = ser.read(2)
+        if(len(puf_resp) < 2):
             raise Exception('Timeout expired while reading from serial')
-        final_value = int.from_bytes(puf_resp[0:4], 'little')
-        result = int.from_bytes(puf_resp[4:6], 'little')
-        if ((final_value == 0xAAAAAAAA or final_value == 0x55555555) and result < max_osc):
+        result = int.from_bytes(puf_resp, 'little')
+        if (result < max_osc):
             valid_res+=1;    
             n_osc[result//block_size] += 1
             if (result % block_size >= block_size//2):
