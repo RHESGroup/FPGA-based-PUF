@@ -20,7 +20,7 @@ query = (   "SELECT id FROM `PUF_runs` "
         )
 
 
-challenge = "0442027aaf1fa95b"
+challenge = "13167ae8d9dceb37"
 challenge = bytes.fromhex(challenge)
 
 
@@ -29,7 +29,8 @@ cursor.execute(query, (port, challenge, limit))
 runs = []
 
 for runID in cursor:
-    runs.append(runID)
+    runs.append(runID[0])
+
 
 query = (   "SELECT response, n_occurrences FROM `PUF_results` "
             "WHERE runID = %s"
@@ -37,7 +38,7 @@ query = (   "SELECT response, n_occurrences FROM `PUF_results` "
 
 for runID in runs:
     block_size=2
-    cursor.execute(query, runID)
+    cursor.execute(query, [runID])
     n_osc = numpy.zeros(max_osc//block_size+1, dtype=int)
     for (response, n_occurrences) in cursor:
         n_osc[response//block_size] += n_occurrences

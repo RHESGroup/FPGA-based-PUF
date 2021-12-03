@@ -52,7 +52,7 @@ def trainSHDevice(port):
 
 
     features = getFeatureMatrix(runs)
-    SHParam = trainSH(features, 8)
+    SHParam = trainSH(features, 4)
     return SHParam
 
 def hammingDist(b1, b2):
@@ -179,13 +179,17 @@ def computeIntraDist(port, SHParam):
         features = getFeatureMatrix(runs)
         (resps, U) = compressSH(features, SHParam)
 
+
         #Compute nominal response by majority voting
         nominalResp = np.sum(resps,axis=0)
+        print(challenge.hex())
+        print(nominalResp)
         for i in range(0, len(nominalResp)):
             if(nominalResp[i]>len(resps)//2):
                 nominalResp[i]=1
             else:
                 nominalResp[i]=0
+
 
         for resp in resps:
             intraDist += hammingDist(nominalResp, resp)
@@ -200,8 +204,8 @@ SHParam = trainSHDevice(port)
 
 intraDist = computeIntraDist(port, SHParam)
 print("Reliability = " + str(100-intraDist*100) + " %")
-# intraUniqueness = computeIntraUniqueness(port, SHParam)
-# print("Inter challenge distance = " + str(intraUniqueness*100) + " %")
+intraUniqueness = computeIntraUniqueness(port, SHParam)
+print("Inter challenge distance = " + str(intraUniqueness*100) + " %")
 
 # interDeviceDist =  computeInterUniqueness()
 # print("Inter device distance = " + str(interDeviceDist*100) + " %")

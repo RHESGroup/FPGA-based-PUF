@@ -12,6 +12,7 @@ local.properties
 
 **/Debug/
 **/Release/
+**/__pycache__/
 
 # External tool builders
 .externalToolBuilders/
