@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 
 entity PUF is
-	generic ( n_inverters : integer := 2);
+	generic ( 	n_inverters : integer := 2;
+				n_bistables : integer := 2);
   Port (   	clk, rst: in std_logic; 
 			challenge: in std_logic_vector (2*n_inverters-1 downto 0);
 			enable: in std_logic;
@@ -13,8 +14,7 @@ entity PUF is
 			
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
 			enable_to_metastable: out std_logic;
-			response_from_counter: in std_logic_vector(15 downto 0);
-			response_from_metastable: in std_logic_vector(n_inverters-1 downto 0)
+			response_from_counter: in std_logic_vector(n_bistables*16-1 downto 0)
             );
 
 end PUF;
@@ -41,10 +41,8 @@ architecture mixed of PUF is
 	
 begin
 
-	response(n_inverters-1 downto 0) <= response_from_metastable;
-	response(31 downto n_inverters) <= (others => '0');
-	response(47 downto 32) <= response_from_counter;
-	response(63 downto 48) <= (others => '0'); 
+	response(n_bistables*16-1 downto 0) <= response_from_counter;
+	response(63 downto n_bistables*16) <= (others => '0');
 	
 	challenge_to_metastable <= challenge_reg;
 	
