@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity top_level is
 	generic ( 	n_inverters : integer := 32;
-				n_bistables : integer := 2);
+				n_bistables : integer := 8);
 	port(	
 			cpu_fpga_bus_a		: in std_logic_vector(5 downto 0);
 			cpu_fpga_bus_d		: inout std_logic_vector(15 downto 0);
@@ -33,7 +33,7 @@ architecture BEHAVIORAL of top_level is
 	signal BUFF: buffer_type;
 	signal address : std_logic_vector(3 downto 0);
 	signal led_output : std_logic_vector(15 downto 0);
-	signal puf_response: std_logic_vector(63 downto 0);
+	signal puf_response: std_logic_vector(127 downto 0);
 	signal update_puf_response: std_logic;
 	signal challenge: std_logic_vector(63 downto 0);
 	
@@ -43,7 +43,7 @@ architecture BEHAVIORAL of top_level is
   Port (   	clk, rst: in std_logic; 
 			challenge: in std_logic_vector (2*n_inverters-1 downto 0);
 			enable: in std_logic;
-            response: out std_logic_vector(63 downto 0);
+            response: out std_logic_vector(127 downto 0);
 			finished: out std_logic;
 			
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
@@ -82,10 +82,15 @@ begin
 			
 			-- update internal signals
 			if (update_puf_response = '1') then
-				BUFF(6) <= puf_response(63 downto 48);
-				BUFF(7) <= puf_response(47 downto 32);
-				BUFF(8) <= puf_response(31 downto 16);
-				BUFF(9) <= puf_response(15 downto 0);
+				BUFF(6) <= puf_response(127 downto 112);
+				BUFF(7) <= puf_response(111 downto 96);
+				BUFF(8) <= puf_response(95 downto 80);
+				BUFF(9) <= puf_response(79 downto 64);
+				BUFF(10) <= puf_response(63 downto 48);
+				BUFF(11) <= puf_response(47 downto 32);
+				BUFF(12) <= puf_response(31 downto 16);
+				BUFF(13) <= puf_response(15 downto 0);
+
 				buff(1)(4) <= '0';
 			end if;
 			

@@ -52,7 +52,7 @@ def run_puf(port, challenge, n=1000):
 port = sys.argv[1]
 
 #for i in range(0,10):
-random.seed(2)
+random.seed(1)
 challenge = "61AB85A9746B81B5"
 challenge = bytes.fromhex(challenge)                         
 for i in range(0,4):

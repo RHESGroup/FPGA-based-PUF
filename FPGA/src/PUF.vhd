@@ -9,7 +9,7 @@ entity PUF is
   Port (   	clk, rst: in std_logic; 
 			challenge: in std_logic_vector (2*n_inverters-1 downto 0);
 			enable: in std_logic;
-            response: out std_logic_vector(63 downto 0);
+            response: out std_logic_vector(127 downto 0);
 			finished: out std_logic;
 			
 			challenge_to_metastable: out std_logic_vector (2*n_inverters-1 downto 0);
@@ -42,7 +42,7 @@ architecture mixed of PUF is
 begin
 
 	response(n_bistables*16-1 downto 0) <= response_from_counter;
-	response(63 downto n_bistables*16) <= (others => '0');
+	response(127 downto n_bistables*16) <= (others => '0');
 	
 	challenge_to_metastable <= challenge_reg;
 	

@@ -3,8 +3,7 @@ set n_inverters [lindex $argv 1]
 set n_bistable [lindex $argv 2]
 set proj_path [pwd]
 
-eco_design open -ncd "${proj_path}/${impl_name}/PUF_${impl_name}_map.ncd" -prf "${proj_path}/${impl_name}/PUF_${impl_name}.prf"
-
+eco_design new -arch {MachXO2} -device {LCMXO2-7000HE} -package {TQFP144} -speed {6} -ncd "${proj_path}/${impl_name}/PUF_${impl_name}.nmc" -macro
 
 set start_row 2
 set start_colum 16

@@ -55,7 +55,7 @@ prj_run Map -impl $impl_name
 
 prj_project close
 
-exec fpgac scripts/place_metastable.tcl $impl_name 32
+exec fpgac scripts/place_metastable.tcl $impl_name 32 8
 
 
 
