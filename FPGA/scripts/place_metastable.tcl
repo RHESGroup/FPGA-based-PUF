@@ -3,6 +3,11 @@ set n_inverters [lindex $argv 1]
 set n_bistable [lindex $argv 2]
 set proj_path [pwd]
 
+set impl_name impl1
+set n_inverters 32
+set n_bistable 8
+set proj_path "D:/Damiano/Documenti/Esami/Tesi/PUF/FPGA"
+
 eco_design open -ncd "${proj_path}/${impl_name}/PUF_${impl_name}_map.ncd" -prf "${proj_path}/${impl_name}/PUF_${impl_name}.prf"
 
 
@@ -98,10 +103,10 @@ proc route_puf_bistable {bist_id inv_comps counter_comps n_inverters start_row s
 		}
 		#eco_add net -name "ff_connection_feedback${i}" -netpin "${siteName}.F0" -netpin "${siteName}.DI0"
 		
+		eco_route unroute -all
 		incr i;
 	}
 
-	eco_route unroute -all
 
 
 	set i 0
@@ -122,11 +127,10 @@ proc route_puf_bistable {bist_id inv_comps counter_comps n_inverters start_row s
 		}
 		
 		
-		
+		eco_route unroute -all
 		incr i
 	}
 
-	eco_route unroute -all
 
 	# Connect counter FF
 	set i 0
@@ -143,19 +147,12 @@ proc route_puf_bistable {bist_id inv_comps counter_comps n_inverters start_row s
 		} else {
 			eco_add netpin -net "bist${bist_id}_feedback_ff_counter_c_[expr $i-1]" -netpin "$siteName.CLK"
 		}	
-		eco_add netpin -net "response_from_counter_c_[expr $bist_id*16 + $i]" -netpin "$siteName.Q0"
-		eco_add netpin -net "response_from_counter_c_[expr $bist_id*16 + $i]" -netpin "$siteName.A0"
+		eco_add netpin -net "response_from_counter_c_[expr $bist_id*16 + $i]" -netpin "$siteName.Q0" -netpin "$siteName.A0"
+		#eco_add netpin -net "response_from_counter_c_[expr $bist_id*16 + $i]" -netpin "$siteName.A0"
 
 		eco_add net -name "bist${bist_id}_feedback_ff_counter_c_[expr $i]" -netpin "$siteName.F0" -netpin "$siteName.DI0"
-		
+		eco_route unroute -all
 		incr i
-	}
-
-	eco_route unroute -all
-
-
-	for {set i 0} {$i < $n_inverters} {incr i} {
-		eco_route auto -net "bist${bist_id}_inv_connections_${i}"
 	}
 
 
@@ -180,7 +177,7 @@ for {set i 0} {$i < [expr $n_bistable/2]} {incr i} {
 
 }
 
-eco_place auto -all
+
 
 for {set i 0} {$i < [expr $n_bistable/2]} {incr i} {
 	set bist_id_0 [expr 2*$i]
@@ -191,7 +188,21 @@ for {set i 0} {$i < [expr $n_bistable/2]} {incr i} {
 	route_puf_bistable $bist_id_1 [lindex $comps1 0] [lindex $comps1 1] $n_inverters [expr $start_row+$i] $start_colum 2 [expr $start_colum + $n_inverters/4] B D A C
 }
 
+
+eco_route unroute -all
+eco_place auto -all
+
+for {set i 0} {$i < [expr $n_bistable]} {incr i} {
+	for {set j 0} {$j < $n_inverters} {incr j} {
+		eco_route auto -net "bist${i}_inv_connections_${j}"
+	}
+}
+
+
+
 eco_route auto -all
 
 eco_design save -ncd "${proj_path}/${impl_name}/PUF_${impl_name}.ncd"
 eco_design close
+
+exit

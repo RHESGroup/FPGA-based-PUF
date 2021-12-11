@@ -55,9 +55,9 @@ prj_run Map -impl $impl_name
 
 prj_project close
 
-exec fpgac scripts/place_metastable.tcl $impl_name 32 8
+catch {exec fpgac scripts/place_metastable.tcl $impl_name 32 8} msg
 
-
+puts $msg
 
 #Force PAR to completed status
 
