@@ -5,8 +5,12 @@
 #include <string.h>
 #include <stdio.h>
 
+#define MAX_OSC 400
 #define COMMAND_SIZE 4
-#define BUFFER_SIZE 16
+#define N_BISTABLES 8
+#define BUFFER_SIZE (2*N_BISTABLES*MAX_OSC)
+
+
 
 extern UART_HandleTypeDef huart1;
 uint8_t command[COMMAND_SIZE];
@@ -85,14 +89,18 @@ void parseCommand(uint8_t *command)
 	else if (!strncmp(command, "puff", 4))
 	{
 		uint16_t run_puf_mask = 16;
-		uint16_t n_osc[2];
+		uint16_t n_osc[N_BISTABLES*MAX_OSC];
+		uint16_t n_osc_tmp;
 
 		int i;
+		int j;
 
-		run_puf_mask = 16;
-		FPGA_write((uint8_t) 0x1, &run_puf_mask);
+		memset(n_osc, 0, sizeof(n_osc));
+
 		for (i=0; i<run_number; i++)
 		{
+			run_puf_mask = 16;
+			FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
 			while(run_puf_mask & 16)
 			{
@@ -100,20 +108,20 @@ void parseCommand(uint8_t *command)
 			}
 
 
-			FPGA_read((uint8_t) 0x8, &n_osc[0]);
-			FPGA_read((uint8_t) 0x9, &n_osc[1]);
+			for(j = 0; j<N_BISTABLES; j++)
+			{
+				FPGA_read((uint8_t) 0x6+j, &n_osc_tmp);
+				if(n_osc_tmp < MAX_OSC)
+					n_osc[MAX_OSC*j + n_osc_tmp]++;
+			}
 
-			//Pipeline the following measurement for time optimization
-			run_puf_mask = 16;
-			FPGA_write((uint8_t) 0x1, &run_puf_mask);
 
-			memset(buffer,0, 16);
-
-			memcpy(buffer, &n_osc[0], 2);
-			sendPacketSerial(buffer, 2);
-			memcpy(buffer, &n_osc[1], 2);
-			sendPacketSerial(buffer, 2);
 		}
+
+		memset(buffer,0, BUFFER_SIZE);
+
+		memcpy(buffer, n_osc, 2*N_BISTABLES*MAX_OSC);
+		sendPacketSerial(buffer, 2*N_BISTABLES*MAX_OSC);
 
 		return;
 	}
