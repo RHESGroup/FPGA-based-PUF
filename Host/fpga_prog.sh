@@ -10,7 +10,7 @@ echo "Found $(echo $secubes | wc -w) secubes"
 
 for secube in $secubes
 do
-  python3.7 fpga_prog.py "/dev/$secube" &> "FPGAprogrammingLogs/$secube.log" &
+  python3 fpga_prog.py "/dev/$secube" &> "FPGAprogrammingLogs/$secube.log" &
 done
 
 IFS=$IFS_back

@@ -1,4 +1,4 @@
-serials=`st-info --probe | grep openocd | cut -d' ' -f2-`
+serials=`st-info --probe | grep hla-serial | cut -d' ' -f3`
 
 mkdir -p programmingLogs
 

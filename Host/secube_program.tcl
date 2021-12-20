@@ -15,7 +15,7 @@ gdb_port disabled
 reset_config srst_only
 init
 
-program "../BOOT/Debug/BOOT.elf" verify
+program "BOOT.elf" verify
 
 reset
 exit

@@ -6,9 +6,12 @@ import random
 
 port = sys.argv[1]
 limit = int(sys.argv[2])
-max_osc = 10000
+max_osc = 400
+n_bistables = 8
 
-cnx = mysql.connector.connect(user='user', password='cc5XunxY',
+
+
+cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
                               database='PUF_CRPs')
                               
@@ -20,7 +23,7 @@ query = (   "SELECT id FROM `PUF_runs` "
         )
 
 
-challenge = "13167ae8d9dceb37"
+challenge = "CD072CD8BE6F9F62"
 challenge = bytes.fromhex(challenge)
 
 
@@ -33,18 +36,16 @@ for runID in cursor:
 
 
 query = (   "SELECT response, n_occurrences FROM `PUF_results` "
-            "WHERE runID = %s"
+            "WHERE runID = %s AND bistable = %s"
         )
 
 for runID in runs:
-    block_size=2
-    cursor.execute(query, [runID])
-    n_osc = numpy.zeros(max_osc//block_size+1, dtype=int)
-    for (response, n_occurrences) in cursor:
-        n_osc[response//block_size] += n_occurrences
-        if (response % block_size >= block_size//2):
-            n_osc[(response+block_size//2)//block_size] += n_occurrences
-    plt.plot(range(0,max_osc+1,block_size), n_osc/2)
+    n_osc = numpy.zeros(n_bistables*max_osc, dtype=int)
+    for i in range(0, n_bistables):
+        cursor.execute(query, (runID,i) )
+        for (response, n_occurrences) in cursor:
+            n_osc[max_osc*i+response] = n_occurrences
+    plt.plot(range(0,n_bistables*max_osc), n_osc)
     
 
 cursor.close()

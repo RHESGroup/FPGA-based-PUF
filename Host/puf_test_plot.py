@@ -2,7 +2,7 @@ import serial
 import numpy
 
 import sys
-import mysql.connector
+#import mysql.connector
 import random
 import threading, queue
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ n_bistables = 8
 
 
 def run_puf(port, challenge, n=1000):
-    global max_osc, block_size
+    global max_osc, block_size, n_bistables
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
     ser.baudrate = 921600

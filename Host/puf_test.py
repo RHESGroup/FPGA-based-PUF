@@ -13,33 +13,38 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', stream=sys
 logger = logging.getLogger()
 
 max_osc = 10000
+max_osc = 400
+n_bistables = 8
 
 def run_puf(port, challenge, n=1000):
-    global max_osc
-    n_osc = numpy.zeros(max_osc, dtype=int)
+    global max_osc, n_bistables
+    n_osc = numpy.zeros((n_bistables, max_osc), dtype=int)
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
     ser.baudrate = 921600    
     valid_res=0
-    ser.timeout = 1
-    ser.write_timeout = 1
-    ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
-    ser.write(b'puff')
-    for i in range(0, n):
-        puf_resp = ser.read(8)
-        if(len(puf_resp) < 8):
+    ser.timeout = 10
+    ser.write_timeout = 10
+    try:
+        ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
+        ser.write(b'puff')
+    except e:
+        ser.close()
+        raise e
+    for i in range(0, n_bistables):
+        puf_resp = ser.read(2*max_osc)
+        if(len(puf_resp) < 2*max_osc):
+            ser.close()
             raise Exception('Timeout expired while reading from serial')
-        final_value = int.from_bytes(puf_resp[0:4], 'little')
-        result = int.from_bytes(puf_resp[4:6], 'little')
-        if ((final_value == 0xAAAAAAAA or final_value == 0x55555555) and result < max_osc):
-            valid_res+=1;    
-            n_osc[result] += 1
+        for j in range(0, max_osc):
+            n_osc[i][j] = int.from_bytes(puf_resp[2*j : 2*j+2], 'little')
+    valid_res = numpy.sum(n_osc)
+    q.put((port, challenge, valid_res, n_osc))
     ser.close()
-    
-    return n_osc, valid_res 
+    return valid_res
     
 
-cnx = mysql.connector.connect(user='user', password='cc5XunxY',
+cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
                               database='PUF_CRPs')
 
@@ -56,19 +61,20 @@ def mysql_worker():
                    "(secube, challenge, valid_responses) "
                    "VALUES (%s, %s, %s)")
                    
-        data_run = (port, challenge, valid_res)
+        data_run = (port, challenge, int(valid_res))
         cursor.execute(add_run, data_run)
         
         run_id = cursor.lastrowid
+
+        add_results = ("INSERT INTO PUF_results "
+                    "(runID, bistable, response, n_occurrences) "
+                    "VALUES (%s, %s, %s, %s)")
         
-        for i in range(0, max_osc):
-            if (n_osc[i] > 0):
-                add_results = ("INSERT INTO PUF_results "
-                   "(runID, response, n_occurrences) "
-                   "VALUES (%s, %s, %s)")
-                   
-                data_results = (run_id, i, int(n_osc[i]))
-                cursor.execute(add_results, data_results)
+        for i in range(0, n_bistables):
+            for j in range(0, max_osc):
+                if (n_osc[i][j] > 0):                   
+                    data_results = (run_id, i, j, int(n_osc[i][j]))
+                    cursor.execute(add_results, data_results)
         
         cnx.commit()
         cursor.close()
@@ -78,43 +84,21 @@ threading.Thread(target=mysql_worker, daemon=True).start()
 
 port = sys.argv[1]
 
-for i in range(0,100):
+for i in range(0,1):
     random.seed(0)                              
-    for i in range(0,200):
+    for i in range(0,8):
         challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
-        valid_res=0
+        valid_res = 0
         while(valid_res == 0):
             logger.info("Running challenge " + challenge.hex())
             try:
-                (n_osc, valid_res) = run_puf(port, challenge, 10000)
+                valid_res = run_puf(port, challenge, 10000)
             except Exception as e:
+                cnx.rollback()
                 logger.error(e)
-        logger.info(str(valid_res) + " responses read successfully")
-        q.put((port, challenge, valid_res, n_osc))
-        #n_osc, valid_res = run_puf(sys.argv[1], challenge, cnx, 10000)
-        #n_osc = n_osc/valid_res
-        #print("Valid results1: " + str(valid_res))
-        #plt.plot(range(0,10000), n_osc)
 
+        logger.info(str(valid_res) + " responses read successfully")    
 q.join()
 
 cnx.close()
 
-#plt.show()
-
-# challenge = [65, 65, 3, 0, 65, 65, 65, 65]
-# challenge2 = [0, 0xaa, 0xff, 0xff, 0xff, 1, 0, 0]
-# n_osc, valid_res = run_puf(sys.argv[1], challenge, cnx, 10000)
-# n_osc = n_osc/valid_res
-# n_osc2, valid_res2 = run_puf(sys.argv[1], challenge2, cnx, 10000)
-# n_osc2 = n_osc2/valid_res2
-
-
-
-# dist = numpy.linalg.norm(n_osc-n_osc2)
-# print("Valid results1: " + str(valid_res))
-# print("Valid results2: " + str(valid_res2))
-# print("Distance: " + str(dist))
-# plt.plot(range(0,10000), n_osc)
-# plt.plot(range(0,10000), n_osc2)
-# plt.show()
