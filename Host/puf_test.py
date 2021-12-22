@@ -18,7 +18,7 @@ n_bistables = 8
 
 def run_puf(port, challenge, n=1000):
     global max_osc, n_bistables
-    n_osc = numpy.zeros((n_bistables, max_osc), dtype=int)
+    n_osc = []
     ser = serial.Serial(port)  # open serial port
     ser.rtscts = True
     ser.baudrate = 921600    
@@ -36,12 +36,10 @@ def run_puf(port, challenge, n=1000):
         if(len(puf_resp) < 2*max_osc):
             ser.close()
             raise Exception('Timeout expired while reading from serial')
-        for j in range(0, max_osc):
-            n_osc[i][j] = int.from_bytes(puf_resp[2*j : 2*j+2], 'little')
-    valid_res = numpy.sum(n_osc)
+        n_osc.append(puf_resp)
     q.put((port, challenge, valid_res, n_osc))
     ser.close()
-    return valid_res
+    return 1
     
 
 cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
@@ -58,23 +56,21 @@ def mysql_worker():
         cursor = cnx.cursor()
     
         add_run = ("INSERT INTO PUF_runs "
-                   "(secube, challenge, valid_responses) "
-                   "VALUES (%s, %s, %s)")
+                   "(secube, challenge) "
+                   "VALUES (%s, %s)")
                    
-        data_run = (port, challenge, int(valid_res))
+        data_run = (port, challenge)
         cursor.execute(add_run, data_run)
         
         run_id = cursor.lastrowid
 
         add_results = ("INSERT INTO PUF_results "
-                    "(runID, bistable, response, n_occurrences) "
-                    "VALUES (%s, %s, %s, %s)")
+                    "(runID, bistable, n_occurrences) "
+                    "VALUES (%s, %s, %s)")
         
-        for i in range(0, n_bistables):
-            for j in range(0, max_osc):
-                if (n_osc[i][j] > 0):                   
-                    data_results = (run_id, i, j, int(n_osc[i][j]))
-                    cursor.execute(add_results, data_results)
+        for i in range(0, n_bistables):                 
+            data_results = (run_id, i, n_osc[i])
+            cursor.execute(add_results, data_results)
         
         cnx.commit()
         cursor.close()
@@ -84,9 +80,9 @@ threading.Thread(target=mysql_worker, daemon=True).start()
 
 port = sys.argv[1]
 
-for i in range(0,1):
+for i in range(0,100):
     random.seed(0)                              
-    for i in range(0,8):
+    for i in range(0,2000):
         challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
         valid_res = 0
         while(valid_res == 0):

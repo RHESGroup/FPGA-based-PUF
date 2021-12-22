@@ -18,7 +18,8 @@ cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
 cursor = cnx.cursor()
 
 query = (   "SELECT id FROM `PUF_runs` "
-            "WHERE secube = %s AND challenge = %s"
+            "WHERE secube = %s AND challenge = %s "
+            "ORDER BY timestamp DESC "
             "LIMIT %s"
         )
 
@@ -35,7 +36,7 @@ for runID in cursor:
     runs.append(runID[0])
 
 
-query = (   "SELECT response, n_occurrences FROM `PUF_results` "
+query = (   "SELECT n_occurrences FROM `PUF_results` "
             "WHERE runID = %s AND bistable = %s"
         )
 
@@ -43,8 +44,10 @@ for runID in runs:
     n_osc = numpy.zeros(n_bistables*max_osc, dtype=int)
     for i in range(0, n_bistables):
         cursor.execute(query, (runID,i) )
-        for (response, n_occurrences) in cursor:
-            n_osc[max_osc*i+response] = n_occurrences
+        n_occurrences = cursor.fetchall()
+        n_occurrences = n_occurrences[0][0]
+        for j in range(0, max_osc):
+            n_osc[max_osc*i+j] = int.from_bytes(n_occurrences[2*j : 2*j+2], 'little')
     plt.plot(range(0,n_bistables*max_osc), n_osc)
     
 
