@@ -11,7 +11,7 @@
 #define BUFFER_SIZE (2*N_BISTABLES*MAX_OSC)
 
 
-
+extern uint8_t stlink_serial[12];
 extern UART_HandleTypeDef huart1;
 uint8_t command[COMMAND_SIZE];
 uint8_t uart_char_received = 1;
@@ -52,6 +52,13 @@ void parseCommand(uint8_t *command)
 		memset(buffer,0, BUFFER_SIZE);
 		memcpy(buffer, "Hello world!\n\0", 14);
 		sendPacketSerial(buffer, 16);
+		return;
+	}
+
+	else if (!strncmp(command, "seri", 4))
+	{
+		memcpy(buffer, stlink_serial, 12);
+		sendPacketSerial(buffer, 25);
 		return;
 	}
 

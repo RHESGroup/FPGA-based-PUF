@@ -58,10 +58,13 @@ static SRAM_HandleTypeDef SRAM_WRITE;
 
 /* USER CODE BEGIN PV */
 
+uint8_t stlink_serial[12];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+extern int st_serial(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -114,6 +117,15 @@ int main(void)
   //Reset FPGA
   HAL_GPIO_WritePin(GPIOG, GPIO0_RST_OUT_Pin|FPGA_RST_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOG, GPIO0_RST_OUT_Pin|FPGA_RST_Pin, GPIO_PIN_RESET);
+
+  uint32_t partial_serial;
+  partial_serial = st_serial();
+  memcpy(stlink_serial, &partial_serial, 4);
+  partial_serial = st_serial();
+  memcpy(stlink_serial+4, &partial_serial, 4);
+  partial_serial = st_serial();
+  memcpy(stlink_serial+8, &partial_serial, 4);
+
 
   /* USER CODE END 2 */
 
