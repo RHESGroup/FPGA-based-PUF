@@ -58,7 +58,7 @@ void parseCommand(uint8_t *command)
 	else if (!strncmp(command, "seri", 4))
 	{
 		memcpy(buffer, stlink_serial, 12);
-		sendPacketSerial(buffer, 25);
+		sendPacketSerial(buffer, 12);
 		return;
 	}
 
