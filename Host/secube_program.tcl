@@ -16,20 +16,20 @@ reset_config srst_only
 puts "init openocd"
 init
 
-#program "BOOT.elf" verify
+program "BOOT.elf" verify
 puts "reset openocd"
 reset
 
 wait_halt
-reg r0 3
+reg r0 0x3
 resume
 
 wait_halt
-reg r0 4
+reg r0 0x4
 resume
 
 wait_halt
-reg r0 5
+reg r0 0x5
 resume
 
 exit

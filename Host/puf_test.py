@@ -42,6 +42,19 @@ def run_puf(port, challenge, n=1000):
     return 1
     
 
+ser = serial.Serial("/dev/ttyUSB1")  # open serial port
+ser.rtscts = True
+ser.baudrate = 921600    
+valid_res=0
+ser.timeout = 10
+ser.write_timeout = 10
+
+ser.write(b'seri')
+serial_number = ser.read(12)
+print(serial_number)
+
+exit()
+
 cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
                               database='PUF_CRPs')
