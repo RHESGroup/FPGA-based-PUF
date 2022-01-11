@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `PUF_runs`;
 
 CREATE TABLE `PUF_runs` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `secube` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `secube` varchar(24) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `challenge` binary(8) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `valid_responses` int(11) DEFAULT NULL,
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `PUF_runs_view`;
 
 /*!50001 CREATE TABLE  `PUF_runs_view`(
  `ID` int(11) ,
- `secube` varchar(16) ,
+ `secube` varchar(24) ,
  `HEX(challenge)` varchar(16) ,
  `timestamp` timestamp ,
  `valid_responses` int(11) 

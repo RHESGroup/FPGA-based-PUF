@@ -20,16 +20,18 @@ program "BOOT.elf" verify
 puts "reset openocd"
 reset
 
+#Write the serial number into register R0 which is read by the st_serial procedure
+
 wait_halt
-reg r0 0x3
+reg r0 "0x[string range $serial_read 0 7]"
 resume
 
 wait_halt
-reg r0 0x4
+reg r0 "0x[string range $serial_read 8 15]"
 resume
 
 wait_halt
-reg r0 0x5
+reg r0 "0x[string range $serial_read 16 23]"
 resume
 
 exit

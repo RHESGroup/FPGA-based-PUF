@@ -18,7 +18,7 @@ cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
 cursor = cnx.cursor()
 
 query = (   "SELECT id FROM `PUF_runs` "
-            "WHERE secube = %s AND challenge = %s "
+            "WHERE secube = %s "# AND challenge = %s "
             "ORDER BY timestamp DESC "
             "LIMIT %s"
         )
@@ -28,7 +28,7 @@ challenge = "CD072CD8BE6F9F62"
 challenge = bytes.fromhex(challenge)
 
 
-cursor.execute(query, (port, challenge, limit))
+cursor.execute(query, (port, limit))#challenge, limit))
 
 runs = []
 

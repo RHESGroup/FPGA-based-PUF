@@ -17,43 +17,23 @@ max_osc = 400
 n_bistables = 8
 
 def run_puf(port, challenge, n=1000):
-    global max_osc, n_bistables
+    global max_osc, n_bistables, ser
     n_osc = []
-    ser = serial.Serial(port)  # open serial port
-    ser.rtscts = True
-    ser.baudrate = 921600    
-    valid_res=0
-    ser.timeout = 10
-    ser.write_timeout = 10
     try:
         ser.write(b'chal' + challenge + n.to_bytes(2, 'little'))
         ser.write(b'puff')
     except e:
-        ser.close()
         raise e
     for i in range(0, n_bistables):
         puf_resp = ser.read(2*max_osc)
         if(len(puf_resp) < 2*max_osc):
-            ser.close()
             raise Exception('Timeout expired while reading from serial')
         n_osc.append(puf_resp)
     q.put((port, challenge, valid_res, n_osc))
-    ser.close()
     return 1
     
 
-ser = serial.Serial("/dev/ttyUSB1")  # open serial port
-ser.rtscts = True
-ser.baudrate = 921600    
-valid_res=0
-ser.timeout = 10
-ser.write_timeout = 10
 
-ser.write(b'seri')
-serial_number = ser.read(12)
-print(serial_number)
-
-exit()
 
 cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
@@ -93,6 +73,19 @@ threading.Thread(target=mysql_worker, daemon=True).start()
 
 port = sys.argv[1]
 
+ser = serial.Serial(port)  # open serial port
+ser.rtscts = True
+ser.baudrate = 921600    
+valid_res=0
+ser.timeout = 10
+ser.write_timeout = 10
+
+ser.write(b'seri')
+serial_number = ser.read(12).hex().upper()
+
+logger.info("Serial number: " + serial_number)
+
+
 for i in range(0,100):
     random.seed(0)                              
     for i in range(0,2000):
@@ -101,7 +94,7 @@ for i in range(0,100):
         while(valid_res == 0):
             logger.info("Running challenge " + challenge.hex())
             try:
-                valid_res = run_puf(port, challenge, 10000)
+                valid_res = run_puf(serial_number, challenge, 10000)
             except Exception as e:
                 cnx.rollback()
                 logger.error(e)
