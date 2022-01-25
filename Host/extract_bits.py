@@ -5,54 +5,58 @@ import matplotlib.pyplot as plt
 import random
 from sh import *
 from hamming import *
+from tsmoothie.smoother import *
+
 
 port = sys.argv[1]
 max_osc = 400
+n_bistables = 8
 
-cnx = mysql.connector.connect(user='user', password='cc5XunxY',
+cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
                               database='PUF_CRPs')
 
 print("Connected to database")                              
 cursor = cnx.cursor()
 
+def get_responses(runs):
+    global max_osc, cursor, n_bistables
 
-def getFeatureMatrix(runs):
-    global max_osc, cursor
-    block_size = 2
-    query = (   "SELECT response, n_occurrences FROM PUF_results "
-                "WHERE runID = %s"
-            )
-
-    features = numpy.zeros((len(runs), max_osc), dtype=int)
-    i = 0
-    for runID in runs:
-        cursor.execute(query, [runID])
-        n_osc = numpy.zeros(max_osc, dtype=int)
-        for (response, n_occurrences) in cursor:
-            if (response < (max_osc-1)*block_size):
-                features[i][response//block_size] += n_occurrences
-                if (response % block_size >= block_size//2):
-                    n_osc[(response+block_size//2)//block_size] += n_occurrences
-        i+=1
-    return features
+    query = (   "SELECT n_occurrences FROM `PUF_results` "
+            "WHERE runID = %s AND bistable = %s"
+        )
+    n_osc = numpy.zeros((len(runs), n_bistables*max_osc), dtype=float)
+    for k in range(0,len(runs)):
+        runID = runs[k]
+        n_osc_bistable = numpy.zeros(max_osc, dtype=int)
+        for i in range(0, n_bistables):
+            cursor.execute(query, (runID,i) )
+            n_occurrences = cursor.fetchall()
+            n_occurrences = n_occurrences[0][0]
+            for j in range(0, max_osc):
+                n_osc_bistable[j] = int.from_bytes(n_occurrences[2*j : 2*j+2], 'little')
+            n_osc[k][max_osc*i:max_osc*(i+1)] = n_osc_bistable.astype(float)/sum(n_osc_bistable)
+        smoother = ConvolutionSmoother(window_len=16, window_type='bartlett')
+        smoother.smooth(n_osc[k])
+        n_osc[k] = smoother.smooth_data[0]
+    return n_osc
 
 def trainSHDevice(port):
     query = (   "SELECT min(id) FROM PUF_runs "
-                "WHERE valid_responses > 3000 and secube = %s "
-                "GROUP BY challenge"           
+                "WHERE secube = %s "
+                "GROUP BY challenge "
+                "LIMIT 1000"           
             )
 
     cursor.execute(query, [port])
 
     runs = []
-
     for runID in cursor:
         runs.append(runID[0])
 
-
-    features = getFeatureMatrix(runs)
-    SHParam = trainSH(features, 4)
+    features = get_responses(runs)
+    print(len(features))
+    SHParam = trainSH(features, 2)
     return SHParam
 
 def hammingDist(b1, b2):
@@ -123,8 +127,9 @@ def computeIntraUniqueness(port, SHParam):
     global max_osc, cursor
 
     query = (   "SELECT max(id) FROM PUF_runs "
-                "WHERE secube = %s AND valid_responses > 3000 "
+                "WHERE secube = %s "
                 "GROUP BY challenge "
+                "LIMIT 1000"
         )
 
     interChallengeDist=0
@@ -135,7 +140,7 @@ def computeIntraUniqueness(port, SHParam):
     for runID in cursor:
         runs.append(runID[0])
 
-    features = getFeatureMatrix(runs)
+    features = get_responses(runs)
     (resps, U) = compressSH(features, SHParam)
 
     k = len(resps)
@@ -153,7 +158,7 @@ def computeIntraUniqueness(port, SHParam):
 def computeIntraDist(port, SHParam):
     global max_osc, cursor
     query = (   "SELECT DISTINCT challenge FROM PUF_runs "
-            "WHERE secube = %s AND valid_responses > 3000 "
+            "WHERE secube = %s "
             "LIMIT 100"
         )
 
@@ -164,7 +169,7 @@ def computeIntraDist(port, SHParam):
         challenges.append(challenge[0])
 
     query = (   "SELECT id FROM PUF_runs "
-                "WHERE secube = %s AND challenge = %s AND valid_responses > 3000 "
+                "WHERE secube = %s AND challenge = %s"
         )
 
     intraDist=0
@@ -176,7 +181,7 @@ def computeIntraDist(port, SHParam):
         for runID in cursor:
            runs.append(runID[0])
 
-        features = getFeatureMatrix(runs)
+        features = get_responses(runs)
         (resps, U) = compressSH(features, SHParam)
 
 
@@ -200,7 +205,7 @@ def computeIntraDist(port, SHParam):
 
 
 SHParam = trainSHDevice(port)
-
+print(SHParam)
 
 intraDist = computeIntraDist(port, SHParam)
 print("Reliability = " + str(100-intraDist*100) + " %")
