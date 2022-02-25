@@ -87,7 +87,7 @@ logger.info("Serial number: " + serial_number)
 
 
 for i in range(0,100):
-    random.seed(0)                              
+    random.seed(1)                              
     for i in range(0,2000):
         challenge = random.getrandbits(8 * 8).to_bytes(8, 'little')
         valid_res = 0

@@ -1,8 +1,8 @@
 import numpy
 import sys
 import mysql.connector
-import matplotlib.pyplot as plt
 import random
+import matplotlib.pyplot as plt
 from sh import *
 from hamming import *
 from tsmoothie.smoother import *
@@ -11,6 +11,9 @@ from tsmoothie.smoother import *
 port = sys.argv[1]
 max_osc = 400
 n_bistables = 8
+
+runs_table = "`PUF_runs_2022-01-27`"
+results_table = "`PUF_results_2022-01-27`"
 
 cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
@@ -22,7 +25,7 @@ cursor = cnx.cursor()
 def get_responses(runs):
     global max_osc, cursor, n_bistables
 
-    query = (   "SELECT n_occurrences FROM `PUF_results` "
+    query = (   "SELECT n_occurrences FROM " + results_table + " "
             "WHERE runID = %s AND bistable = %s"
         )
     n_osc = numpy.zeros((len(runs), n_bistables*max_osc), dtype=float)
@@ -42,7 +45,7 @@ def get_responses(runs):
     return n_osc
 
 def trainSHDevice(port):
-    query = (   "SELECT min(id) FROM PUF_runs "
+    query = (   "SELECT min(id) FROM " + runs_table + " "
                 "WHERE secube = %s "
                 "GROUP BY challenge "
                 "LIMIT 1000"           
@@ -56,7 +59,7 @@ def trainSHDevice(port):
 
     features = get_responses(runs)
     print(len(features))
-    SHParam = trainSH(features, 2)
+    SHParam = trainSH(features, 4)
     return SHParam
 
 def hammingDist(b1, b2):
@@ -70,7 +73,7 @@ def computeInterUniqueness():
     global cursor, max_osc
     SHParams = []
 
-    query = (   "SELECT DISTINCT secube FROM PUF_runs"
+    query = (   "SELECT DISTINCT secube FROM " + runs_table
     )
 
     cursor.execute(query)
@@ -82,7 +85,7 @@ def computeInterUniqueness():
         port = port[0]
         SHParams[port] = trainSHDevice(port)
 
-    query = (   "SELECT DISTINCT challenge FROM PUF_runs "
+    query = (   "SELECT DISTINCT challenge FROM " + runs_table + " "
             "WHERE secube = %s AND valid_responses > 3000 "
             "LIMIT 100"
         )
@@ -93,7 +96,7 @@ def computeInterUniqueness():
     for challenge in cursor:
         challenges.append(challenge[0])
 
-    query = (   "SELECT MAX(id), secube FROM PUF_runs "
+    query = (   "SELECT MAX(id), secube FROM " + runs_table + " "
                 "WHERE challenge = %s AND valid_responses > 3000 "
                 "GROUP BY secube "
         )
@@ -126,7 +129,7 @@ def computeInterUniqueness():
 def computeIntraUniqueness(port, SHParam):
     global max_osc, cursor
 
-    query = (   "SELECT max(id) FROM PUF_runs "
+    query = (   "SELECT max(id) FROM " + runs_table + " "
                 "WHERE secube = %s "
                 "GROUP BY challenge "
                 "LIMIT 1000"
@@ -157,7 +160,7 @@ def computeIntraUniqueness(port, SHParam):
 
 def computeIntraDist(port, SHParam):
     global max_osc, cursor
-    query = (   "SELECT DISTINCT challenge FROM PUF_runs "
+    query = (   "SELECT DISTINCT challenge FROM " + runs_table + " "
             "WHERE secube = %s "
             "LIMIT 100"
         )
@@ -168,15 +171,20 @@ def computeIntraDist(port, SHParam):
     for challenge in cursor:
         challenges.append(challenge[0])
 
-    query = (   "SELECT id FROM PUF_runs "
-                "WHERE secube = %s AND challenge = %s"
+    query = (   "SELECT id FROM " + runs_table + " "
+                "WHERE secube = %s AND challenge = %s "
+                "ORDER BY timestamp ASC "
+                "LIMIT 100"
+                
         )
 
-    intraDist=0
+    intraDistList = []
 
     for challenge in challenges:
         cursor.execute(query, (port, challenge))
         runs = []
+        
+        intraDist=0
 
         for runID in cursor:
            runs.append(runID[0])
@@ -199,16 +207,23 @@ def computeIntraDist(port, SHParam):
         for resp in resps:
             intraDist += hammingDist(nominalResp, resp)
 
-    intraDist = intraDist/len(resp)/len(resps)/len(challenges)
-    return intraDist
+        intraDist = intraDist/len(resp)/len(resps)
+        
+        #if(intraDist < 0.05):
+        intraDistList.append(intraDist)
+        
+    return intraDistList
 
 
 
 SHParam = trainSHDevice(port)
 print(SHParam)
 
-intraDist = computeIntraDist(port, SHParam)
-print("Reliability = " + str(100-intraDist*100) + " %")
+intraDistList = computeIntraDist(port, SHParam)
+plt.hist(intraDistList, density=True, bins=100)
+
+
+print("Reliability = " + str(100-numpy.average(intraDistList)*100) + " %")
 intraUniqueness = computeIntraUniqueness(port, SHParam)
 print("Inter challenge distance = " + str(intraUniqueness*100) + " %")
 
@@ -216,3 +231,5 @@ print("Inter challenge distance = " + str(intraUniqueness*100) + " %")
 # print("Inter device distance = " + str(interDeviceDist*100) + " %")
 cursor.close()
 cnx.close()
+
+plt.show()

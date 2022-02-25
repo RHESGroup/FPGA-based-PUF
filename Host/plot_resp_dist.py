@@ -25,7 +25,7 @@ query = (   "SELECT id FROM `PUF_runs` "
         )
 
 
-challenge = "b916639cbfc9f2a3"
+challenge = "1ADF85C26F2A79E7"
 challenge = bytes.fromhex(challenge)
 
 
