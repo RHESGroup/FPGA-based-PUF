@@ -98,7 +98,11 @@ def computeAvgDist(n_osc):
     dist = 2*dist/(len(n_osc)-1)/len(n_osc)
     return dist
 
-
+def loadDistanceDistribution(filename):
+    with open(filename, "rb") as dist_file:
+            dist = pickle.load(dist_file)
+            dist_file.close()
+    return dist
 
 # Retrieve challenges set
 query = "SELECT DISTINCT(HEX(challenge)) FROM PUF_runs"
@@ -206,66 +210,98 @@ plt.xlabel("Coordinate index")
 plt.ylabel("Value")
 plt.grid()
 
-# Intra/Inter distance comparison
-# plt.figure(figNumber)
-# figNumber+=1
+#Intra/Inter distance comparison
+plt.figure(figNumber)
+figNumber+=1
 
-# if (loadFromFile):
-    # with open("n_osc_dist/n_osc_intradist_" + port, "rb") as dist_file:
-        # dist = pickle.load(dist_file)
-        # dist_file.close()
-# elif(saveToFile):
-    # dist = []
-    # for challenge in challenges:
-        # print(challenge)
-        # n_osc = get_nosc(10, 1, secube = port, challenge = challenge)
-        # dist.extend(computeDistanceDistribution(n_osc))
+if (loadFromFile):
+    dist = loadDistanceDistribution("n_osc_dist/n_osc_intradist_" + port+ ".dat")
+elif(saveToFile):
+    dist = []
+    for challenge in challenges:
+        print(challenge)
+        n_osc = get_nosc(10, 1, secube = port, challenge = challenge)
+        dist.extend(computeDistanceDistribution(n_osc))
 
-    # os.makedirs("n_osc_dist", exist_ok = True)    
-    # with open("n_osc_dist/n_osc_intradist_" + port, "wb") as dist_file:
-        # pickle.dump(dist, dist_file)
-        # dist_file.close()
+    os.makedirs("n_osc_dist", exist_ok = True)    
+    with open("n_osc_dist/n_osc_intradist_" + port+ ".dat", "wb") as dist_file:
+        pickle.dump(dist, dist_file)
+        dist_file.close()
 
-# plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Intra-distance')
+intra_dist, bins, _ = plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Intra-distance')
 
-# if (loadFromFile):
-    # with open("n_osc_dist/n_osc_inter_challenge_dist_" + port, "rb") as dist_file:
-        # dist = pickle.load(dist_file)
-        # dist_file.close()
-# elif(saveToFile):
-    # n_osc = get_nosc(2000, 1, secube = port)
-    # dist = computeDistanceDistribution(n_osc)
-    # with open("n_osc_dist/n_osc_inter_challenge_dist_" + port, "wb") as dist_file:
-        # pickle.dump(dist, dist_file)
-        # dist_file.close()
+if (loadFromFile):
+    dist = loadDistanceDistribution("n_osc_dist/n_osc_inter_challenge_dist_" + port+ ".dat")
+elif(saveToFile):
+    n_osc = get_nosc(2000, 1, secube = port)
+    dist = computeDistanceDistribution(n_osc)
+    with open("n_osc_dist/n_osc_inter_challenge_dist_" + port+ ".dat", "wb") as dist_file:
+        pickle.dump(dist, dist_file)
+        dist_file.close()
 
-# plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Inter-challenge distance')
+inter_challenge_dist, bins, _ = plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Inter-challenge distance')
 
 
-# if (loadFromFile):
-    # with open("n_osc_dist/n_osc_inter_device_dist_" + port, "rb") as dist_file:
-        # dist = pickle.load(dist_file)
-        # dist_file.close()
-# elif(saveToFile):
-    # dist = []
-    # i = 0
-    # for challenge in challenges:
-        # print(str(i*100/2000) + "%",end="\r")
-        # n_osc = get_nosc(100, 1, challenge = challenge)
-        # dist.extend(computeDistanceDistribution(n_osc))
-        # i +=1
+if (loadFromFile):
+    dist = loadDistanceDistribution("n_osc_dist/n_osc_inter_device_dist_" + port+ ".dat")
+elif(saveToFile):
+    dist = []
+    i = 0
+    for challenge in challenges:
+        print(str(i*100/2000) + "%",end="\r")
+        n_osc = get_nosc(100, 1, challenge = challenge)
+        dist.extend(computeDistanceDistribution(n_osc))
+        i +=1
         
-    # with open("n_osc_dist/n_osc_inter_device_dist_" + port, "wb") as dist_file:
-        # pickle.dump(dist, dist_file)
-        # dist_file.close()
+    with open("n_osc_dist/n_osc_inter_device_dist_" + port + ".dat", "wb") as dist_file:
+        pickle.dump(dist, dist_file)
+        dist_file.close()
 
-# plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Inter-device distance')
+inter_device_dist, bins, _ = plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Inter-device distance')
 
-# plt.legend()
 
-# plt.xlabel("Euclidean Distance")
-# plt.ylabel("Probability density")    
-# plt.grid()
+plt.legend()
+
+plt.xlabel("Euclidean Distance")
+plt.ylabel("Probability density")    
+plt.grid()
+
+#Intra/Inter distance comparison 1 bistable
+figNumber+=1
+plt.figure(figNumber)
+
+dist = loadDistanceDistribution("n_osc_dist/1-bistable/n_osc_intradist_" + port+ ".dat")
+intra_dist_1_bist, bins, _ = plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Intra-distance')
+dist = loadDistanceDistribution("n_osc_dist/1-bistable/n_osc_inter_challenge_dist_" + port+ ".dat")
+inter_challenge_dist_1_bist, bins, _ = plt.hist(dist, bins=numpy.linspace(0,1,200), density=True, histtype='step', label= 'Intra-distance')
+
+
+# FAR vs FRR pareto diagram
+figNumber+=1
+plt.figure(figNumber)
+
+FAR = []
+FRR = []
+for i in range(40,101):
+    FRR.append(sum(numpy.diff(bins)[i:-1]*intra_dist[i:-1]*100))
+    FAR.append(sum(numpy.diff(bins)[0:i]*inter_challenge_dist[0:i]*100))
+
+
+plt.plot(FAR,FRR, label="8 Bistable Rings")
+
+FAR = []
+FRR = []
+for i in range(0,60):
+    FRR.append(sum(numpy.diff(bins)[i:-1]*intra_dist_1_bist[i:-1]*100))
+    FAR.append(sum(numpy.diff(bins)[0:i]*inter_challenge_dist_1_bist[0:i]*100))
+
+plt.plot(FAR,FRR,label="1 Bistable Ring")
+
+
+plt.xlabel("FAR [%]")
+plt.ylabel("FRR [%]")
+plt.grid()
+plt.legend()
 
 cursor.close()
 cnx.close()
