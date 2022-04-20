@@ -148,6 +148,8 @@ plt.grid()
 # Plot of 4 times the distribution of a single bistable, 4 different challenges.
 plt.figure(figNumber)
 figNumber+=1
+plt.rc('axes', labelsize=15)
+plt.rc('legend', fontsize=15)
 n_osc = get_nosc(4, 1, secube = port)
 
 for n_osc_run in n_osc:
@@ -160,6 +162,8 @@ plt.grid()
 # Plot of 4 times the distribution of a single bistable, same challenges, different devices.
 plt.figure(figNumber)
 figNumber+=1
+plt.rc('axes', labelsize=15)
+plt.rc('legend', fontsize=15)
 n_osc = get_nosc(4, 1, challenge = "1BCCCEA696762E61")
 
 for n_osc_run in n_osc:
@@ -173,6 +177,8 @@ plt.grid()
 # Plot of 4 times the distribution of a single bistable, 4 times the same challenge.
 plt.figure(figNumber)
 figNumber+=1
+plt.rc('axes', labelsize=15)
+plt.rc('legend', fontsize=15)
 n_osc = get_nosc(4, 1, secube = port, challenge = "FEC12AB6EFE0634B")
 
 for n_osc_run in n_osc:
@@ -182,7 +188,6 @@ plt.xlabel("Number of oscillations")
 plt.ylabel("Probability")    
 plt.grid()
 
-print(numpy.linalg.norm(n_osc[0]-n_osc[1]))
 
 # Plot of 2 distributions of 8 bistables, same challenge
 plt.figure(figNumber)
@@ -196,7 +201,6 @@ plt.xlabel("Coordinate index")
 plt.ylabel("Value")
 plt.grid()
 
-print(numpy.linalg.norm(n_osc[0]-n_osc[1]))
 
 # Plot of 2 distributions of 8 bistables, different challenges
 plt.figure(figNumber)
@@ -213,6 +217,8 @@ plt.grid()
 #Intra/Inter distance comparison
 plt.figure(figNumber)
 figNumber+=1
+plt.rc('axes', labelsize=15)
+plt.rc('legend', fontsize=15)
 
 if (loadFromFile):
     dist = loadDistanceDistribution("n_osc_dist/n_osc_intradist_" + port+ ".dat")

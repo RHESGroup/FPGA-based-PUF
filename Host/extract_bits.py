@@ -3,6 +3,7 @@ import sys
 import mysql.connector
 import random
 import matplotlib.pyplot as plt
+import pickle
 from sh import *
 from hamming import *
 from tsmoothie.smoother import *
@@ -12,8 +13,10 @@ port = sys.argv[1]
 max_osc = 400
 n_bistables = 8
 
-runs_table = "`PUF_runs_2022-01-27`"
-results_table = "`PUF_results_2022-01-27`"
+runs_table = "`PUF_runs`"
+results_table = "`PUF_results`"
+
+saveToFile = False
 
 cnx = mysql.connector.connect(user='user', password='cc5XcvxY',
                               host='127.0.0.1',
@@ -39,27 +42,26 @@ def get_responses(runs):
             for j in range(0, max_osc):
                 n_osc_bistable[j] = int.from_bytes(n_occurrences[2*j : 2*j+2], 'little')
             n_osc[k][max_osc*i:max_osc*(i+1)] = n_osc_bistable.astype(float)/sum(n_osc_bistable)
-        smoother = ConvolutionSmoother(window_len=16, window_type='bartlett')
+        smoother = ConvolutionSmoother(window_len=16, window_type='hamming')
         smoother.smooth(n_osc[k])
         n_osc[k] = smoother.smooth_data[0]
     return n_osc
 
-def trainSHDevice(port):
+def trainSHDevice(port, nbits):
     query = (   "SELECT min(id) FROM " + runs_table + " "
-                "WHERE secube = %s "
-                "GROUP BY challenge "
-                "LIMIT 1000"           
+                #"WHERE secube = %s "
+                "GROUP BY challenge, secube "
+                "LIMIT 30000"           
             )
 
-    cursor.execute(query, [port])
+    cursor.execute(query)#, [port])
 
     runs = []
     for runID in cursor:
         runs.append(runID[0])
 
     features = get_responses(runs)
-    print(len(features))
-    SHParam = trainSH(features, 4)
+    SHParam = trainSH(features, nbits)
     return SHParam
 
 def hammingDist(b1, b2):
@@ -69,35 +71,24 @@ def hammingDist(b1, b2):
             hd+=1
     return hd
 
-def computeInterUniqueness():
+def computeUniqueness(SHParam):
     global cursor, max_osc
     SHParams = []
 
-    query = (   "SELECT DISTINCT secube FROM " + runs_table
-    )
-
-    cursor.execute(query)
-    ports = cursor.fetchall()
-
     SHParams = {}
 
-    for port in ports:
-        port = port[0]
-        SHParams[port] = trainSHDevice(port)
 
     query = (   "SELECT DISTINCT challenge FROM " + runs_table + " "
-            "WHERE secube = %s AND valid_responses > 3000 "
-            "LIMIT 100"
-        )
+                "LIMIT 1000")
 
-    cursor.execute(query, [port])
+    cursor.execute(query)
 
     challenges = []
     for challenge in cursor:
         challenges.append(challenge[0])
 
     query = (   "SELECT MAX(id), secube FROM " + runs_table + " "
-                "WHERE challenge = %s AND valid_responses > 3000 "
+                "WHERE challenge = %s "
                 "GROUP BY secube "
         )
 
@@ -107,14 +98,15 @@ def computeInterUniqueness():
         cursor.execute(query, [challenge])
         runs = []
         resps = []
-        runs = cursor.fetchall()
+        
+        for runID in cursor:
+            runs.append(runID[0])
 
-        for run in runs:
-            features = getFeatureMatrix([run[0]])
-            (resp, U) = compressSH(features, SHParams[run[1]])
-            resps.append(resp[0])
-
+        features = get_responses(runs)
+        (resps, U) = compressSH(features, SHParam)
+        
         k = len(resps)
+        #print(str(challenge) + ": " + str(k))
         n = len(resps[0])
 
         for i in range(0, k-1):
@@ -126,7 +118,7 @@ def computeInterUniqueness():
 
     
 
-def computeIntraUniqueness(port, SHParam):
+def computeDiffuseness(port, SHParam):
     global max_osc, cursor
 
     query = (   "SELECT max(id) FROM " + runs_table + " "
@@ -162,7 +154,7 @@ def computeIntraDist(port, SHParam):
     global max_osc, cursor
     query = (   "SELECT DISTINCT challenge FROM " + runs_table + " "
             "WHERE secube = %s "
-            "LIMIT 100"
+            "LIMIT 1000"
         )
 
     cursor.execute(query, [port])
@@ -195,8 +187,8 @@ def computeIntraDist(port, SHParam):
 
         #Compute nominal response by majority voting
         nominalResp = np.sum(resps,axis=0)
-        print(challenge.hex())
-        print(nominalResp)
+        #print(challenge.hex())
+        #print(nominalResp)
         for i in range(0, len(nominalResp)):
             if(nominalResp[i]>len(resps)//2):
                 nominalResp[i]=1
@@ -214,22 +206,88 @@ def computeIntraDist(port, SHParam):
         
     return intraDistList
 
+intraDist = []
+diffuseness = []
+uniqueness = []
 
+if (saveToFile):
+    i = 0
+    for nbits in [1,2,4,8,16,32,64,128] :
+        print("Training started")
+        SHParam = trainSHDevice(port, nbits)
+        print("Computing intra-distance")
+        print(SHParam)
 
-SHParam = trainSHDevice(port)
-print(SHParam)
+        intraDistList = computeIntraDist(port, SHParam)
+        intraDist.append(numpy.average(intraDistList))
 
-intraDistList = computeIntraDist(port, SHParam)
-plt.hist(intraDistList, density=True, bins=100)
+        print("Reliability = " + str(100-intraDist[i]*100) + " %")
+        diffuseness.append(computeDiffuseness(port, SHParam))
+        print("Inter challenge distance = " + str(diffuseness[i]*100) + " %")
 
+        uniqueness.append(computeUniqueness(SHParam))
+        print("Inter device distance = " + str(uniqueness[i]*100) + " %")
+        i += 1
+        
+    os.makedirs("metrics", exist_ok = True)    
+    with open("metrics/intraDist_" + port+ ".dat", "wb") as file:
+        pickle.dump(intraDist, file)
+        file.close()
 
-print("Reliability = " + str(100-numpy.average(intraDistList)*100) + " %")
-intraUniqueness = computeIntraUniqueness(port, SHParam)
-print("Inter challenge distance = " + str(intraUniqueness*100) + " %")
-
-# interDeviceDist =  computeInterUniqueness()
-# print("Inter device distance = " + str(interDeviceDist*100) + " %")
+    with open("metrics/uniqueness_" + port+ ".dat", "wb") as file:
+        pickle.dump(uniqueness, file)
+        file.close()
+        
+    with open("metrics/diffuseness_" + port+ ".dat", "wb") as file:
+        pickle.dump(diffuseness, file)
+        file.close()
+    
+else:
+    with open("metrics/intraDist_" + port+ ".dat", "rb") as file:
+        intraDist = pickle.load(file)
+        file.close()
+        
+    with open("metrics/uniqueness_" + port+ ".dat", "rb") as file:
+        uniqueness = pickle.load(file)
+        file.close()
+        
+    with open("metrics/diffuseness_" + port+ ".dat", "rb") as file:
+        diffuseness = pickle.load(file)
+        file.close()
+        
 cursor.close()
 cnx.close()
+
+intraDist = np.asarray(intraDist)
+uniqueness = np.asarray(uniqueness)
+diffuseness = np.asarray(diffuseness)
+
+i=0
+for nbits in [1,2,4,8,16,32,64,128]:
+    print (str(nbits) + " | " +  str(100-intraDist[i]*100)  + " | " +  str(diffuseness[i]*100) + " | " +  str(uniqueness[i]*100) )
+    
+    i+=1
+
+
+figNumber = 1
+
+plt.figure(figNumber)
+figNumber+=1
+print(len(diffuseness))
+plt.plot(intraDist[2:6]*100, [(0.5-x)*100 for x in diffuseness[2:6]])
+plt.xlabel("Intra-distance [%]")
+plt.ylabel("50% - Diffusness [%]")
+plt.grid()
+
+
+
+plt.figure(figNumber)
+figNumber+=1
+
+plt.plot(intraDist[2:6]*100, [(0.5-x)*100 for x in uniqueness[2:6]])
+plt.xlabel("Intra-distance [%]")
+plt.ylabel("50% - Uniqueness [%]")
+plt.grid()
+
 
 plt.show()
