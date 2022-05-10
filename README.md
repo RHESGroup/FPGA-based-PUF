@@ -1,2 +1,2 @@
 # PUF
-Physical unclonable function for SEcube
+FPGA-based Physical Unclonable Function
